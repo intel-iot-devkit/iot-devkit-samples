@@ -23,16 +23,10 @@
  */
 
 #include <stdio.h>
-#include <syslog.h>
 #include <string.h>
 
-// libmraa is the library used to interface with the IO on iot-devkit
-// platforms. You use it by including the top level mraa.h header in
-// /usr/include and linking your application against -lmraa.
-
-// Typically the compilation line would look something like:
-// $ gcc myprog.c -lmraa
-
+// Remember that mraa is not like the above headers, it requires you to link
+// against the dynamic library libmraa.so
 #include "mraa.h"
 
 int

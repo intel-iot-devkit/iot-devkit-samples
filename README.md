@@ -8,8 +8,8 @@ Lesson1
 -------
 
 This example goes through step by step the requirements for a C application to
-make GPIO 13 high safely whilst checking all return values and explaining the
-basic concepts of libmraa.
+make GPIO 13 go high safely whilst checking all return values and explaining
+the basic concepts of libmraa and the included pinmapper.
 
 Contributing
 ------------
