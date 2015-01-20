@@ -4,6 +4,12 @@ Intel IoT Developer Kit samples
 These samples are intented as a walkthrough to guide you through using the
 devkit libraries.
 
+Lesson0
+-------
+
+This first example goes through making a Gpio blink with mraa in C, it explains
+very basic first steps and goes through how to make IO13 blink.
+
 Lesson1
 -------
 
