@@ -1,0 +1,11 @@
+# Object files
+*.o
+*.lib
+*.so
+*.lo
+*.la
+*.pyc
+
+# Temp files
+*.swp
+*~
