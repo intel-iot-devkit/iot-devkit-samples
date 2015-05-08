@@ -46,7 +46,7 @@ main(int argc, char **argv)
     // load for you however it's a good idea to run it again to make sure your
     // board initialised correctly.
     result = mraa_init();
-    if (result != MRAA_SUCESS) {
+    if (result != MRAA_SUCCESS) {
         // this call will print the mraa error code to stdout
         mraa_result_print(result);
         return result;
