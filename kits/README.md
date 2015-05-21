@@ -19,3 +19,18 @@ sensors used are:
 * An IR Distance Interrupter placed on the rear bumper of the vehicle, with the
   LCD visible to the driver, to indicate when the vehicle is getting close to a
   loading dock when backing up.
+
+Robotics
+-------
+
+This example uses sensors from the Starter & Robotics kits mounted on a Seeed
+4WD Hercules Mobile Platform to illustrate the concept of a smart vehicle.
+Other frames are also suitable for the project as long as all the sensors are
+available. The robot is controlled via string commands with the idea of using
+the process as the child of another front-end service (e.g. webserver). The
+sensor used are:
+* I2C Motor Shield and DC Motors as the driving components.
+* IR Distance Interrupters for avoiding collisions.
+* A digital compass for determining orientation with possible use in way point
+  based self driving.
+* An I2C LCD for displaying information and telemetry data.
