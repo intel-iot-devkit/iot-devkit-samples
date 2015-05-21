@@ -6,6 +6,8 @@ These samples are intented as a walkthrough to guide you through using the MRAA
 
 [MRAA Tutorials and Lessons](/mraa)
 
+[IoT Starter Kits](/kits)
+
 Contributing
 ------------
 
