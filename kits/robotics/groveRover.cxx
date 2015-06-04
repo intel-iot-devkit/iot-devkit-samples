@@ -29,6 +29,7 @@
 #include "jhd1313m1.h"
 #include "rfr359f.h"
 #include "hmc5883l.h"
+#include "grovevdiv.h"
 
 using namespace std;
 using namespace upm;
