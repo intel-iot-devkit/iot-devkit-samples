@@ -27,7 +27,7 @@
 #include "adxl345.h"     //3-Axis digital accelerometer
 #include "buzzer.h"      //buzzer
 #include "mic.h"         //sound sensor
-#include "at42qt1070.h"  //Touch sensor
+#include "ttp223.h"  	 //Touch sensor
 #include "ldt0028.h"     //Piezo vibration sensor
 
 #include <unistd.h>
@@ -57,15 +57,20 @@ main(int argc, char **argv)
     // Create the light sensor object using AIO pin 2
     upm::GroveLight* light = new upm::GroveLight(2);
 
+    //Create the TTP223 touch sensor object using GPIO pin 4
+    upm::TTP223* touch = new upm::TTP223(4);
+
     int celsius;
     float rotary;
     int lit;
+    bool tuch;
 
     // This for loop is required to get the updated value from respective sensors
     for (int i=0; i < 5; i++) {
     	celsius = temp->value();
     	rotary = knob->abs_deg();
     	lit = light->value();
+	tuch = touch->isPressed();
     }
 
     lcd->setCursor(0,0);
@@ -131,14 +136,31 @@ main(int argc, char **argv)
 
     			sleep(3);
     			lcd->clear();
-    			x = 0;
+    			x += 1;
     		}
+
+		else if(x == 3)
+		{
+			tuch = touch->isPressed();
+    		    	string touchdata = static_cast<ostringstream*>( &(ostringstream() << tuch))-> str();
+    		    	lcd->clear();
+			lcd->setCursor(0,0);
+			lcd->write("Touch button ");
+			lcd->setCursor(1,2);
+			lcd->write("is pressed: ");
+			lcd->write(touchdata);
+
+	    		sleep(3);
+			lcd->clear();
+			x = 0;
+		}
     	}
     }
     delete button;
     delete temp;
     delete knob;
     delete light;
+    delete touch;
     return 0;
 }
 
