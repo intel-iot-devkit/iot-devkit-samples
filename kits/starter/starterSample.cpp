@@ -24,7 +24,7 @@
 
 #include "jhd1313m1.h"   //lcd display
 #include "grove.h"       //button, temp, light, rotary Sensor
-#include "adxl345.h"     //3-Axis digital accelerometer
+#include "mma7660.h"     //3-Axis digital accelerometer
 #include "buzzer.h"      //buzzer
 #include "mic.h"         //sound sensor
 #include "ttp223.h"  	 //Touch sensor
