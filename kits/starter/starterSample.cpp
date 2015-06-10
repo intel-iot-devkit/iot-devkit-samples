@@ -22,13 +22,13 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "jhd1313m1.h"   //lcd display
-#include "grove.h"       //button, temp, light, rotary Sensor
-#include "mma7660.h"     //3-Axis digital accelerometer
-#include "buzzer.h"      //buzzer
-#include "mic.h"         //sound sensor
-#include "ttp223.h"  	 //Touch sensor
-#include "ldt0028.h"     //Piezo vibration sensor
+#include "jhd1313m1.h"   // Lcd Display
+#include "grove.h"       // Button, Temp, Light, Rotary Sensors
+#include "mma7660.h"     // 3-Axis Digital Accelerometer
+#include "buzzer.h"      // Buzzer
+#include "mic.h"         // Sound Sensor
+#include "ttp223.h"  	 // Touch Sensor
+#include "ldt0028.h"     // Piezo vibration Sensor
 
 #include <unistd.h>
 #include <iostream>
@@ -42,22 +42,22 @@ using namespace upm;
 int
 main(int argc, char **argv)
 {
-    // Create the temperature sensor object using AIO pin 1
+    // Create the temperature sensor object using AIO pin 1 
     upm::GroveTemp* temp = new upm::GroveTemp(1);
    
-    // Create the lcd sensor object using I2C pin
+    // Create the lcd sensor object using I2C pin 
     upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(0, 0x3E, 0x62);
 
-    // Create the button object using GPIO pin 2
+    // Create the button object using GPIO pin 2 
     upm::GroveButton* button = new upm::GroveButton(2);
 
-    // Create the rotary Sensor object using AIO pin 0
+    // Create the rotary Sensor object using AIO pin 0 
     upm::GroveRotary* knob = new upm::GroveRotary(0);
 
     // Create the light sensor object using AIO pin 2
     upm::GroveLight* light = new upm::GroveLight(2);
 
-    //Create the TTP223 touch sensor object using GPIO pin 4
+    // Create the TTP223 touch sensor object using GPIO pin 4
     upm::TTP223* touch = new upm::TTP223(4);
 
     int celsius;
@@ -81,7 +81,13 @@ main(int argc, char **argv)
     sleep(3);
     lcd->clear();
 
+    /* This variable helps to display one particular sensor at any given time, when button value is '1' */
     int x = 0;
+
+    /* 	This while loop continously checks for button value. 
+     *  if button value is '0', the LCD displays "press button".
+     *	if button value is '1', the sensors values are displayed depending on x value 
+    */ 
     while(1)
     {
     	if(button->value() == 0)
@@ -94,6 +100,8 @@ main(int argc, char **argv)
     		if(x == 0)
     		{
     			celsius = temp->value();
+
+			// Since LCD displays data in string format, we need to convert (celsius value) from integer to string
     			string tdata = static_cast<ostringstream*>( &(ostringstream() << celsius))-> str();
     			lcd->clear();
     			lcd->setCursor(0,0);
@@ -115,7 +123,7 @@ main(int argc, char **argv)
     			lcd->setCursor(0,0);
     			lcd->write("Rotatory Angle ");
     			lcd->setCursor(1,2);
-    			lcd->write("degree: ");
+    			lcd->write("in degree: ");
     			lcd->write(rotdata);
 
     			sleep(3);
@@ -145,7 +153,7 @@ main(int argc, char **argv)
     		    	string touchdata = static_cast<ostringstream*>( &(ostringstream() << tuch))-> str();
     		    	lcd->clear();
 			lcd->setCursor(0,0);
-			lcd->write("Touch button ");
+			lcd->write("Touch Sensor ");
 			lcd->setCursor(1,2);
 			lcd->write("is pressed: ");
 			lcd->write(touchdata);
@@ -156,11 +164,18 @@ main(int argc, char **argv)
 		}
     	}
     }
+
+    // Delete button sensor object
     delete button;
+    // Delete temperature sensor object
     delete temp;
+    // Delete rotary angle sensor object
     delete knob;
+    // Delete the light sensor object
     delete light;
+    // Delete the touch sensor object
     delete touch;
+
     return 0;
 }
 
