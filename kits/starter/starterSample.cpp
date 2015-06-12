@@ -60,10 +60,14 @@ main(int argc, char **argv)
     // Create the TTP223 touch sensor object using GPIO pin 4
     upm::TTP223* touch = new upm::TTP223(4);
 
+    // Create the MMA7660 accelerometer on I2C bus 0
+    upm::MMA7660 *accel = new upm::MMA7660(MMA7660_I2C_BUS, MMA7660_DEFAULT_I2C_ADDR);
+
     int celsius;
     float rotary;
     int lit;
     bool tuch;
+    float ax, ay, az;
 
     // This for loop is required to get the updated value from respective sensors
     for (int i=0; i < 5; i++) {
@@ -71,6 +75,7 @@ main(int argc, char **argv)
     	rotary = knob->abs_deg();
     	lit = light->value();
 	tuch = touch->isPressed();
+	accel->getAcceleration(&ax, &ay, &az);
     }
 
     lcd->setCursor(0,0);
@@ -104,6 +109,8 @@ main(int argc, char **argv)
 			// Since LCD displays data in string format, we need to convert (celsius value) from integer to string
     			string tdata = static_cast<ostringstream*>( &(ostringstream() << celsius))-> str();
     			lcd->clear();
+			sleep(1);
+
     			lcd->setCursor(0,0);
     			lcd->write("Temperature in ");
     			lcd->setCursor(1,2);
@@ -120,6 +127,8 @@ main(int argc, char **argv)
     			rotary = knob->abs_deg();
     			string rotdata = static_cast<ostringstream*>( &(ostringstream() << rotary))-> str();
     			lcd->clear();
+			sleep(1);
+
     			lcd->setCursor(0,0);
     			lcd->write("Rotatory Angle ");
     			lcd->setCursor(1,2);
@@ -136,6 +145,8 @@ main(int argc, char **argv)
     			lit = light->value();
     			string litdata = static_cast<ostringstream*>( &(ostringstream() << lit))-> str();
     			lcd->clear();
+			sleep(1);
+	
     			lcd->setCursor(0,0);
     			lcd->write("light value ");
     			lcd->setCursor(1,2);
@@ -152,6 +163,8 @@ main(int argc, char **argv)
 			tuch = touch->isPressed();
     		    	string touchdata = static_cast<ostringstream*>( &(ostringstream() << tuch))-> str();
     		    	lcd->clear();
+			sleep(1);
+
 			lcd->setCursor(0,0);
 			lcd->write("Touch Sensor ");
 			lcd->setCursor(1,2);
@@ -160,8 +173,44 @@ main(int argc, char **argv)
 
 	    		sleep(3);
 			lcd->clear();
-			x = 0;
+			x += 1;
 		}
+		
+		else if(x == 4)
+		{
+			accel->getAcceleration(&ax, &ay, &az);
+    		    	string axdata = static_cast<ostringstream*>( &(ostringstream() << ax))-> str();
+    		    	string aydata = static_cast<ostringstream*>( &(ostringstream() << ay))-> str();
+    		    	string azdata = static_cast<ostringstream*>( &(ostringstream() << az))-> str();
+			
+			sleep(1);
+			lcd->setCursor(0,0);
+		    	lcd->write("Acceleration x: ");
+		    	lcd->setCursor(1,2);
+		    	lcd->write(axdata);
+		    	sleep(1);
+
+		    	lcd->clear();
+		    	
+			sleep(1);
+		    	lcd->setCursor(0,0);
+		    	lcd->write("Acceleration y: ");
+		    	lcd->setCursor(1,2);
+		    	lcd->write(aydata);
+		    	sleep(1);
+
+		    	lcd->clear();
+
+		    	sleep(1);
+		    	lcd->setCursor(0,0);
+		    	lcd->write("Acceleration z: ");
+		    	lcd->setCursor(1,2);
+		    	lcd->write(azdata);
+			
+			sleep(3);
+    		    	lcd->clear();
+    		    	x = 0;
+		}	
     	}
     }
 
@@ -171,10 +220,12 @@ main(int argc, char **argv)
     delete temp;
     // Delete rotary angle sensor object
     delete knob;
-    // Delete the light sensor object
+    // Delete light sensor object
     delete light;
-    // Delete the touch sensor object
+    // Delete touch sensor object
     delete touch;
+    // Delete accelerometer object
+    delete accel;
 
     return 0;
 }
