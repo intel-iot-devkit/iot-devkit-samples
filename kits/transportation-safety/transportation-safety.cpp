@@ -407,7 +407,7 @@ int main(int argc, char **argv) {
 
 	delete gps;
 	delete led;
-	lcd->close();
+	delete lcd;
 	delete distanceInterruptor;
 	delete reflectiveSensor;
 
