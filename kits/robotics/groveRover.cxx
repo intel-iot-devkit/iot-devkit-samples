@@ -95,8 +95,7 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
         // Read 50 samples each with 2 ms in between (100 ms total)
         int avgValue = divider->value(50);
         // Convert the value to voltage at 3x gain and 5V reference
-        // Also subtract half a unit for improved accuracy in the 6~8V range
-        float voltage = divider->computedValue(3, avgValue) - 0.5f;
+        float voltage = divider->computedValue(3, avgValue);
         string displayStr = to_string(voltage);
         displayStr = displayStr.substr(0, 4);
 
@@ -171,6 +170,8 @@ int main(int argc, char **argv)
   signal(SIGINT, signalHandler);
 
   // Instantiate an I2C Grove Motor Driver on default I2C bus
+  // This will also set the I2C bus to 100 kHz for compatibility
+  // Default address of 0x0f is used (all 4 switches in up position)
   GroveMD *motors = new GroveMD(GROVEMD_I2C_BUS, GROVEMD_DEFAULT_I2C_ADDR);
   if(motors == NULL){
       cerr << "Failed to initialize the motor driver." << endl;
@@ -185,7 +186,8 @@ int main(int argc, char **argv)
       exit(EXIT_FAILURE);
   }
 
-  // Instantiate the HMC5883 compass on default bus
+  // Instantiate the HMC5883 compass on default I2C bus
+  // The compass requires an I2C level translator to 3.3V if used
   Hmc5883l *compass = new Hmc5883l(0);
   if(compass == NULL){
       cerr << "Failed to initialize the HMC5883 compass." << endl;
@@ -211,6 +213,7 @@ int main(int argc, char **argv)
   }
 
   // Start independent threads for the different components
+  // If you're not using a component comment out the corresponding thread call
   thread comp (displayHeading, lcd, compass);
   thread batt (displayBattery, lcd, divider);
   thread collision (distanceIR, motors, frontLeftIR, frontRightIR, rearLeftIR, rearRightIR);
@@ -246,22 +249,22 @@ int main(int argc, char **argv)
       }
       // Direction is set based on command/keyword
       if(command == "fwd" && (!blockedFL || !blockedFR)){
-          motors->setMotorDirections(GroveMD::DIR_CW, GroveMD::DIR_CW);
+          motors->setMotorDirections(GroveMD::DIR_CCW, GroveMD::DIR_CW);
           motors->setMotorSpeeds(speed, speed);
           cout << "Rover going forward at speed " << speed << endl;
       }
       else if(command == "left"  && (!blockedFL || !blockedRL)){
-          motors->setMotorDirections(GroveMD::DIR_CCW, GroveMD::DIR_CW);
+          motors->setMotorDirections(GroveMD::DIR_CCW, GroveMD::DIR_CCW);
           motors->setMotorSpeeds(speed, speed);
           cout << "Rover turning left at speed " << speed << endl;
       }
       else if(command == "right" && (!blockedFR || !blockedRR)){
-          motors->setMotorDirections(GroveMD::DIR_CW, GroveMD::DIR_CCW);
+          motors->setMotorDirections(GroveMD::DIR_CW, GroveMD::DIR_CW);
           motors->setMotorSpeeds(speed, speed);
           cout << "Rover turning right at speed " << speed << endl;
       }
       else if(command == "rev"  && (!blockedRL || !blockedRR)){
-          motors->setMotorDirections(GroveMD::DIR_CCW, GroveMD::DIR_CCW);
+          motors->setMotorDirections(GroveMD::DIR_CW, GroveMD::DIR_CCW);
           motors->setMotorSpeeds(speed, speed);
           cout << "Rover in reverse at speed " << speed << endl;
       }
@@ -271,17 +274,16 @@ int main(int argc, char **argv)
       }
   }
 
-  // Clean up and exit
+  // Wait for threads to join back
+  // If you're not using a component comment out the corresponding join call
   comp.join();
   batt.join();
   collision.join();
 
-  // Turn off LCD
-  lcd->setColor(0x00, 0x00, 0x00);
-  lcd->clear();
-
   cout << "Exiting..." << endl;
 
+  // Clean up and exit
+  delete lcd;
   delete compass;
   delete divider;
   delete motors;
