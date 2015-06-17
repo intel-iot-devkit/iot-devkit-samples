@@ -34,6 +34,7 @@ sensor used are:
 * A digital compass for determining orientation with possible use in way point
   based self driving.
 * An I2C LCD for displaying information and telemetry data.
+* A Voltage Divider for showing battery level.
 
 Starter
 --------
