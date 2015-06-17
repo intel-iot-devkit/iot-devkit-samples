@@ -39,16 +39,17 @@ sensor used are:
 Starter
 --------
 
-This project, uses basic sensors from starter kit and gives an insight of 
-varoius sensors. By the help of button sensor, we can switch between multiple sensors
-(like temperature, acceleometer, light, touch and roatatory angle sensors). 
-I2C LCD display is used for displaying output of varoius sensors. 
+This project uses basic sensors from starter kit and gives an insight of using
+varoius sensors. By the help of button sensor, we can switch between multiple 
+sensors(temperature, accelerometer, light, touch and roatatory angle sensors). 
+An I2C LCD display is used for displaying output of varoius sensors. The 
+sensors used are: 
 
-* A Temperature sensor, to get te temperature at the current location.
+* A Temperature sensor to get temperature at the current location.
 * A button Sensor to switch between multiple sensors.
-* An Accelerometer, for determining orientation in x, y and z direction.
-* A light sensor, to record the light.
-* A rotatory angle sensor, to get the angular rotation value.
-* A touch sensor, that detects if the sensor is touched or not.
-* A I2C LCD to display informations of varoius sensors.
+* An Accelerometer for determining orientation in x, y and z direction.
+* A light sensor to record the light.
+* A rotatory angle sensor to get the angular rotation value.
+* A touch sensor that detects if the sensor is touched or not.
+* An I2C LCD for displaying information of varoius sensors.
 

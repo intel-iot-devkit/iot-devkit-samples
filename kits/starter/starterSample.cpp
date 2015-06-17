@@ -23,12 +23,9 @@
  */
 
 #include "jhd1313m1.h"   // Lcd Display
-#include "grove.h"       // Button, Temp, Light, Rotary Sensors
+#include "grove.h"       // Button, Temp, Light, Rotary Angle Sensors
 #include "mma7660.h"     // 3-Axis Digital Accelerometer
-#include "buzzer.h"      // Buzzer
-#include "mic.h"         // Sound Sensor
 #include "ttp223.h"  	 // Touch Sensor
-#include "ldt0028.h"     // Piezo vibration Sensor
 
 #include <unistd.h>
 #include <iostream>
