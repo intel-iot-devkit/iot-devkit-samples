@@ -106,7 +106,7 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
         crit.unlock();
 
         // Battery low, flash LCD and refresh more often
-        if(voltage < 7.2f)
+        if(voltage < batteryThreshold)
         {
             batteryLow = true;
             lcd->setColor(red, 0x00, 0x00);
