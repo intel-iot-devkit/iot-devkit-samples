@@ -60,6 +60,15 @@ main(int argc, char **argv)
     // Create the MMA7660 accelerometer on I2C bus 0
     upm::MMA7660 *accel = new upm::MMA7660(MMA7660_I2C_BUS, MMA7660_DEFAULT_I2C_ADDR);
 
+    // place device in standby mode so we can write registers
+    accel->setModeStandby();
+    
+    // enable 64 samples per second
+    accel->setSampleRate(upm::MMA7660::AUTOSLEEP_64);
+    
+    // place device into active mode
+    accel->setModeActive();
+
     int celsius;
     float rotary;
     int lit;
