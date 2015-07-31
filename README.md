@@ -8,6 +8,9 @@ These samples are intented as a walkthrough to guide you through using the MRAA
 
 [IoT Starter Kits](/kits)
 
+For more Fun projects, please take a look at: 
+http://www.instructables.com/id/Intel-IoT-Roadshow-Projects/
+
 Contributing
 ------------
 
