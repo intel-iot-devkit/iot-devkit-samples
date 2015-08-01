@@ -47,7 +47,7 @@ main(int argc, char **argv)
         // flip our value
         val = !val;
         // write the value to our gpio
-        mraa_gpio_write(val);
+        mraa_gpio_write(mygpio, val);
         // sleep(3) uses seconds
         sleep(1);
     }
