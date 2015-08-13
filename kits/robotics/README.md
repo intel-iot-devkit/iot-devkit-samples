@@ -2,11 +2,11 @@ Robotics Sample
 ==============
 
 Sensors used:
-* Grove - IR Distance Interrupter (SEN09281P)
 * Grove - LCD RGB Backlight (811004001)
 * Grove - 3-Axis Digital Compass (SEN12753P)
 * Grove - I2C Motor Driver (ROB72212P)
 * Grove - Voltage Divider (POW05161P)
+* 4x Grove - IR Distance Interrupter (SEN09281P)
 * 4x Seeed 25GA35 DC Motors (RK-370C-3080EP)
 
 Additional parts:
