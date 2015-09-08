@@ -22,61 +22,53 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CPP_IOTKIT_AGENT
-#define CPP_IOTKIT_AGENT
+#ifndef UDP_CLIENT
+#define UDP_CLIENT
 
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netdb.h>
-#include <cstring>
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <cstdlib>
 
-using namespace std;
-
-static const string NODE = "localhost";
-static const string SERVICE = "41234";
 
 /**
- * @brief non failsafe communication (udp) communication. If no udp server is listening writes will be nops
+ * non failsafe communication (udp) communication. If no udp server is listening writes will be nops
  */
 class UdpClient {
 public:
-	UdpClient() :
-		connected(false), sfd(-1) {
-	}
-	;
+	UdpClient(): connected(false), sfd(-1) {};
 
 	/**
-	 * @brief tries to setup connection and returns 0. In case it fails returns -1
-	 * @param address IP address
-	 * @param port port
+	 * tries to setup connection and returns 0. In case it fails returns -1
+	 * address IP address
+	 * port port
 	 */
-	int connectUdp(const string node, const string service);
+	int connectUdp(const std::string node, const std::string service);
 
 	/**
-	 * @brief sends data via udp in case connection is established. Otherwise it will just do nothing
-	 * @returns 0 on success, -1 on failure
+	 * sends data via udp in case connection is established. Otherwise it will just do nothing
+	 * returns 0 on success, -1 on failure
 	 */
-	int writeData(const string &data);
+	int writeData(const std::string &data);
 
 	/**
-	 * @brief sends data via udp in case connection is established. Otherwise it will just do nothing
-	 * @returns 0 on success, -1 on failure
+	 * sends data via udp in case connection is established. Otherwise it will just do nothing
+	 * returns 0 on success, -1 on failure
 	 */
 	int writeData(const char* data);
 
 	/**
-	 * @brief sends data via udp in case connection is established. Otherwise it will just do nothing
-	 * @returns 0 on success, -1 on failure
+	 * sends data via udp in case connection is established. Otherwise it will just do nothing
+	 * returns 0 on success, -1 on failure
 	 */
-	int writeData(const stringstream &data);
+	int writeData(const std::stringstream &data);
 
 	/**
-	 * @brief returns true if connected
+	 * returns true if connected
 	 */
 	bool isConnected();
 

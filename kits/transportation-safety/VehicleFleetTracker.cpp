@@ -22,17 +22,33 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/*
+/**
+ * @file
+ * @ingroup other 
+ * @brief Vehicle Fleet Tracker 
+ * 
  * Example to show multiple sensors in a vehicle fleet management scenario.
  * To send data to the cloud, the iotkit-agent must be started at the edison
  * command prompt using:
- *  # systemctl start iotkit-agent
- * The Ublox6 GPS sensor is used to gather GPS data.
- * The Grove IR Distance interrupter is used to detect objects when backing up vehicle.
- * The lcd is used to display a warning message that the vehicle is close to an object when backing up.
- * The lcd is also used to display the local time.
- * The Grove IR Reflective sensor is used to detect when the tailgate is open.
- * The led is used to indicate to the operator of the vehicle the tailgate is open.
+ * - systemctl start iotkit-agent
+ *
+ * @hardware Sensors used:\n
+ * Grove GPS (SEN10752P) is used to gather GPS data.\n
+ * Grove IR Distance Interrupter (SEN09281P) is used to detect objects when backing up vehicle.\n
+ * Grove LCD RGB Backlight (811004001) is used to display a warning message that the vehicle is close to an object when backing up.\n
+ * Grove LCD RGB Backlight (811004001) is also used to display the local time.\n
+ * Grove IR Distance Interrupter (SEN09281P) is used to detect when the tailgate is open.\n
+ * Grove - LED (COM04054P) is used to indicate to the operator of the vehicle the tailgate is open.
+ *
+ * @cc 
+ * @cxx -std=c++11
+ * @ld -lupm-ublox6 -lupm-i2clcd -lupm-grove -lupm-rpr220 -lupm-rfr359f 
+ *
+ * Additional source files required to build this example:
+ * @req UdpClient.cpp
+ * @req UdpClient.hpp 
+ *
+ * @date 07/06/2015
  */
 
 #include <unistd.h>
@@ -42,7 +58,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
-#include "iotAgent.hpp"	/* Sending data to cloud over UDP */
+#include "UdpClient.hpp"/* Sending data to cloud over UDP */
 #include <string.h>		/* string */
 #include <time.h>		/* time */
 #include <thread>		/* threading */
@@ -53,6 +69,14 @@
 #include "grove.h"		/* led */
 
 using namespace std;
+
+/*
+ * NODE (host) and SERVICE (port)
+ * iotkit-agent is listening for UDP data
+ * as defined in /etc/iotkit-agent/config.json
+ */
+#define NODE "localhost"
+#define SERVICE "41234"
 
 volatile bool shouldRun = true;
 const size_t bufferLength = 256;

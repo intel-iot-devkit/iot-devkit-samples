@@ -23,21 +23,15 @@
  */
 
 /*
- * sample: UDP communication with iotkit-agent.
- * For TCP you would have to slightly modify socket parameters and bind to the socket
- * rather than connect. Also the transmitted data is would have to contain the length of each message.
- * Pls consult documentation for further information.
- * Note: you have to register components prior.
- * E.g. using "iotkit-admin register <comp_name> <catalogid>" or via iotkit-agent
- * node (host) and service (port) iotkit-agent is listening for UDP data
- * as defined in /etc/iotkit-agent/config.json
+ * Sample UDP communication with iotkit-agent.
+ * For TCP you would have to slightly modify the socket parameters and bind to
+ * the socket rather than connect. In addition the transmitted data would have
+ * to contain the length of each message.
  */
 
-#include "iotAgent.hpp"
+#include "UdpClient.hpp"
 
-using namespace std;
-
-int UdpClient::connectUdp(const string node, const string service) {
+int UdpClient::connectUdp(const std::string node,  const std::string service) {
 	struct addrinfo hints;
 	hints.ai_flags = 0;
 	hints.ai_family = AF_UNSPEC;
@@ -51,13 +45,13 @@ int UdpClient::connectUdp(const string node, const string service) {
 	int err_code;
 	err_code = getaddrinfo(node.c_str(), service.c_str(), &hints, &res);
 	if (err_code != 0) {
-		cerr << "getaddrinfo failed: " << gai_strerror(err_code) << endl;
+		std::cerr << "getaddrinfo failed: " << gai_strerror(err_code) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	struct addrinfo *p_ai = res;
-	/* loop through the result list of addrinfo and
-	 * try connecting each element until connection succeeds or all elements are tested */
+	// loop through the result list of addrinfo and try connecting each element
+	// until connection succeeds or all elements are tested
 	bool success = false;
 	while (p_ai != NULL) {
 		sfd = socket(p_ai->ai_family, p_ai->ai_socktype, IPPROTO_UDP);
@@ -73,8 +67,8 @@ int UdpClient::connectUdp(const string node, const string service) {
 		close(sfd);
 	}
 	if (!success) {
-		cerr << "couldn't create socket" << endl;
-		return (-1);
+		std::cerr << "couldn't create socket" << std::endl;
+		return(-1);
 	}
 
 	freeaddrinfo(res);
@@ -86,23 +80,26 @@ bool UdpClient::isConnected() {
 	return connected;
 }
 
-int UdpClient::writeData(const string &data) {
-	if (!connected)
+int UdpClient::writeData(const std::string &data) {
+	if (!connected) {
 		return -1;
+	}
 	write(sfd, data.c_str(), data.length());
-	return 0;
+	return 0 ;
 }
 
 int UdpClient::writeData(const char* data) {
-	if (!connected)
+	if (!connected) {
 		return -1;
-	writeData(string(data));
+	}
+	writeData(std::string(data));
 	return 0;
 }
 
-int UdpClient::writeData(const stringstream &data) {
-	if (!connected)
+int UdpClient::writeData(const std::stringstream &data) {
+	if (!connected) {
 		return -1;
+	}
 	write(sfd, data.str().c_str(), data.str().length());
 	return 0;
 }
