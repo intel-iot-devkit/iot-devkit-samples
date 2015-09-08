@@ -22,6 +22,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * @file
+ * @ingroup other 
+ * @brief Robot 
+ * 
+ * This project template utilizes components in the Grove Robotics Kit to create a working robot.
+ *
+ * @hardware Sensors used:\n
+ * Grove IR Distance Interrupter (SEN09281P)\n
+ * Grove LCD RGB Backlight (811004001)\n
+ * Grove 3-Axis Digital Compass (SEN12753P)\n
+ * Grove I2C Motor Driver (ROB72212P)\n
+ * 4x Seeed 25GA35 DC Motors (RK-370C-3080EP)\n
+ * \n
+ * Additional parts:\n
+ * SeeedStudio 4WD Hercules\n
+ * Mobile Platform Kit\n
+ * 7.4 V (2-cell) LiPo Battery
+ *
+ * @cc 
+ * @cxx -std=c++11
+ * @ld -lupm-i2clcd -lupm-grovemd -lupm-rfr359f -lupm-hmc5883l -lupm-grovevdiv 
+ *
+ * @date 07/06/2015
+ */
+
 #include <unistd.h>
 #include <signal.h>
 #include <iostream>
