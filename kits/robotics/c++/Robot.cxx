@@ -99,12 +99,17 @@ void displayHeading(Jhd1313m1 *lcd, Hmc5883l *compass){
         int hdg = int(compass->heading() + 0.5f);
         int hdg_index = hdg / 10;
 
-        // Write the heading on the first line, lcd->clear() is not needed since
-        // we write the entire line
-        crit.lock();
-        lcd->setCursor(0, 0);
-        lcd->write("HDG: " + heading.substr(hdg_index, 11));
-        crit.unlock();
+        // Only write if we get a valid index, otherwise compass is not connected or
+        // some error occurred
+        if(hdg_index >= 0 && hdg_index <= 36)
+        {
+            // Write the heading on the first line, lcd->clear() is not needed since
+            // we write the entire line
+            crit.lock();
+            lcd->setCursor(0, 0);
+            lcd->write("HDG: " + heading.substr(hdg_index, 11));
+            crit.unlock();
+        }
 
         // Update readings and display every 250 ms
         usleep(250000);
