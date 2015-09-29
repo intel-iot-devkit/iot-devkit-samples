@@ -53,7 +53,7 @@ import upm_rfr359f.RFR359F;
  * @req upm_i2clcd.jar
  * @req upm_rfr359f.jar
  * @req upm_hmc5883l.jar
- * @req upm_grovediv.jar
+ * @req upm_grovevdiv.jar
  *
  * @date 19/08/2015
  */
