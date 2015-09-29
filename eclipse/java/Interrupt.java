@@ -97,7 +97,7 @@ public class Interrupt {
         // set the ISR, it will be executed on both edges (on Galileo Gen 1 only
         // this mode is supported)
         IsrCounterCallback callback = new IsrCounterCallback();
-        if (pin.isr(Edge.EDGE_BOTH, callback, null) != Result.SUCCESS) {
+        if (pin.isr(Edge.EDGE_BOTH, callback) != Result.SUCCESS) {
             System.err.println("Can't assign ISR to pin, exiting");
             return;
         }
