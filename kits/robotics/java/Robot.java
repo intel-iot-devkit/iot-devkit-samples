@@ -38,6 +38,8 @@ import upm_rfr359f.RFR359F;
  * @brief Robot 
  * 
  * This project template utilizes components in the Grove Robotics Kit to create a working robot.
+ * Known Limitation: This demo needs to be ran directly over a ssh or serial connection for full functionality,
+ * Eclipse does not forward console input.
  *
  * @hardware - Grove IR Distance Interrupter (SEN09281P)
  * - Grove LCD RGB Backlight (811004001)

@@ -33,7 +33,13 @@
  * library.
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor.
  * 
- * @hardware Input connected to digital pin 4 (Grove Base Shield Port D4)
+ * @hardware - Grove Temperature Sensor connected to Grove Base Shield Port A1
+ * - JHD1313M1 LCD connected to any I2C port on the Grove Base Shield
+ * - Grove Button connected to the Grove Base Shield Port D2
+ * - Grove Rotary connected to the Grove Base Shield Port A0
+ * - Grove Light connected to the Grove Base Shield Port A2
+ * - Grove Touch Sensor connected to the Grove Base Shield Port D4
+ * - MMA7660 Accelerometer connected to any I2C port on the Grove Base Shield
  * 
  * @req mraa.jar
  * @req upm_grove.jar
