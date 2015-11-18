@@ -3,7 +3,7 @@
  * - Vittoriano Muttillo <vittoriano.muttillo@gmail.com>
  * - Giacomo Valente <giakomo.87v@gmail.com>
  *
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 Vittoriano Muttillo, Giacomo Valente.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the

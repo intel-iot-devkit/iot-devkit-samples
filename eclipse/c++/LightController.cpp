@@ -4,7 +4,7 @@
  * - Carocci Eugenio <carocci.eugenio@gmail.com>
  * - Ranalli Alessandro <ranalli.alessandro1@gmail.com>
  *
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 Bufalino Andrea, Carocci Eugenio, Ranalli Alessandro.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the

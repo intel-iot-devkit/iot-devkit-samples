@@ -1,7 +1,7 @@
 /*
  * Author: Fabio Federici <fabio.federici@univaq.it>
  *
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 Fabio Federici.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
