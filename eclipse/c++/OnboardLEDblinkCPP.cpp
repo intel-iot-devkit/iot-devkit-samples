@@ -30,7 +30,7 @@
  * Blink the on board LED by writing a digital value to an output pin
  * using the IO mraa library.
  *
- * @date 13/06/2015
+ * @date 29/09/2015
  */
 
 #include "mraa.hpp"
@@ -54,29 +54,29 @@ int main()
 {
 	// select onboard LED pin based on the platform type
 	// create a GPIO object from MRAA using it
-	mraa_platform_t platform = mraa_get_platform_type();
+	mraa::Platform platform = mraa::getPlatformType();
 	mraa::Gpio* d_pin = NULL;
 	switch (platform) {
-		case MRAA_INTEL_GALILEO_GEN1:
+		case mraa::INTEL_GALILEO_GEN1:
 			d_pin = new mraa::Gpio(3, true, true);
 			break;
-		case MRAA_INTEL_GALILEO_GEN2:
+		case mraa::INTEL_GALILEO_GEN2:
 			d_pin = new mraa::Gpio(13, true, false);
 			break;
-		case MRAA_INTEL_EDISON_FAB_C:
+		case mraa::INTEL_EDISON_FAB_C:
 			d_pin = new mraa::Gpio(13, true, false);
 			break;
 		default:
 			std::cerr << "Unsupported platform, exiting" << std::endl;
-			return MRAA_ERROR_INVALID_PLATFORM;
+			return mraa::ERROR_INVALID_PLATFORM;
 	}
 	if (d_pin == NULL) {
 		std::cerr << "Can't create mraa::Gpio object, exiting" << std::endl;
-		return MRAA_ERROR_UNSPECIFIED;
+		return mraa::ERROR_UNSPECIFIED;
 	}
 
 	// set the pin as output
-	if (d_pin->dir(mraa::DIR_OUT) != MRAA_SUCCESS) {
+	if (d_pin->dir(mraa::DIR_OUT) != mraa::SUCCESS) {
 		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
 		return MRAA_ERROR_UNSPECIFIED;
 	}
@@ -89,5 +89,5 @@ int main()
 		sleep(1);
 	}
 
-	return MRAA_SUCCESS;
+	return mraa::SUCCESS;
 }

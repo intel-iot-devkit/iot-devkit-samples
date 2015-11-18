@@ -39,9 +39,10 @@
  *
  * @ld -lupm-i2clcd -lupm-grove
  *
- * @date 07/06/2015
+ * @date 19/09/2015
  */
 
+#include "mraa.hpp"
 #include "grove.h"
 #include "jhd1313m1.h"
 
@@ -141,12 +142,12 @@ void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* bu
 int main()
 {
 	// check that we are running on Galileo or Edison
-	mraa_platform_t platform = mraa_get_platform_type();
-	if ((platform != MRAA_INTEL_GALILEO_GEN1) &&
-			(platform != MRAA_INTEL_GALILEO_GEN2) &&
-			(platform != MRAA_INTEL_EDISON_FAB_C)) {
+	mraa::Platform platform = mraa::getPlatformType();
+	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
+			(platform != mraa::INTEL_GALILEO_GEN2) &&
+			(platform != mraa::INTEL_EDISON_FAB_C)) {
 		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return MRAA_ERROR_INVALID_PLATFORM;
+		return mraa::ERROR_INVALID_PLATFORM;
 	}
 
 	// button connected to D4 (digital in)
@@ -164,7 +165,7 @@ int main()
 	// simple error checking
 	if ((button == NULL) || (led == NULL) || (temp_sensor == NULL) || (lcd == NULL)) {
 		std::cerr << "Can't create all objects, exiting" << std::endl;
-		return MRAA_ERROR_UNSPECIFIED;
+		return mraa::ERROR_UNSPECIFIED;
 	}
 
 	// loop forever updating the temperature values every second
@@ -173,5 +174,5 @@ int main()
 		sleep(1);
 	}
 
-	return MRAA_SUCCESS;
+	return mraa::SUCCESS;
 }

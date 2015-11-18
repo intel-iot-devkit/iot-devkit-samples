@@ -29,7 +29,7 @@
  * 
  * Read a digital value from an input pin using the IO mraa library.
  *
- * @date 13/06/2015
+ * @date 29/09/2015
  */
 
 #include "mraa.hpp"
@@ -52,25 +52,25 @@
 int main()
 {
 	// check that we are running on Galileo or Edison
-	mraa_platform_t platform = mraa_get_platform_type();
-	if ((platform != MRAA_INTEL_GALILEO_GEN1) &&
-			(platform != MRAA_INTEL_GALILEO_GEN2) &&
-			(platform != MRAA_INTEL_EDISON_FAB_C)) {
+	mraa::Platform platform = mraa::getPlatformType();
+	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
+			(platform != mraa::INTEL_GALILEO_GEN2) &&
+			(platform != mraa::INTEL_EDISON_FAB_C)) {
 		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return MRAA_ERROR_INVALID_PLATFORM;
+		return mraa::ERROR_INVALID_PLATFORM;
 	}
 
 	// create a GPIO object from MRAA using pin 4
 	mraa::Gpio* d_pin = new mraa::Gpio(4);
 	if (d_pin == NULL) {
 		std::cerr << "Can't create mraa::Gpio object, exiting" << std::endl;
-		return MRAA_ERROR_UNSPECIFIED;
+		return mraa::ERROR_UNSPECIFIED;
 	}
 
 	// set the pin as input
-	if (d_pin->dir(mraa::DIR_IN) != MRAA_SUCCESS) {
+	if (d_pin->dir(mraa::DIR_IN) != mraa::SUCCESS) {
 		std::cerr << "Can't set digital pin as input, exiting" << std::endl;
-		return MRAA_ERROR_UNSPECIFIED;
+		return mraa::ERROR_UNSPECIFIED;
 	}
 
 	// loop forever printing the digital input value every second
@@ -80,5 +80,5 @@ int main()
 		sleep(1);
 	}
 
-	return MRAA_SUCCESS;
+	return mraa::SUCCESS;
 }
