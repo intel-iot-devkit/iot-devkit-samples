@@ -47,14 +47,13 @@
 import mraa.Dir;
 import mraa.Edge;
 import mraa.Gpio;
-import mraa.IsrCallback;
 import mraa.mraa;
 import mraa.Platform;
 import mraa.Result;
 
 
 
-class IsrCounterCallback extends IsrCallback {
+class IsrCounterCallback implements Runnable {
 
     // counter that will be updated by the interrupt routine
     int counter = 0;
@@ -70,10 +69,6 @@ class IsrCounterCallback extends IsrCallback {
 }
 
 public class Interrupt {
-
-    static {
-        System.loadLibrary("mraajava");
-    }
 
     public static void main(String[] args) {
         // check that we are running on Galileo or Edison
