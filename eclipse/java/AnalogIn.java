@@ -48,10 +48,6 @@ import mraa.mraa;
 
 public class AnalogIn{
 
-    static {
-        System.loadLibrary("mraajava");
-    }
-
     public static void main(String[] args) {
 
         // check that we are running on Galileo or Edison
