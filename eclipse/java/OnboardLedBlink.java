@@ -47,10 +47,6 @@ import mraa.mraa;
 
 public class OnboardLedBlink{
 
-    static {
-        System.loadLibrary("mraajava");
-    }
-
     public static void main(String[] args) {
         // select onboard LED pin based on the platform type
         // create a GPIO object from MRAA using it

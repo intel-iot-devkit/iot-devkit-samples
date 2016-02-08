@@ -48,10 +48,6 @@ import mraa.mraa;
 
 public class DigitalIn {
 
-    static {
-        System.loadLibrary("mraajava");
-    }
-
     public static void main(String[] args) {
         // check that we are running on Galileo or Edison
         Platform platform = mraa.getPlatformType();

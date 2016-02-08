@@ -53,11 +53,6 @@ import mraa.mraa;
 import mraa.Platform;
 
 public class DisplayTemperatureOnLCD {
-    static {
-        System.loadLibrary("mraajava");
-        System.loadLibrary("javaupm_grove");
-        System.loadLibrary("javaupm_i2clcd");
-    }
 
     // minimum and maximum temperatures registered, the initial values will be
     // replaced after the first read

@@ -74,10 +74,6 @@ import mraa.Platform;
 
 public class IoTCloudAnalytics {
 
-    static {
-        System.loadLibrary("mraajava");
-    }
-
     /*
      * NODE (host) and SERVICE (port)
      * iotkit-agent is listening for UDP data
