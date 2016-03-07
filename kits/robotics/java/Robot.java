@@ -62,16 +62,6 @@ import upm_rfr359f.RFR359F;
 
 public class Robot {
 
-    static {
-        System.loadLibrary("mraajava");
-        System.loadLibrary("javaupm_grove");
-        System.loadLibrary("javaupm_i2clcd");
-        System.loadLibrary("javaupm_grovemd");
-        System.loadLibrary("javaupm_rfr359f");
-        System.loadLibrary("javaupm_grovevdiv");
-        System.loadLibrary("javaupm_hmc5883l");
-    }
-
     static boolean running = true;
 
     static boolean batteryLow = true;

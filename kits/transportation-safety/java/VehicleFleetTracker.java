@@ -68,15 +68,6 @@ import upm_ublox6.Ublox6;
 
 public class VehicleFleetTracker {
 
-    static {
-        System.loadLibrary("mraajava");
-        System.loadLibrary("javaupm_ublox6");
-        System.loadLibrary("javaupm_i2clcd");
-        System.loadLibrary("javaupm_grove");
-        System.loadLibrary("javaupm_rfr359f");
-        System.loadLibrary("javaupm_rpr220");
-    }
-
     static final String NODE = "localhost";
     static final int SERVICE = 41234;
 
