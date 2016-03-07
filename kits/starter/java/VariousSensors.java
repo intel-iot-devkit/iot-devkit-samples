@@ -62,14 +62,6 @@ import mraa.mraa;
 
 public class VariousSensors {
 
-    static {
-        System.loadLibrary("mraajava");
-        System.loadLibrary("javaupm_grove");
-        System.loadLibrary("javaupm_i2clcd");
-        System.loadLibrary("javaupm_ttp223");
-        System.loadLibrary("javaupm_mma7660");
-    }
-
     public static void main(String[] args) {
         // check that we are running on Galileo or Edison
         Platform platform = mraa.getPlatformType();
