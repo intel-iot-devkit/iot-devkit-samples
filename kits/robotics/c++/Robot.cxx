@@ -1,6 +1,6 @@
 /*
  * Author: Mihai T Panu <mihai.tudor.panu@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -29,17 +29,15 @@
  * 
  * This project template utilizes components in the Grove Robotics Kit to create a working robot.
  *
- * @hardware Sensors used:\n
- * Grove IR Distance Interrupter (SEN09281P)\n
- * Grove LCD RGB Backlight (811004001)\n
- * Grove 3-Axis Digital Compass (SEN12753P)\n
- * Grove I2C Motor Driver (ROB72212P)\n
- * 4x Seeed 25GA35 DC Motors (RK-370C-3080EP)\n
- * \n
- * Additional parts:\n
- * SeeedStudio 4WD Hercules\n
- * Mobile Platform Kit\n
- * 7.4 V (2-cell) LiPo Battery
+ * @hardware - Grove IR Distance Interrupter (SEN09281P)
+ * - Grove LCD RGB Backlight (811004001)
+ * - Grove 3-Axis Digital Compass (SEN12753P)
+ * - Grove I2C Motor Driver (ROB72212P)
+ * - 4x Seeed 25GA35 DC Motors (RK-370C-3080EP)
+ * Additional parts:
+ * - SeeedStudio 4WD Hercules
+ * - Mobile Platform Kit
+ * - 7.4 V (2-cell) LiPo Battery
  *
  * @cc 
  * @cxx -std=c++11

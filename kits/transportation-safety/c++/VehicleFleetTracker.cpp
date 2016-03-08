@@ -1,6 +1,6 @@
 /*
  * Author: John Van Drasek <john.r.van.drasek@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -32,13 +32,12 @@
  * command prompt using:
  * - systemctl start iotkit-agent
  *
- * @hardware Sensors used:\n
- * Grove GPS (SEN10752P) is used to gather GPS data.\n
- * Grove IR Distance Interrupter (SEN09281P) is used to detect objects when backing up vehicle.\n
- * Grove LCD RGB Backlight (811004001) is used to display a warning message that the vehicle is close to an object when backing up.\n
- * Grove LCD RGB Backlight (811004001) is also used to display the local time.\n
- * Grove IR Distance Interrupter (SEN09281P) is used to detect when the tailgate is open.\n
- * Grove - LED (COM04054P) is used to indicate to the operator of the vehicle the tailgate is open.
+ * @hardware - Grove GPS (SEN10752P) is used to gather GPS data.
+ * - Grove IR Distance Interrupter (SEN09281P) is used to detect objects when backing up vehicle.
+ * - Grove LCD RGB Backlight (811004001) is used to display a warning message that the vehicle is close to an object when backing up.
+ * - Grove LCD RGB Backlight (811004001) is also used to display the local time.
+ * - Grove IR Distance Interrupter (SEN09281P) is used to detect when the tailgate is open.
+ * - Grove LED (COM04054P) is used to indicate to the operator of the vehicle the tailgate is open.
  *
  * @cc 
  * @cxx -std=c++11
