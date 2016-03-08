@@ -1,6 +1,6 @@
 /*
  * Author: Ivan De Cesaris <ivan.de.cesaris@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -31,11 +31,10 @@
  * to use the various sensors that come with the Grove Starter Kit.
  * Update the temperature values and reflect the changes on the LCD.
  * 
- * @hardware Sensors used:\n
- * Grove LED (GroveLed)\n
- * Grove Button (GroveButton)\n
- * Grove Temperature Sensor (GroveTemp)\n
- * Grove LCD (Jhd1313m1)
+ * @hardware - Grove LED (GroveLed) connected to the Grove Base Shield Port D3
+ * - Grove Button (GroveButton) connected to the Grove Base Shield Port D4
+ * - Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0
+ * - Grove LCD (Jhd1313m1) connected to any I2C on the Grove Base Shield
  *
  * @ld -lupm-i2clcd -lupm-grove
  *

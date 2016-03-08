@@ -1,6 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -27,29 +27,21 @@
  * @ingroup grove 
  * @brief Analog Input
  * 
- * Read an analog voltage value from an input pin using the IO mraa library.
- *
- * @date 13/06/2015
- */
- 
-#include "mraa.hpp"
-
-#include <iostream>
-#include <unistd.h>
-
-/*
- * Analog input example
- *
  * Demonstrate how to read an analog voltage value from an input pin using the
  * MRAA library, any sensor that outputs a variable voltage can be used with
  * this example code.
  * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
  * Sensor, Sound Sensor, Temperature Sensor.
  *
- * - analog in: analog sensor connected to pin A0 (Grove Base Shield Port A0)
+ * @hardware Analog sensor connected to pin A0 (Grove Base Shield Port A0)
  *
- * Additional linker flags: none
+ * @date 13/06/2015
  */
+
+#include "mraa.hpp"
+
+#include <iostream>
+#include <unistd.h>
 
 int main()
 {

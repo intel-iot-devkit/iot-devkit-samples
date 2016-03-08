@@ -1,7 +1,7 @@
 /*
  * Author: Thomas Lyet <thomas.lyet@intel.com>
  *
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -28,11 +28,18 @@
  * @ingroup cloud 
  * @brief Intel(R) IoT cloud analytics 
  * 
- * This template includes code and framework so that you can continuously 
- * send data to the Intel(R) IoT Analytics.
- * Requires an account and login.
+ * Demonstrate how to continuously send data to the IoT Cloud Analytics
+ * (https://dashboard.us.enableiot.com/)
+ * Read an analog voltage value from an input pin using the MRAA library,
+ * then send its value to the IoT Cloud Analytics.
+ * Any sensor that outputs a variable voltage can be used with this example
+ * code. Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor,
+ * Light Sensor, Sound Sensor, Temperature Sensor.
+ *
  * @web https://dashboard.us.enableiot.com
  * 
+ * @hardware Analog sensor connected to pin A0 (Grove Base Shield Port A0)
+ *
  * Additional source files required to build this example:
  * @req UdpClient.hpp
  * @req UdpClient.cpp

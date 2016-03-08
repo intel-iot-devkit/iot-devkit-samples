@@ -1,7 +1,7 @@
 /*
  * Author: Ivan De Cesaris <ivan.de.cesaris@intel.com>
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -28,9 +28,12 @@
  * @ingroup grove 
  * @brief ISR, interrupt service routine
  * 
- * Allows your program to react based on an external event with an
- * ISR (Interrupt Service Routine), which will run independently of the main program flow.
- * This project uses the IO mraa library.
+ * Demonstrate how to react on an external event with an ISR (Interrupt Service
+ * Routine), which will run independently of the main program flow using the
+ * MRAA library.
+ * Any button or sensor that can generate a voltage transition from ground to
+ * Vcc or viceversa can be used with this example code.
+ * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor.
  *
  * @date 29/09/2015
  */

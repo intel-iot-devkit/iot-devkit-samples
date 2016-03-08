@@ -1,6 +1,6 @@
 /*
  * Author: Ivan De Cesaris <ivan.de.cesaris@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -27,7 +27,11 @@
  * @ingroup grove 
  * @brief Digital Input
  * 
- * Read a digital value from an input pin using the IO mraa library.
+ * Demonstrate how to read a digital value from an input pin using the MRAA
+ * library.
+ * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor.
+ *
+ * @hardware Input connected to digital pin 4 (Grove Base Shield Port D4)
  *
  * @date 29/09/2015
  */
@@ -36,18 +40,6 @@
 
 #include <iostream>
 #include <unistd.h>
-
-/*
- * Digital input example
- *
- * Demonstrate how to read a digital value from an input pin using the MRAA
- * library.
- * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor.
- *
- * - digital in: input connected to digital pin 4 (Grove Base Shield Port D4)
- *
- * Additional linker flags: none
- */
 
 int main()
 {

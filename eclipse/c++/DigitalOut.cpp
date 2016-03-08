@@ -1,6 +1,6 @@
 /*
  * Author: Ivan De Cesaris <ivan.de.cesaris@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -27,7 +27,11 @@
  * @ingroup grove 
  * @brief Digital Output
  * 
- * Write a digital value to an output pin using the IO mraa library.
+ * Demonstrate how to write a digital value to an output pin using the MRAA
+ * library.
+ * A suitable part to use this example with in the Grove Starter Kit is the LED.
+ *
+ * @hardware Output connected to digital pin 8 (Grove Base Shield Port D8)
  *
  * @date 29/09/2015
  */
@@ -36,18 +40,6 @@
 
 #include <iostream>
 #include <unistd.h>
-
-/*
- * Digital output example
- *
- * Demonstrate how to write a digital value to an output pin using the MRAA
- * library.
- * A suitable part to use this example with in the Grove Starter Kit is the LED.
- *
- * - digital out: output connected to digital pin 8 (Grove Base Shield Port D8)
- *
- * Additional linker flags: none
- */
 
 int main()
 {

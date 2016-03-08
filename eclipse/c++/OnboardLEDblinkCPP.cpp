@@ -1,6 +1,6 @@
 /*
  * Author: Jessica Gomez <jessica.gomez.hernandez@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -27,8 +27,10 @@
  * @ingroup basic 
  * @brief On board LED blink C++
  * 
- * Blink the on board LED by writing a digital value to an output pin
- * using the IO mraa library.
+ * Demonstrate how to blink the on board LED, writing a digital value to an
+ * output pin using the MRAA library.
+ *
+ * @hardware No external hardware is needed.
  *
  * @date 29/09/2015
  */
