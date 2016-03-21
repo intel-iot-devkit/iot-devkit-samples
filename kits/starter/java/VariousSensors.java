@@ -133,19 +133,17 @@ public class VariousSensors {
          * time, when button value is '1' */
         int x = 0;
 
+	lcd.setCursor(0,0);
+     	lcd.write("Press Button ");
+            
         /* This while loop continously checks for button value.
-         * if button value is '0', the LCD displays "press button".
          * if button value is '1', the sensors values are displayed depending
          * on x value
          */
+
         while(true)
         {
-            if(button.value() == 0)
-            {
-                lcd.setCursor(0,0);
-                lcd.write("Press Button ");
-            }
-            else
+            if(button.value() != 0)
             {
                 if(x == 0)
                 {
@@ -175,6 +173,8 @@ public class VariousSensors {
                     }
                     lcd.clear();
                     x += 1;
+
+		    lcd.write("Press Button ");
                 }
 
                 else if(x == 1)
@@ -202,6 +202,8 @@ public class VariousSensors {
                     }
                     lcd.clear();
                     x += 1;
+
+     		    lcd.write("Press Button ");
                 }
 
                 else if(x == 2)
@@ -229,6 +231,8 @@ public class VariousSensors {
                     }
                     lcd.clear();
                     x += 1;
+
+     		    lcd.write("Press Button ");
                 }
 
                 else if(x == 3)
@@ -256,6 +260,8 @@ public class VariousSensors {
                     }
                     lcd.clear();
                     x += 1;
+
+     		    lcd.write("Press Button ");
                 }
 
                 else if(x == 4)
@@ -313,6 +319,8 @@ public class VariousSensors {
                     }
                     lcd.clear();
                     x = 0;
+
+     		    lcd.write("Press Button ");
                 }
             }
         }

@@ -1,6 +1,6 @@
 /*
  * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
- * Copyright (c) 2015 Intel Corporation.
+ * Copyright (c) 2015-2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -113,19 +113,17 @@ main(int argc, char **argv)
      * time, when button value is '1' */
     int x = 0;
 
+    lcd->setCursor(0,0);
+    lcd->write("Press Button ");
+
     /* This while loop continously checks for button value.
-     * if button value is '0', the LCD displays "press button".
      * if button value is '1', the sensors values are displayed depending
      * on x value
      */
+
     while(1)
     {
-        if(button->value() == 0)
-        {
-            lcd->setCursor(0,0);
-            lcd->write("Press Button ");
-        }
-        else
+        if(button->value() != 0)
         {
             if(x == 0)
             {
@@ -147,8 +145,9 @@ main(int argc, char **argv)
                 sleep(3);
                 lcd->clear();
                 x += 1;
-            }
 
+                lcd->write("Press Button");
+            }
             else if(x == 1)
             {
                 rotary = knob->abs_deg();
@@ -166,8 +165,9 @@ main(int argc, char **argv)
                 sleep(3);
                 lcd->clear();
                 x += 1;
-            }
 
+                lcd->write("Press Button");
+            }
             else if(x == 2)
             {
                 lit = light->value();
@@ -185,8 +185,9 @@ main(int argc, char **argv)
                 sleep(3);
                 lcd->clear();
                 x += 1;
-            }
 
+                lcd->write("Press Button");
+            }
             else if(x == 3)
             {
                 tuch = touch->isPressed();
@@ -204,8 +205,9 @@ main(int argc, char **argv)
                 sleep(3);
                 lcd->clear();
                 x += 1;
-            }
 
+                lcd->write("Press Button");
+            }
             else if(x == 4)
             {
                 accel->getAcceleration(&ax, &ay, &az);
@@ -243,6 +245,8 @@ main(int argc, char **argv)
                 sleep(3);
                 lcd->clear();
                 x = 0;
+
+                lcd->write("Press Button");
             }
         }
     }
@@ -262,4 +266,3 @@ main(int argc, char **argv)
 
     return 0;
 }
-
