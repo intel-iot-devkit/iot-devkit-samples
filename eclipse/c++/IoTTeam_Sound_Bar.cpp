@@ -29,7 +29,8 @@
 #include <mraa.hpp>
 #include <grove.h>
 #include <mic.h>
-#include <my9221.h>
+#include <groveledbar.h>
+#include <grovecircularled.h>
 
 /**
  * @file
@@ -84,7 +85,7 @@ int main(int argc, char **argv) {
   upm::Microphone* mic = new upm::Microphone(0);
 
   // Led Bar connected to D2 (digital out)
-  upm::MY9221* bar = new upm::MY9221(2, 3);
+  upm::GroveLEDBar* bar = new upm::GroveLEDBar(2, 3);
 
   // Simple error checking
   if ((mic == NULL) || (bar == NULL)) {
