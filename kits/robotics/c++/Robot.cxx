@@ -52,11 +52,11 @@
 #include <string>
 #include <thread>
 #include <mutex>
-#include "grovemd.h"
+#include "grovemd.hpp"
 #include "jhd1313m1.h"
-#include "rfr359f.h"
-#include "hmc5883l.h"
-#include "grovevdiv.h"
+#include "rfr359f.hpp"
+#include "hmc5883l.hpp"
+#include "grovevdiv.hpp"
 
 using namespace std;
 using namespace upm;

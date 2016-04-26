@@ -27,10 +27,10 @@
 #include <sstream>
 
 #include <mraa.hpp>
-#include <grove.h>
+#include <grove.hpp>
 #include <jhd1313m1.h>
-#include <guvas12d.h>
-#include <buzzer.h>
+#include <guvas12d.hpp>
+#include <buzzer.hpp>
 
 /**
  * @file

@@ -27,11 +27,11 @@
 #include <sstream>
 
 #include <mraa.hpp>
-#include <grove.h>
-#include <grovemoisture.h>
+#include <grove.hpp>
+#include <grovemoisture.hpp>
 #include <mq5.h>
 #include <jhd1313m1.h>
-#include <guvas12d.h>
+#include <guvas12d.hpp>
 
 /**
  * @file

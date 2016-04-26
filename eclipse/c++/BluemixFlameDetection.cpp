@@ -69,9 +69,9 @@
 
 #include "mraa.hpp"
 #include <iostream>
-#include <yg1006.h>
+#include <yg1006.hpp>
 #include <unistd.h>
-#include <buzzer.h>
+#include <buzzer.hpp>
 
 #include "BluemixFDAppClient.hpp"
 #include "BluemixFDDeviceClient.hpp"

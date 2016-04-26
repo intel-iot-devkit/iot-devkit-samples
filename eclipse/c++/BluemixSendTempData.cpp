@@ -57,7 +57,7 @@ extern "C" {
 #include "mraa.hpp"
 #include "stdlib.h"
 
-#include <grove.h>
+#include <grove.hpp>
 #include <climits>
 #include <iostream>
 #include <sstream>

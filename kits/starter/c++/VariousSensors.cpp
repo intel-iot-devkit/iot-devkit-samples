@@ -38,9 +38,9 @@
  */
 
 #include "jhd1313m1.h"   // Lcd Display
-#include "grove.h"       // Button, Temp, Light, Rotary Sensors
-#include "mma7660.h"     // 3-Axis Digital Accelerometer
-#include "ttp223.h"      // Touch Sensor
+#include "grove.hpp"       // Button, Temp, Light, Rotary Sensors
+#include "mma7660.hpp"     // 3-Axis Digital Accelerometer
+#include "ttp223.hpp"      // Touch Sensor
 
 #include <unistd.h>
 #include <iostream>
