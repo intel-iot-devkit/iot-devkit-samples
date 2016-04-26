@@ -27,9 +27,9 @@
 #include <sstream>
 
 #include <mraa.hpp>
-#include <grove.h>
-#include <mic.h>
-#include <my9221.h>
+#include <grove.hpp>
+#include <mic.hpp>
+#include <my9221.hpp>
 
 /**
  * @file

@@ -32,10 +32,10 @@
 #include <sstream>
 
 #include <mraa.hpp>
-#include <grove.h>
+#include <grove.hpp>
 #include <jhd1313m1.h>
-#include <uln200xa.h>
-#include <ttp223.h>
+#include <uln200xa.hpp>
+#include <ttp223.hpp>
 
 /**
  * @file

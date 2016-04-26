@@ -29,9 +29,9 @@
 #include <unistd.h>
 
 #include <mraa.hpp>
-#include <grove.h>
+#include <grove.hpp>
 #include <jhd1313m1.h>
-#include <uln200xa.h>
+#include <uln200xa.hpp>
 
 /**
  * @file

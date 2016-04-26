@@ -61,11 +61,11 @@
 #include <string.h>		/* string */
 #include <time.h>		/* time */
 #include <thread>		/* threading */
-#include "ublox6.h"		/* gps */
+#include "ublox6.hpp"		/* gps */
 #include "jhd1313m1.h"	/* lcd */
-#include "rfr359f.h"	/* distance interrupter */
-#include "rpr220.h"		/* reflective sensor */
-#include "grove.h"		/* led */
+#include "rfr359f.hpp"	/* distance interrupter */
+#include "rpr220.hpp"		/* reflective sensor */
+#include "grove.hpp"		/* led */
 
 using namespace std;
 
