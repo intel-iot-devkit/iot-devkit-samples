@@ -77,7 +77,8 @@ int main()
 	// loop forever increasing the PWM duty cycle from 0% to 100%,
 	// a full cycle will take ~5 seconds
 	for (;;) {
-		pwm_pin->config_percent(period, duty_cycle);
+		pwm_pin->pulsewidth_ms(period);
+		pwm_pin->write(duty_cycle);
 		usleep(50000);
 		duty_cycle += 0.01;
 		if(duty_cycle > 1.0) {

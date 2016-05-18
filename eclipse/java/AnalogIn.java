@@ -64,7 +64,7 @@ public class AnalogIn{
 
         // loop forever printing the input value every second
         while (true) {
-            int value = pin.read();
+            long value = pin.read();
             System.out.println(String.format("Pin value: %d", value));
             try {
                 Thread.sleep(1000);
