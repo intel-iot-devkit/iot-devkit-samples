@@ -28,8 +28,8 @@
 #include <mraa.hpp>
 #include <grove.hpp>
 #include <grovemoisture.hpp>
-#include <mq5.h>
-#include <jhd1313m1.h>
+#include <mq5.hpp>
+#include <jhd1313m1.hpp>
 #include <guvas12d.hpp>
 
 /**

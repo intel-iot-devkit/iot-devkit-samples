@@ -27,7 +27,7 @@
 
 #include <mraa.hpp>
 #include <grove.hpp>
-#include <jhd1313m1.h>
+#include <jhd1313m1.hpp>
 #include <guvas12d.hpp>
 #include <buzzer.hpp>
 

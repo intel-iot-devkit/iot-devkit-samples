@@ -43,7 +43,7 @@
 #include <thread>
 #include <mutex>
 #include "grovemd.hpp"
-#include "jhd1313m1.h"
+#include "jhd1313m1.hpp" 
 #include "rfr359f.hpp"
 #include "hmc5883l.hpp"
 #include "grovevdiv.hpp"
