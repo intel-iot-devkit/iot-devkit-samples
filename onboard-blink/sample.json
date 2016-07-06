@@ -1,0 +1,11 @@
+{
+  "name": "On-Board LED Blink",
+  "category": "Basic",
+  "description": "Demonstrate how to blink the on board LED, writing a digital value to an output pin using the MRAA library",
+  "author": "Intel Corporation",
+  "date": "2016-06-13",
+  "platform" : {
+    "hwreq" : ["gpio"],
+    "libs": ["mraa"]
+  }
+}

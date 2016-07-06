@@ -1,0 +1,11 @@
+{
+  "name": "Smart Photovoltaic Panels",
+  "category": "Other Kits",
+  "description": "Vittoriano Muttillo, Giacomo Valente",
+  "author": "Fabio Federici",
+  "date": "2015-09-16",
+  "platform" : {
+    "hwreq" : ["gpio", "adc", "i2c"],
+    "libs": ["mraa", "upm"]
+  }
+}

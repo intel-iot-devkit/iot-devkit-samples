@@ -1,0 +1,4 @@
+{
+  "main": "blink.c",
+  "ldflags": "-lmraa"
+}

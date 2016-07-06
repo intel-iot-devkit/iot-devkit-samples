@@ -1,0 +1,39 @@
+{
+  "name": "IBM* Bluemix flame detection",
+  "category": "Cloud",
+  "tag": "cloud",
+  "description": "Demonstration of a IBM* Bluemix device client and application client communicating with each other",
+  "date": "2016-11-04",
+  "platform" : {
+    "hwreq" : ["gpio", "adc"],
+    "libs": ["mraa", "upm", "paho"]
+  },
+  "additional_fields": [
+    { 
+      "id":"device_id",
+      "name":"Device id",
+      "description":"Registered device id"
+    },
+    { 
+      "id":"device_type",
+      "name":"Device Type",
+      "description":"The device type id"
+    },
+    { 
+      "id":"organization_id",
+      "name":"Org id",
+      "description":"The organization id"
+    },
+    { 
+      "id":"username",
+      "name":"Username",
+      "description":"The organization id"
+    },
+    { 
+      "id":"password",
+      "name":"Password",
+      "description":"Password created during the device registration"
+    }
+  ]
+}
+

@@ -1,0 +1,5 @@
+{
+  "main": "robot.cpp",
+  "ldflags": "-lmraa -lupm-i2clcd -lupm-grovemd -lupm-rfr359f -lupm-hmc5883l -lupm-grovevdiv ",
+  "cxxflags": "-std=c++11"
+}

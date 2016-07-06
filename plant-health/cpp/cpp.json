@@ -1,0 +1,4 @@
+{
+  "main": "plant-health.cpp",
+  "ldflags": "-lmraa -lupm-grovemoisture -lupm-grove -lupm-i2clcd -lupm-guvas12d"
+}

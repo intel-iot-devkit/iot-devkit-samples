@@ -1,0 +1,4 @@
+{
+  "main": "tan-responsibly.cpp",
+  "ldflags": "-lmraa -lupm-i2clcd -lupm-grove -lupm-buzzer -lupm-guvas12d"
+}

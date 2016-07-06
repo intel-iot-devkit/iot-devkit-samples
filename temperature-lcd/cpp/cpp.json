@@ -1,0 +1,4 @@
+{
+  "main": "temperature-lcd.cpp",
+  "ldflags": "-lmraa -lupm-i2clcd -lupm-grove"
+}

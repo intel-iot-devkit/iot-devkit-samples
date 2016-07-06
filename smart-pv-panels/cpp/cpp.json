@@ -1,0 +1,4 @@
+{
+  "main": "smart-pv.cpp",
+  "ldflags": "-lmraa -lupm-i2clcd -lupm-grove -lupm-uln200xa"
+}

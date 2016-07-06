@@ -1,0 +1,4 @@
+{
+  "ldflags": " -lmraa -lupm-grove -lpaho-mqtt3c",
+  "main": "main.cpp"
+}

@@ -1,0 +1,4 @@
+{
+  "ldflags": " -lmraa -lupm-buzzer -lupm-yg1006 -lpaho-mqtt3c",
+  "main": "BluemixFlameDetection.cpp"
+}

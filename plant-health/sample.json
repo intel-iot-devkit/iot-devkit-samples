@@ -1,0 +1,11 @@
+{
+  "name": "Plant Health Monitoring System",
+  "category": "Other Kits",
+  "description": "Example to simulate a Plant Health Monitoring System.",
+  "author": "Fabio Federici",
+  "date": "2015-09-16",
+  "platform" : {
+    "hwreq" : ["gpio", "adc", "i2c"],
+    "libs": ["mraa", "upm"]
+  }
+}

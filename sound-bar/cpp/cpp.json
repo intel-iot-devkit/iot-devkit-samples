@@ -1,0 +1,4 @@
+{
+  "main": "sound-bar.cpp",
+  "ldflags": "-lmraa -lupm-grove -lupm-mic -lupm-my9221"
+}

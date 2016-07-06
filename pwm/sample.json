@@ -1,0 +1,11 @@
+{
+  "name": "Pulse Width Modulation (PWM)",
+  "category": "Grove Starter Kit",
+  "description": "Demonstrate how to use PWM with an output pin using the MRAA library. If the output is connected to a led, its intensity, as perceived by the human eye, will vary depending on the duty cycle.",
+  "author": "Intel Corporation",
+  "date": "2016-07-06",
+  "platform" : {
+    "hwreq" : ["pwm"],
+    "libs": ["mraa"]
+  }
+}

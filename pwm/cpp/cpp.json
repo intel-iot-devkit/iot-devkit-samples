@@ -1,0 +1,4 @@
+{
+  "main": "pwm.cpp",
+  "ldflags": "-lmraa"
+}

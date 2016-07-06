@@ -1,0 +1,4 @@
+{
+  "main": "digital-out.cpp",
+  "ldflags": "-lmraa"
+}

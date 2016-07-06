@@ -1,0 +1,11 @@
+{
+  "name": "Automatic curtain",
+  "category": "Other Kits",
+  "description": "Example that operates a curtain depending on readings from a light sensor",
+  "author": "Bufalino Andrea, Carocci Eugenio, Ranalli Alessandro",
+  "date": "2015-08-25",
+  "platform" : {
+    "hwreq" : ["gpio", "adc", "i2c"],
+    "libs": ["mraa", "upm"]
+  }
+}

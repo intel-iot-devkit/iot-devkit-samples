@@ -1,0 +1,11 @@
+{
+  "name": "Robot",
+  "category": "Other Kits",
+  "description": "This project template utilizes components in the Grove Robotics Kit to create a working robot",
+  "author": "Intel Corporation",
+  "date": "2015-07-06",
+  "platform" : {
+    "hwreq" : ["gpio", "i2c"],
+    "libs": ["mraa", "upm"]
+  }
+}
