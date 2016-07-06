@@ -1,11 +1,19 @@
 {
-  "name": "Automatic curtain",
-  "category": "Other Kits",
-  "description": "Example that operates a curtain depending on readings from a light sensor",
-  "author": "Bufalino Andrea, Carocci Eugenio, Ranalli Alessandro",
-  "date": "2015-08-25",
-  "platform" : {
-    "hwreq" : ["gpio", "adc", "i2c"],
-    "libs": ["mraa", "upm"]
-  }
+   "name":"Automatic curtain",
+   "category":"Other Kits",
+   "description":"Example that operates a curtain depending on readings from a light sensor",
+   "author":"Bufalino Andrea, Carocci Eugenio, Ranalli Alessandro",
+   "date":"2015-08-25",
+   "platform":{
+      "hwreq":[
+         "Grove Rotary Angle Sensor connected to the Grove Base Shield Port A0",
+         "Grove Light Sensor connected to the Grove Base Shield Port A3",
+         "Grove Button connected to the Grove Base Shield Port D4",
+         "Stepper Motor Driver Uln200xa connected in this way: I1 -> pin D8; I2 -> pin D9; I3 -> pin D10; I4 -> pin D11; GND -> GND; Vcc -> 5V (Vcc); Vm -> NC (Not Connected)"
+      ],
+      "libs":[
+         "mraa",
+         "upm"
+      ]
+   }
 }

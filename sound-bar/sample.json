@@ -1,11 +1,17 @@
 {
-  "name": "Sound Bar",
-  "category": "Other Kits",
-  "description": "This example show how to use a Led Bar to show ambient sound level.",
-  "author": "Fabio Federici",
-  "date": "2015-09-16",
-  "platform" : {
-    "hwreq" : ["gpio", "adc"],
-    "libs": ["mraa", "upm"]
-  }
+   "name":"Sound Bar",
+   "category":"Other Kits",
+   "description":"This example show how to use a Led Bar to show ambient sound level.",
+   "author":"Fabio Federici",
+   "date":"2015-09-16",
+   "platform":{
+      "hwreq":[
+         "Grove Sound Sensor connected to the Grove Base Shield Port A0",
+         "Grove Led Bar connected to the Grove Base Shield Port D2"
+      ],
+      "libs":[
+         "mraa",
+         "upm"
+      ]
+   }
 }

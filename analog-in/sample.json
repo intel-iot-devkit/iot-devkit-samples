@@ -5,7 +5,7 @@
   "author": "Intel Corporation",
   "date": "2015-06-13",
   "platform" : {
-    "hwreq" : ["adc"],
+    "hwreq" : ["Analog sensor connected to pin A0 (Grove Base Shield Port A0)"],
     "libs": ["mraa"]
   }
 }

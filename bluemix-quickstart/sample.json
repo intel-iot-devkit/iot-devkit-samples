@@ -1,39 +1,45 @@
 {
-  "name": "IBM* Bluemix send temperature",
-  "category": "Cloud",
-  "tag": "cloud",
-  "description": "This project template includes the starting code needed to use the various sensors that come with the Grove Starter Kit. Update the temperature values and send the changes to IBM* Bluemix.\n\nFirst steps:\nGo to https://quickstart.internetofthings.ibmcloud.com/#/ and enter the MAC address or another name for the DEVICE ID. Replace the placeholder {DEVICE ID} for the DEVICE ID below in the client ID.\nRun the example and check the results at:\nhttps://quickstart.internetofthings.ibmcloud.com/#/device/{DEVICE ID}/sensor/ \n\n* Other names and brands may be claimed as the property of others.",
-  "date": "2016-11-04",
-  "platform" : {
-    "hwreq" : ["gpio", "adc"],
-    "libs": ["mraa", "upm", "paho"]
-  },
-  "additional_fields": [
-    { 
-      "id":"device_id",
-      "name":"Device id",
-      "description":"Registered device id"
-    },
-    { 
-      "id":"device_type",
-      "name":"Device Type",
-      "description":"The device type id"
-    },
-    { 
-      "id":"organization_id",
-      "name":"Org id",
-      "description":"The organization id"
-    },
-    { 
-      "id":"username",
-      "name":"Username",
-      "description":"The organization id"
-    },
-    { 
-      "id":"password",
-      "name":"Password",
-      "description":"Password created during the device registration"
-    }
-  ]
+   "name":"IBM* Bluemix send temperature",
+   "category":"Cloud",
+   "tag":"cloud",
+   "description":"This project template includes the starting code needed to use the various sensors that come with the Grove Starter Kit. Update the temperature values and send the changes to IBM* Bluemix.\n\nFirst steps:\nGo to https://quickstart.internetofthings.ibmcloud.com/#/ and enter the MAC address or another name for the DEVICE ID. Replace the placeholder {DEVICE ID} for the DEVICE ID below in the client ID.\nRun the example and check the results at:\nhttps://quickstart.internetofthings.ibmcloud.com/#/device/{DEVICE ID}/sensor/ \n\n* Other names and brands may be claimed as the property of others.",
+   "date":"2016-11-04",
+   "platform":{
+      "hwreq":[
+         "Grove LED (GroveLed) connected to the Grove Base Shield Port D3",
+         "Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0"
+      ],
+      "libs":[
+         "mraa",
+         "upm",
+         "paho"
+      ]
+   },
+   "additional_fields":[
+      {
+         "id":"device_id",
+         "name":"Device id",
+         "description":"Registered device id"
+      },
+      {
+         "id":"device_type",
+         "name":"Device Type",
+         "description":"The device type id"
+      },
+      {
+         "id":"organization_id",
+         "name":"Org id",
+         "description":"The organization id"
+      },
+      {
+         "id":"username",
+         "name":"Username",
+         "description":"The organization id"
+      },
+      {
+         "id":"password",
+         "name":"Password",
+         "description":"Password created during the device registration"
+      }
+   ]
 }
-

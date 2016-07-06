@@ -1,11 +1,20 @@
 {
-  "name": "Plant Health Monitoring System",
-  "category": "Other Kits",
-  "description": "Example to simulate a Plant Health Monitoring System.",
-  "author": "Fabio Federici",
-  "date": "2015-09-16",
-  "platform" : {
-    "hwreq" : ["gpio", "adc", "i2c"],
-    "libs": ["mraa", "upm"]
-  }
+   "name":"Plant Health Monitoring System",
+   "category":"Other Kits",
+   "description":"Example to simulate a Plant Health Monitoring System.",
+   "author":"Fabio Federici",
+   "date":"2015-09-16",
+   "platform":{
+      "hwreq":[
+         "Grove Moisture Sensor connected to the Grove Base Shield Port A0",
+         "Grove Temperature Sensor connected to the Grove Base Shield Port A1",
+         "GUVA-S12D UV sensor to the Grove Base Shield port A2",
+         "Grove Dry-Reed Relay connected to the Grove Base Shield Port D2",
+         "Jhd1313m1 LCD connected to any I2C on the Grove Base Shield"
+      ],
+      "libs":[
+         "mraa",
+         "upm"
+      ]
+   }
 }
