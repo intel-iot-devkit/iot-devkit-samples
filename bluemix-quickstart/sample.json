@@ -1,8 +1,8 @@
 {
-   "name":"IBM* Bluemix send temperature",
+   "name":"IBM* Bluemix Quickstart",
    "category":"Cloud",
    "tag":"cloud",
-   "description":"This project template includes the starting code needed to use the various sensors that come with the Grove Starter Kit. Update the temperature values and send the changes to IBM* Bluemix.\n\nFirst steps:\nGo to https://quickstart.internetofthings.ibmcloud.com/#/ and enter the MAC address or another name for the DEVICE ID. Replace the placeholder {DEVICE ID} for the DEVICE ID below in the client ID.\nRun the example and check the results at:\nhttps://quickstart.internetofthings.ibmcloud.com/#/device/{DEVICE ID}/sensor/ \n\n* Other names and brands may be claimed as the property of others.",
+   "description":"This project template allow you to quickly test the IBM* Bluemix.\nIt will read the temperature from the Grove Temperature Sensor then send it to the IBM* Bluemix.\n\nFirst steps:\nGo to https://quickstart.internetofthings.ibmcloud.com/#/ and enter a unique device ID (e.g. the MAC address of your device). \nReplace the placeholder {DEVICE_ID} by the one you has choosed.\nRun the example and check the results at:\nhttps://quickstart.internetofthings.ibmcloud.com/#/device/{DEVICE_ID}/sensor/\n\n* Other names and brands may be claimed as the property of others.",
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
@@ -17,29 +17,9 @@
    },
    "additional_fields":[
       {
-         "id":"device_id",
+         "id":"DEVICE_ID",
          "name":"Device id",
-         "description":"Registered device id"
-      },
-      {
-         "id":"device_type",
-         "name":"Device Type",
-         "description":"The device type id"
-      },
-      {
-         "id":"organization_id",
-         "name":"Org id",
-         "description":"The organization id"
-      },
-      {
-         "id":"username",
-         "name":"Username",
-         "description":"The organization id"
-      },
-      {
-         "id":"password",
-         "name":"Password",
-         "description":"Password created during the device registration"
+         "description":"Choose a unique device id"
       }
    ]
 }

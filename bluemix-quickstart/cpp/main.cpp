@@ -35,8 +35,11 @@ extern "C" {
 #include <sstream>
 #include <unistd.h>
 
+#include "credentials.h"
+
 const char * topic = "iot-2/evt/status/fmt/json";
-const char * clientID = "d:quickstart:iotquick-edison:{DEVICE ID}";
+const char * clientID =
+		((std::string ("d:quickstart:iotquick-edison:")) + DEVICE_ID).c_str();
 // To authenticate with a token, set the username to "use-token-auth" and the
 // password to the token which you get when you register your device in IBM Bluemix.
 const char * username = NULL;
