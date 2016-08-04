@@ -34,7 +34,7 @@
       {
          "id":"username",
          "name":"Username",
-         "description":"The organization id"
+         "description":"The username"
       },
       {
          "id":"password",

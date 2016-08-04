@@ -1,0 +1,5 @@
+{
+  "ldflags": "-lmraa -liothub_client -luamqp -liothub_client_amqp_transport -laziotsharedutil -lupm-grove",
+  "cxxflags": "-std=c++11",
+  "main": "main.cpp"
+}
