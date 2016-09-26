@@ -43,6 +43,9 @@ int main()
 		case MRAA_INTEL_EDISON_FAB_C:
 			d_pin = mraa_gpio_init(13);
 			break;
+		case MRAA_INTEL_GT_TUCHUCK:
+			d_pin = mraa_gpio_init(100);
+			break;
 		default:
 			fprintf(stderr, "Unsupported platform, exiting");
 			return MRAA_ERROR_INVALID_PLATFORM;
