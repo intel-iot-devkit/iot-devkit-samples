@@ -6,6 +6,12 @@
   "date": "2015-06-13",
   "platform" : {
     "hwreq" : ["Analog sensor connected to pin A0 (Grove Base Shield Port A0)"],
-    "libs": ["mraa"]
+    "libs": ["mraa"],
+    "compatible":[
+       "Edison",
+       "MinnowBoard MAX",
+       "Gateway 32-Bit",
+       "Gateway 64-Bit"
+    ]
   }
 }
