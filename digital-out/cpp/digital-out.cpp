@@ -54,7 +54,7 @@ int main()
 	}
 
 	// set the pin as output
-	if (d_pin->dir(mraa::DIR_IN) != mraa::SUCCESS) {
+	if (d_pin->dir(mraa::DIR_OUT) != mraa::SUCCESS) {
 		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
 		return mraa::ERROR_UNSPECIFIED;
 	}
