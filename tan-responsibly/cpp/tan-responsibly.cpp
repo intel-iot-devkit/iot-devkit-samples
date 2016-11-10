@@ -30,6 +30,7 @@
 #include <jhd1313m1.hpp>
 #include <guvas12d.hpp>
 #include <buzzer.hpp>
+#include <buzzer_tones.h>
 
 /**
  * This example helps you to avoid sunburn.
@@ -121,9 +122,8 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
   }
 
   if (uvIndex >= UV_INDEX_THRESHOLD || temperature > TEMPERATURE_THRESHOLD) {
-    buzzer->playSound(DO, 1000000);
+    buzzer->playSound(BUZZER_DO, 1000000);
   }
-
 }
 
 int main() {
