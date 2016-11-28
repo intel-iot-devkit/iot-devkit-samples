@@ -1,5 +1,5 @@
 {
   "main": "robot.cpp",
   "ldflags": "-lmraa -lupm-i2clcd -lupm-grovemd -lupm-rfr359f -lupm-hmc5883l -lupm-grovevdiv -lpthread",
-  "cxxflags": "-std=c++11"
+  "cxxflags": "-std=c++11 -Wno-delete-non-virtual-dtor "
 }
