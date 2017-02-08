@@ -157,7 +157,7 @@ void show_on_lcd(upm::Jhd1313m1 *lcd, int lux_target, int lux_current) {
 bool draw_curtain(upm::ULN200XA *uln200xa) {
   //Check if the curtain is already completely closed.
   if (stepper_motor_current_step != STEPPER_MOTOR_MAX_STEPS) {
-    uln200xa->setDirection(upm::ULN200XA::DIR_CW);
+    uln200xa->setDirection(ULN200XA_DIR_CW);
     uln200xa->stepperSteps(STEPPER_MOTOR_ACTIVATION_STEPS);
     stepper_motor_current_step += STEPPER_MOTOR_ACTIVATION_STEPS;
     uln200xa->release();
@@ -176,7 +176,7 @@ bool draw_curtain(upm::ULN200XA *uln200xa) {
  */
 bool open_curtain(upm::ULN200XA *uln200xa) {
   if (stepper_motor_current_step != 0) {
-    uln200xa->setDirection(upm::ULN200XA::DIR_CCW);
+    uln200xa->setDirection(ULN200XA_DIR_CCW);
     uln200xa->stepperSteps(STEPPER_MOTOR_ACTIVATION_STEPS);
     stepper_motor_current_step -= STEPPER_MOTOR_ACTIVATION_STEPS;
     uln200xa->release();
