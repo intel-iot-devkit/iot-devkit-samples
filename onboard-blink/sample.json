@@ -6,6 +6,11 @@
   "date": "2016-06-13",
   "platform" : {
     "hwreq" : ["gpio"],
-    "libs": ["mraa"]
+    "libs": ["mraa"],
+    "compatible":[
+       "Edison",
+       "Galileo",
+       "Joule module"
+    ]
   }
 }

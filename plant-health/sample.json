@@ -15,6 +15,10 @@
       "libs":[
          "mraa",
          "upm"
+      ],
+      "compatible":[
+         "Edison",
+         "Galileo"
       ]
    }
 }

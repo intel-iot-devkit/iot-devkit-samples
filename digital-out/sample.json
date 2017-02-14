@@ -6,6 +6,11 @@
   "date": "2016-09-29",
   "platform" : {
     "hwreq" : ["Output connected to digital pin 8 (Grove Base Shield Port D8)"],
-    "libs": ["mraa"]
+    "libs": ["mraa"],
+    "compatible":[
+       "Edison",
+       "Galileo",
+       "Joule module"
+    ]
   }
 }

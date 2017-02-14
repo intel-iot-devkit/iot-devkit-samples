@@ -9,9 +9,7 @@
     "libs": ["mraa"],
     "compatible":[
        "Edison",
-       "MinnowBoard MAX",
-       "Gateway 32-Bit",
-       "Gateway 64-Bit"
+       "Galileo"
     ]
   }
 }
