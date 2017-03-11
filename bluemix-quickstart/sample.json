@@ -16,7 +16,9 @@
       ],
       "compatible":[
          "Edison",
-         "Galileo"
+         "MinnowBoard MAX",
+         "Gateway 32-Bit",
+         "Gateway 64-Bit"
       ]
    },
    "additional_fields":[
