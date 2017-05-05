@@ -43,7 +43,7 @@ int main()
 		case MRAA_INTEL_EDISON_FAB_C:
 			d_pin = mraa_gpio_init(13);
 			break;
-		case MRAA_INTEL_GT_TUCHUCK:
+		case MRAA_MRAA_INTEL_JOULE_EXPANSION:
 			d_pin = mraa_gpio_init(100);
 			break;
 		default:

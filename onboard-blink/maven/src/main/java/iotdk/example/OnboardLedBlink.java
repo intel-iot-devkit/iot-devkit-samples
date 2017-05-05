@@ -59,7 +59,7 @@ public class OnboardLedBlink {
             pin = new Gpio(13);
         else if (platform == Platform.INTEL_EDISON_FAB_C)
             pin = new Gpio(13);
-        else if (platform == Platform.INTEL_GT_TUCHUCK)
+        else if (platform == Platform.MRAA_INTEL_JOULE_EXPANSION)
             pin = new Gpio(100);
 
         // set the pin as output

@@ -75,7 +75,7 @@ public class Interrupt {
         if (platform != Platform.INTEL_GALILEO_GEN1 &&
                 platform != Platform.INTEL_GALILEO_GEN2 &&
                 platform != Platform.INTEL_EDISON_FAB_C &&
-                platform != Platform.INTEL_GT_TUCHUCK) {
+                platform != Platform.MRAA_INTEL_JOULE_EXPANSION) {
             System.err.println("Unsupported platform, exiting");
             return;
         }
