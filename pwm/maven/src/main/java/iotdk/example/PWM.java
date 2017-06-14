@@ -55,8 +55,7 @@ public class PWM {
     Platform platform = mraa.getPlatformType();
     if (platform != Platform.INTEL_GALILEO_GEN1 &&
         platform != Platform.INTEL_GALILEO_GEN2 &&
-        platform != Platform.INTEL_EDISON_FAB_C &&
-        platform != Platform.INTEL_GT_TUCHUCK) {
+        platform != Platform.INTEL_EDISON_FAB_C) {
       System.err.println("Unsupported platform, exiting");
       return;
     }
