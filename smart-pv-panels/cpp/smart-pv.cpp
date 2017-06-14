@@ -120,11 +120,11 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
     // a)
     if (lightLST < lightRST) {
       // Rotating 1/32 revolution clockwise
-      uln200xa->setDirection(upm::ULN200XA::DIR_CW);
+      uln200xa->setDirection(ULN200XA_DIR_CW);
       // b)
     } else if (lightLST > lightRST) {
       // Rotating 1/32 revolution clockwise
-      uln200xa->setDirection(upm::ULN200XA::DIR_CCW);
+      uln200xa->setDirection(ULN200XA_DIR_CCW);
     }
 
     uln200xa->stepperSteps(128);
@@ -135,11 +135,11 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
     // a)
     if (lightRST < lightLST) {
       // Rotating 1/32 revolution counter clockwise
-      uln200xa->setDirection(upm::ULN200XA::DIR_CCW);
+      uln200xa->setDirection(ULN200XA_DIR_CCW);
       // b)
     } else if (lightRST > lightLST) {
       // Rotating 1/32 revolution counter clockwise
-      uln200xa->setDirection(upm::ULN200XA::DIR_CW);
+      uln200xa->setDirection(ULN200XA_DIR_CW);
     }
     uln200xa->stepperSteps(128);
 
@@ -191,14 +191,14 @@ int main() {
   int brightL1, brightL2, brightR1, brightR2;
 
   // Rotating 1/8 revolution clockwise
-  uln200xa->setDirection(upm::ULN200XA::DIR_CW);
+  uln200xa->setDirection(ULN200XA_DIR_CW);
   uln200xa->stepperSteps(STEPS_PER_REV / 8);
   brightL1 = lightL->value();
   brightR1 = lightR->value();
   sleep(1);
 
   // Rotating 1/4 revolution counter clockwise
-  uln200xa->setDirection(upm::ULN200XA::DIR_CCW);
+  uln200xa->setDirection(ULN200XA_DIR_CCW);
   uln200xa->stepperSteps(STEPS_PER_REV / 4);
   brightL2 = lightL->value();
   brightR2 = lightR->value();

@@ -45,7 +45,7 @@ int main()
 	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
 			(platform != mraa::INTEL_GALILEO_GEN2) &&
 			(platform != mraa::INTEL_EDISON_FAB_C) &&
-			 (platform != mraa::INTEL_GT_TUCHUCK)) {
+			 (platform != mraa::INTEL_JOULE_EXPANSION)) {
 		std::cerr << "Unsupported platform, exiting" << std::endl;
 		return mraa::ERROR_INVALID_PLATFORM;
 	}

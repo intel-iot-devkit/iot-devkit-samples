@@ -43,6 +43,9 @@ int main()
 		case mraa::INTEL_EDISON_FAB_C:
 			d_pin = new mraa::Gpio(13, true, false);
 			break;
+		case mraa::INTEL_JOULE_EXPANSION:
+			d_pin = new mraa::Gpio(100, true, false);
+			break;
 		default:
 			std::cerr << "Unsupported platform, exiting" << std::endl;
 			return mraa::ERROR_INVALID_PLATFORM;

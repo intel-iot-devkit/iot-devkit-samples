@@ -36,11 +36,12 @@
 
 int main()
 {
-	// check that we are running on Galileo or Edison
+	// check that we are running on Galileo or Edison or Joule
 	mraa::Platform platform = mraa::getPlatformType();
 	if((platform != mraa::INTEL_GALILEO_GEN1) &&
 			(platform != mraa::INTEL_GALILEO_GEN2) &&
-			(platform != mraa::INTEL_EDISON_FAB_C)) {
+			(platform != mraa::INTEL_EDISON_FAB_C) &&
+	   		(platform != mraa::INTEL_JOULE_EXPANSION)) {
 		std::cerr << "Unsupported platform, exiting" << std::endl;
 		return mraa::ERROR_INVALID_PLATFORM;
 	}
@@ -53,7 +54,7 @@ int main()
 	}
 
 	// set the pin as output
-	if (d_pin->dir(mraa::DIR_IN) != mraa::SUCCESS) {
+	if (d_pin->dir(mraa::DIR_OUT) != mraa::SUCCESS) {
 		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
 		return mraa::ERROR_UNSPECIFIED;
 	}

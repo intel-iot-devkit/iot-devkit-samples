@@ -56,6 +56,7 @@
 #include <yg1006.hpp>
 #include <unistd.h>
 #include <buzzer.hpp>
+#include <buzzer_tones.hpp>
 
 #include "BluemixFDAppClient.hpp"
 #include "BluemixFDDeviceClient.hpp"
@@ -115,7 +116,7 @@ int fire_alert() {
 	// set the volume
 	buzzer->setVolume(1.0);
 	// fire alert
-	buzzer->playSound(MI, 400000);
+	buzzer->playSound(BUZZER_MI, 400000);
 	return mraa::SUCCESS;
 }
 

@@ -2,7 +2,7 @@
    "name":"IBM* Bluemix flame detection",
    "category":"Cloud",
    "tag":"cloud",
-   "description":"Demonstration of a IBM* Bluemix device client and application client communicating with each other",
+   "description":"Demonstration of an IBM* Bluemix device client and application client communicating with each other",
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
@@ -13,6 +13,12 @@
          "mraa",
          "upm",
          "paho"
+      ],
+      "compatible":[
+         "Edison",
+         "MinnowBoard MAX",
+         "Gateway 32-Bit",
+         "Gateway 64-Bit"
       ]
    },
    "additional_fields":[
