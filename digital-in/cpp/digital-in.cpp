@@ -27,10 +27,10 @@
  * library.
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor,
  * connected to digital pin 4 (Grove Base Shield Port D4). 
- * For the connection to the Grosse Tête connect the Pin 4 (Grove Base Shield) 
- * to the Pin 1 on Breakout#1 (Grosse Tête). Futhermore, connect the 3v3 Pin and 
+ * For the connection to the Intel Joule connect the Pin 4 (Grove Base Shield) 
+ * to the Pin 1 on Breakout#1 (Intel Joule). Futhermore, connect the 3v3 Pin and 
  * GND Pin (Grove Base Shield)  to Pin 40 on Breakout#1 and Pin 1 on Breakout#2 
- * (Grosse Tête).
+ * (Intel Joule).
  */
 
 #include <mraa.hpp>
