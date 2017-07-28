@@ -21,7 +21,11 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
+
+ /**
+  * TODO use a platform with GPIO capabilities and an onboard LED
+ */
+
 #include <mraa.hpp>
 
 #include <iostream>
@@ -29,31 +33,11 @@
 
 int main()
 {
-	// select onboard LED pin based on the platform type
-	// create a GPIO object from MRAA using it
-	mraa::Platform platform = mraa::getPlatformType();
-	mraa::Gpio* d_pin = NULL;
-	switch (platform) {
-		case mraa::INTEL_GALILEO_GEN1:
-			d_pin = new mraa::Gpio(3, true, true);
-			break;
-		case mraa::INTEL_GALILEO_GEN2:
-			d_pin = new mraa::Gpio(13, true, false);
-			break;
-		case mraa::INTEL_EDISON_FAB_C:
-			d_pin = new mraa::Gpio(13, true, false);
-			break;
-		case mraa::INTEL_JOULE_EXPANSION:
-			d_pin = new mraa::Gpio(100, true, false);
-			break;
-		default:
-			std::cerr << "Unsupported platform, exiting" << std::endl;
-			return mraa::ERROR_INVALID_PLATFORM;
-	}
-	if (d_pin == NULL) {
-		std::cerr << "Can't create mraa::Gpio object, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
-	}
+  //TODO Change the GPIO to one that matches your platform
+	// Intel Galileo Gen 2 = 13
+	// Intel Edison = 13
+	// Intel Joule with expansion board = 100
+  mraa::Gpio* d_pin = new mraa::Gpio(13, true, false);;
 
 	// set the pin as output
 	if (d_pin->dir(mraa::DIR_OUT) != mraa::SUCCESS) {

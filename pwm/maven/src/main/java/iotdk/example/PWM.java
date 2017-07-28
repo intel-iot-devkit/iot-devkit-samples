@@ -26,20 +26,12 @@
  */
 
 /**
- * @file
- * @ingroup grove
- * @brief API to Pulse Width Modulation
- *
  * Demonstrate how to use PWM with an output pin using the MRAA library.
  * If the output is connected to a led, its intensity, as perceived by the human
  * eye, will vary depending on the duty cycle.
  * A suitable part to use this example with in the Grove Starter Kit is the LED.
  *
- * @hardware - digital out: output connected to digital pin 6 (Grove Base Shield Port D6)
- *
- * @req mraa.jar
- *
- * @date 15/06/2016
+ * TODO use a platform with PWM capabilities
  */
 package iotdk.example;
 
@@ -51,16 +43,6 @@ import mraa.mraa;
 public class PWM {
 
   public static void main(String[] args) {
-    // check that we are running on Galileo or Edison
-    Platform platform = mraa.getPlatformType();
-    if (platform != Platform.INTEL_GALILEO_GEN1 &&
-        platform != Platform.INTEL_GALILEO_GEN2 &&
-        platform != Platform.INTEL_EDISON_FAB_C &&
-        platform != Platform.MRAA_INTEL_JOULE_EXPANSION) {
-      System.err.println("Unsupported platform, exiting");
-      return;
-    }
-
     // create a PWM object from MRAA using pin 6
     // note that not all digital pins can be used for PWM, the available ones
     // are usually marked with a ~ on the board's silk screen

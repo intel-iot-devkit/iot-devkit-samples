@@ -67,6 +67,8 @@
  * - to close completely the courtain 2 stepper motor's full revolutions are
  *   needed;
  * - lux range in [0-60].
+ *
+ * TODO: Use a platform with Analog Input, I2C and GPIO capabilities
  */
 package iotdk.example;
 
@@ -248,15 +250,6 @@ public class AutomaticCurtain {
   }
 
   public static void main(String[] args) {
-    // check that we are running on Galileo or Edison
-    Platform platform = mraa.getPlatformType();
-    if (platform != Platform.INTEL_GALILEO_GEN1 &&
-        platform != Platform.INTEL_GALILEO_GEN2 &&
-        platform != Platform.INTEL_EDISON_FAB_C) {
-      System.err.println("Unsupported platform, exiting");
-      return;
-    }
-
     // Starting state for the system
     State status = State.CONFIG;
 

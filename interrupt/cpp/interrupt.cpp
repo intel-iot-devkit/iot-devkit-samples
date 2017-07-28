@@ -24,10 +24,6 @@
  */
 
 /**
- * @file
- * @ingroup grove 
- * @brief ISR, interrupt service routine
- * 
  * Demonstrate how to react on an external event with an ISR (Interrupt Service
  * Routine), which will run independently of the main program flow using the
  * MRAA library.
@@ -36,9 +32,9 @@
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor,
  * connected to digital pin 4 (Grove Base Shield Port D4)
  *
- * @date 29/09/2015
+ * TODO Use a platform with GPIO Interrupt capabilities
  */
- 
+
 #include <mraa.hpp>
 
 #include <iostream>
@@ -54,15 +50,6 @@ void interrupt(void * args) {
 
 int main()
 {
-	// check that we are running on Galileo or Edison
-	mraa::Platform platform = mraa::getPlatformType();
-	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
-			(platform != mraa::INTEL_GALILEO_GEN2) &&
-			(platform != mraa::INTEL_EDISON_FAB_C)) {
-		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return mraa::ERROR_INVALID_PLATFORM;
-	}
-
 	// create a GPIO object from MRAA using pin 4
 	mraa::Gpio* d_pin = new mraa::Gpio(4);
 	if (d_pin == NULL) {

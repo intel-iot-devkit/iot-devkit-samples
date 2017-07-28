@@ -39,7 +39,7 @@
  * the movement of the sun, directing it towards the maximum light radiated
  * during the day using the maximum light intensity detected by two light
  * sensor placed parallel to each other.\n
- * The idea is to compute the sensors average light in a calibration step and 
+ * The idea is to compute the sensors average light in a calibration step and
  * use this number to move motor according to the movement of light.
  *
  * Hhardware Sensors used:\n
@@ -56,6 +56,7 @@
  *   -- Vcc ->  5V (Vcc)\n
  *   -- Vm  ->  NC (Not Connected)
  *
+ * TODO use a platform with I2C, Analog and GPIO capabilities
  */
 
 using namespace std;
@@ -148,14 +149,6 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
 }
 
 int main() {
-  // Check that we are running on Galileo or Edison
-  mraa::Platform platform = mraa::getPlatformType();
-  if ((platform != mraa::INTEL_GALILEO_GEN1)
-      && (platform != mraa::INTEL_GALILEO_GEN2)
-      && (platform != mraa::INTEL_EDISON_FAB_C)) {
-    std::cerr << "Unsupported platform, exiting" << std::endl;
-    return mraa::ERROR_INVALID_PLATFORM;
-  }
 
   // LCD screen object (the lcd is connected to I2C port, bus 0)
   upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(0);

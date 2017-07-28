@@ -1,4 +1,4 @@
 {
   "main": "automatic-curtain.cpp",
-  "ldflags": "-lmraa -lupm-i2clcd -lupm-grove -lupm-uln200xa"
+  "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove -lupm-uln200xa"
 }

@@ -23,12 +23,14 @@
  */
 
 /**
-* 
+*
  * Demonstrate how to read an analog voltage value from an input pin using the
  * MRAA library, any sensor that outputs a variable voltage can be used with
  * this example code.
  * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
  * Sensor, Sound Sensor, Temperature Sensor. Connected to A0
+ * TODO Use a platform with analog input capabilities. Intel Galileo, Edison
+ * for instnace
  */
 
 #include <mraa.hpp>
@@ -38,15 +40,6 @@
 
 int main()
 {
-	// check that we are running on Galileo or Edison
-	mraa_platform_t platform = mraa_get_platform_type();
-	if ((platform != MRAA_INTEL_GALILEO_GEN1) &&
-			(platform != MRAA_INTEL_GALILEO_GEN2) &&
-			(platform != MRAA_INTEL_EDISON_FAB_C)) {
-		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return MRAA_ERROR_INVALID_PLATFORM;
-	}
-
 	// create an analog input object from MRAA using pin A0
 	mraa::Aio* a_pin = new mraa::Aio(0);
 	if (a_pin == NULL) {

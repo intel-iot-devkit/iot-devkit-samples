@@ -41,6 +41,8 @@
  * GUVA-S12D UV sensor to the Grove Base Shield port A2\n
  * Grove Dry-Reed Relay connected to the Grove Base Shield Port D2\n
  * Jhd1313m1 LCD connected to any I2C on the Grove Base Shield
+ *
+ * TODO Use a platform that has I2C, Analog and GPIO capabilities
  */
 
 /*
@@ -129,15 +131,6 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
 }
 
 int main() {
-  // Check that we are running on Galileo or Edison
-  mraa::Platform platform = mraa::getPlatformType();
-  if ((platform != mraa::INTEL_GALILEO_GEN1)
-      && (platform != mraa::INTEL_GALILEO_GEN2)
-      && (platform != mraa::INTEL_EDISON_FAB_C)) {
-    std::cerr << "Unsupported platform, exiting" << std::endl;
-    return mraa::ERROR_INVALID_PLATFORM;
-  }
-
   // Moisture sensor connected to A0 (analog in)
   upm::GroveMoisture* moisture_sensor = new upm::GroveMoisture(0);
 

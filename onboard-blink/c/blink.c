@@ -22,6 +22,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+ /**
+  * TODO use a platform with GPIO capabilities and an onboard LED
+	*/
+
 #include <mraa.h>
 
 #include <stdio.h>
@@ -29,27 +33,12 @@
 
 int main()
 {
-	// select onboard LED pin based on the platform type
-	// create a GPIO object from MRAA using it
-	mraa_platform_t platform = mraa_get_platform_type();
-	mraa_gpio_context d_pin = NULL;
-	switch (platform) {
-		case MRAA_INTEL_GALILEO_GEN1:
-			d_pin = mraa_gpio_init_raw(3);
-			break;
-		case MRAA_INTEL_GALILEO_GEN2:
-			d_pin = mraa_gpio_init(13);
-			break ;
-		case MRAA_INTEL_EDISON_FAB_C:
-			d_pin = mraa_gpio_init(13);
-			break;
-		case MRAA_INTEL_JOULE_EXPANSION:
-			d_pin = mraa_gpio_init(100);
-			break;
-		default:
-			fprintf(stderr, "Unsupported platform, exiting");
-			return MRAA_ERROR_INVALID_PLATFORM;
-	}
+	//TODO Change the GPIO to one that matches your platform
+	// Intel Galileo Gen 2 = 13
+	// Intel Edison = 13
+	// Intel Joule with expansion board = 100
+	mraa_gpio_context d_pin = mraa_gpio_init(13);
+
 	if (d_pin == NULL) {
 		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting");
 		return MRAA_ERROR_UNSPECIFIED;

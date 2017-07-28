@@ -33,19 +33,11 @@
  * eye, will vary depending on the duty cycle.
  * A suitable part to use this example with in the Grove Starter Kit is the LED,
  * connected to digital pin 6 (Grove Base Shield Port D6).
+ *
+ * TODO use a platform with PWM capabilities
  */
 int main()
 {
-	// check that we are running on Galileo or Edison or Joule
-	mraa::Platform platform = mraa::getPlatformType();
-	if ((platform != mraa::INTEL_GALILEO_GEN1)
-	    && (platform != mraa::INTEL_GALILEO_GEN2)
-	    && (platform != mraa::INTEL_EDISON_FAB_C)
-	    && (platform != mraa::INTEL_JOULE_EXPANSION)) {
-	  std::cerr << "Unsupported platform, exiting" << std::endl;
-	  return mraa::ERROR_INVALID_PLATFORM;
-	}
-
 	// create a GPIO object from MRAA using pin 6
 	// note that not all digital pins can be used for PWM, the available ones
 	// are usually marked with a ~ on the board's silk screen
