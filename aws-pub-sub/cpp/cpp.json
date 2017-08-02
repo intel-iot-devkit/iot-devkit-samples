@@ -1,0 +1,5 @@
+{
+    "main": "PubSub.cpp",
+    "cflags": "-std=c++0x -I/workspace/${ProjName}/src/include",
+    "ldflags": "-laws-iot-sdk-cpp -lssl -lcrypto -lpthread"
+}
