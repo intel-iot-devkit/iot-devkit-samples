@@ -56,7 +56,7 @@
 #include <yg1006.hpp>
 #include <unistd.h>
 #include <buzzer.hpp>
-#include <buzzer_tones.hpp>
+#include <buzzer_tones.h>
 
 #include "BluemixFDAppClient.hpp"
 #include "BluemixFDDeviceClient.hpp"
