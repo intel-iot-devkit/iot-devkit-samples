@@ -1,5 +1,0 @@
-{
-  "ldflags": "-lmraa -liothub_client -liothub_client_mqtt_transport -laziotsharedutil -lupm-grove",
-  "cxxflags": "-std=c++11",
-  "main": "main.cpp"
-}
