@@ -1,0 +1,31 @@
+{
+   "name":"Azure* IoT Hub with MQTT",
+   "category":"Cloud",
+   "tag":"cloud",
+   "description":"This project template allow you to test the Microsoft* Azure* IoT Hub.\nIt will read the temperature from the Grove Temperature Sensor then send it to the Azure* IoT Hub.\n\nFirst steps:\nCreate an IoT HuB following the instruction in https://github.com/Azure/azure-iot-sdks/blob/master/doc/setup_iothub.md. \nCreate a connection string for a device following the instruction in https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md.\nRun the example and check the results inside your Azure* IoT Hub\n\n* Other names and brands may be claimed as the property of others.",
+   "date":"2016-11-04",
+   "platform":{
+      "hwreq":[
+         "Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0"
+      ],
+      "libs":[
+         "mraa",
+         "upm",
+         "Azure IoT SDK"
+      ],
+      "compatible":[
+         "Edison",
+         "MinnowBoard MAX",
+         "Gateway 32-Bit",
+         "Gateway 64-Bit"
+      ],
+      "os": ["yocto", "wrs_32", "wrs_64"]
+   },
+   "additional_fields":[
+      {
+         "id":"connectionString",
+         "name":"Connection String",
+         "description":"The device connection string as defined inside your Azure* IoT Hub"
+      }
+   ]
+}
