@@ -1,8 +1,8 @@
-# AWS(c) IoT PubSub Sample
+# AWS IoT PubSub Sample
 
 
 ## Introduction
-This app is a version of AWS IoT C++ PubSub Sample, modified for ease of creating a new Intel(c) System Studio project.
+This app is a version of Amazon Web Services (AWS) IoT C++ PubSub Sample, modified for ease of creating a new Intel(R) System Studio project.
 
 ## What it is
 PubSub sample demonstrates data exchanges of a connected device (Thing) with AWS IoT cloud using the AWS IoT C++ SDK.
