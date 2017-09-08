@@ -2,7 +2,7 @@
    "name":"Azure* IoT Hub with MQTT",
    "category":"Cloud",
    "tag":"cloud",
-   "description":"This project template allow you to test the Microsoft* Azure* IoT Hub.\nIt will read the temperature from the Grove Temperature Sensor then send it to the Azure* IoT Hub.\n\nFirst steps:\nCreate an IoT hub following the instruction in https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-java-java-getstarted. \nCreate a connection string for a device following the instruction in https://aka.ms/manageiothub.\nRun the example and check the results inside your Azure* IoT Hub\n\n* Other names and brands may be claimed as the property of others.",
+   "description":"This project template allow you to test the Microsoft* Azure* IoT Hub.\nIt will read the temperature from the Grove Temperature Sensor then send it to the Azure* IoT Hub.\n\nFirst steps:\nCreate an IoT hub following the instruction in https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal. \nCreate a connection string for a device following the instruction in https://aka.ms/manageiothub.\nRun the example and check the results inside your Azure* IoT Hub\n\n* Other names and brands may be claimed as the property of others.",
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
