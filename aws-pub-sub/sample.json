@@ -1,0 +1,32 @@
+{
+    "name": "AWS-IoT-PubSub",
+    "category": "Cloud",
+    "tag": "cloud",
+    "date": "2017-07-27",
+    "description": "An application based on Amazon* AWS IoT C++ SDK 'PubSub' sample app. See the README.md file in the GitHub repo for this project before continuing.",
+    "platform": {
+        "libs": ["AWS IoT C++ SDK"]
+    },
+    "additional_fields":[
+        {
+	    "id":"endpoint_iss",
+            "name":"AWS IoT endpoint",
+            "description":"AWS IoT endpoint for your project"
+        },
+        {
+	    "id":"root_ca_path_iss",
+            "name":"Root CA File Path",
+            "description":"Full Path to Your Root CA file, e.g. /etc/aws-certs/rootCA.crt"
+        },
+	    {
+            "id":"client_cert_path_iss",
+            "name":"Client Certificate File Path",
+            "description":"Full Path to Client Certificate File, e.g. /etc/aws-certs/cert.pem"
+      	},
+      	{
+            "id":"client_key_path_iss",
+            "name":"Client Private Key File Path",
+            "description":"Full Path to your Private Key File, e.g. /etc/aws-certs/privkey.pem"
+      	}
+    ]
+}

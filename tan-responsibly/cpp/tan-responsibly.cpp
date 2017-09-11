@@ -40,6 +40,8 @@
  * Grove Temperature Sensor connected to the Grove Base Shield Port A1\n
  * Grove Buzzer connected to the Grove Base Shield Port D2\n
  * Jhd1313m1 LCD connected to any I2C on the Grove Base Shield
+ *
+ * TODO use a platform with I2C, Analog and GPIO capabilities
  */
 
 /*
@@ -127,15 +129,6 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
 }
 
 int main() {
-  // Check that we are running on Galileo or Edison
-  mraa::Platform platform = mraa::getPlatformType();
-  if ((platform != mraa::INTEL_GALILEO_GEN1)
-      && (platform != mraa::INTEL_GALILEO_GEN2)
-      && (platform != mraa::INTEL_EDISON_FAB_C)) {
-    std::cerr << "Unsupported platform, exiting" << std::endl;
-    return mraa::ERROR_INVALID_PLATFORM;
-  }
-
   // UV sensor connected to A0 (analog in)
   upm::GUVAS12D *UV_sensor = new upm::GUVAS12D(0);
 

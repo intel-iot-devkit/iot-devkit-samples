@@ -37,6 +37,8 @@
  * Hardware Sensors used:\n
  * Grove Sound Sensor connected to the Grove Base Shield Port A0\n
  * Grove Led Bar connected to the Grove Base Shield Port D2
+ *
+ * TODO use a platform with Analog and GPIO capabilities
  */
 
 #define SOUND_MIN    50
@@ -56,16 +58,6 @@
  */
 
 int main(int argc, char **argv) {
-
-  // Check that we are running on Galileo or Edison
-  mraa::Platform platform = mraa::getPlatformType();
-  if ((platform != mraa::INTEL_GALILEO_GEN1)
-      && (platform != mraa::INTEL_GALILEO_GEN2)
-      && (platform != mraa::INTEL_EDISON_FAB_C)) {
-    std::cerr << "Unsupported platform, exiting" << std::endl;
-    return mraa::ERROR_INVALID_PLATFORM;
-  }
-
   // Threshold context for the sound sensor
   thresholdContext ctx;
 

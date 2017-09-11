@@ -25,9 +25,6 @@
  */
 
 /**
- * @file
- * @ingroup grove
- * @brief Analog Input
  *
  * Demonstrate how to read an analog voltage value from an input pin using the
  * MRAA library, any sensor that outputs a variable voltage can be used with
@@ -35,11 +32,7 @@
  * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
  * Sensor, Sound Sensor, Temperature Sensor.
  *
- * @hardware Analog sensor connected to pin A0 (Grove Base Shield Port A0)
- *
- * @req mraa.jar
- *
- * @date 19/08/2015
+ * TODO: Use platform with Analog capabilities.
  */
 package iotdk.example;
 
@@ -50,16 +43,6 @@ import mraa.mraa;
 public class AnalogIn {
 
     public static void main(String[] args) {
-
-        // check that we are running on Galileo or Edison
-        Platform platform = mraa.getPlatformType();
-        if (platform != Platform.INTEL_GALILEO_GEN1 &&
-                platform != Platform.INTEL_GALILEO_GEN2 &&
-                platform != Platform.INTEL_EDISON_FAB_C &&
-                platform != Platform.MRAA_INTEL_JOULE_EXPANSION) {
-            System.err.println("Unsupported platform, exiting");
-            return;
-        }
 
         // create an analog input object from MRAA using pin A0
         Aio pin = new Aio(0);

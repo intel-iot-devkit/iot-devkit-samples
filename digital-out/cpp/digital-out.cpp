@@ -27,6 +27,7 @@
  * library.
  * A suitable part to use this example with in the Grove Starter Kit is the LED.
  * Output connected to digital pin 8 (Grove Base Shield Port D8)
+ * TODO Use a platform with GPIO capabilities
  */
 
 #include <mraa.hpp>
@@ -36,16 +37,6 @@
 
 int main()
 {
-	// check that we are running on Galileo or Edison or Joule
-	mraa::Platform platform = mraa::getPlatformType();
-	if((platform != mraa::INTEL_GALILEO_GEN1) &&
-			(platform != mraa::INTEL_GALILEO_GEN2) &&
-			(platform != mraa::INTEL_EDISON_FAB_C) &&
-	   		(platform != mraa::INTEL_JOULE_EXPANSION)) {
-		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return mraa::ERROR_INVALID_PLATFORM;
-	}
-
 	// create a gpio object from MRAA using pin 8
 	mraa::Gpio* d_pin = new mraa::Gpio(8);
 	if(d_pin == NULL) {

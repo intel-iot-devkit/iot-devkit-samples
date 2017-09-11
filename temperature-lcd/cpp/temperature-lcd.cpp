@@ -26,7 +26,7 @@
  * This project template includes the starting code needed
  * to use the various sensors that come with the Grove Starter Kit.
  * Update the temperature values and reflect the changes on the LCD.
- * 
+ *
  * Hardware:
  * - Grove LED (GroveLed) connected to the Grove Base Shield Port D3
  * - Grove Button (GroveButton) connected to the Grove Base Shield Port D4
@@ -40,7 +40,8 @@
  * - record and display MIN and MAX temperatures
  * - reset MIN and MAX values if the button is being pushed
  * - blink the led to show the temperature was measured and data updated
-
+ *
+ * TODO use a platform with I2C, Analog and GPIO capabilities
  */
 
 #include "mraa.hpp"
@@ -120,15 +121,6 @@ void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* bu
 
 int main()
 {
-	// check that we are running on Galileo or Edison
-	mraa::Platform platform = mraa::getPlatformType();
-	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
-			(platform != mraa::INTEL_GALILEO_GEN2) &&
-			(platform != mraa::INTEL_EDISON_FAB_C)) {
-		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return mraa::ERROR_INVALID_PLATFORM;
-	}
-
 	// button connected to D4 (digital in)
 	upm::GroveButton* button = new upm::GroveButton(4);
 
