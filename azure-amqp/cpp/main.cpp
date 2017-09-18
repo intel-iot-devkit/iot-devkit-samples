@@ -47,9 +47,9 @@
  *
  * First steps:
  * - Create an IoT HuB following the instruction in
- * https://github.com/Azure/azure-iot-sdks/blob/master/doc/setup_iothub.md
+ * https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal
  * - Create a connection string for a device following the instruction in
- * https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md
+ * https://aka.ms/manageiothub
  * - Copy the connection string inside the "credentials.h" header
  * - Run the example and check the results inside your Azure* IoT Hub
  *
