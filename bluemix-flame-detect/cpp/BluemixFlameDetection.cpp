@@ -62,6 +62,9 @@
 #include "BluemixFDDeviceClient.hpp"
 using namespace std;
 
+// define the following if not using the sensor & buzzer
+//#define SIMULATE_DEVICES
+
 upm::Buzzer * buzzer;
 
 /*
@@ -72,8 +75,10 @@ upm::Buzzer * buzzer;
  */
 int detect_flame(Device_client * device_client, App_client * app_client)
 {
-	upm::YG1006 flameSensor = upm::YG1006(3);
 
+#ifndef SIMULATE_DEVICES
+	upm::YG1006 flameSensor = upm::YG1006(3);
+#endif
 	/* Code in this loop will run repeatedly
 	 */
 	for (;;) {
@@ -91,7 +96,10 @@ int detect_flame(Device_client * device_client, App_client * app_client)
 		}
 
 		// check for flames or similar light sources
-		bool flameDetected = flameSensor.flameDetected();
+		bool flameDetected = 0;
+#ifndef SIMULATE_DEVICES
+		flameDetected = flameSensor.flameDetected();
+#endif
 		if (flameDetected) {
 			printf("Flame or similar light source detected!\n");
 		} else {
@@ -109,6 +117,7 @@ int detect_flame(Device_client * device_client, App_client * app_client)
  */
 int fire_alert() {
 	printf("Fire alert called\n");
+#ifndef SIMULATE_DEVICES
 	if (buzzer == NULL) {
 		fprintf(stderr, "Buzzer not initialized");
 		return mraa::ERROR_INVALID_HANDLE;
@@ -117,27 +126,33 @@ int fire_alert() {
 	buzzer->setVolume(1.0);
 	// fire alert
 	buzzer->playSound(BUZZER_MI, 400000);
+#endif
 	return mraa::SUCCESS;
 }
 
 int main()
 {
+
 	// check that we are running on Galileo or Edison
 	mraa::Platform platform = mraa::getPlatformType();
 	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
 			(platform != mraa::INTEL_GALILEO_GEN2) &&
 			(platform != mraa::INTEL_EDISON_FAB_C)) {
-		fprintf(stderr, "Unsupported platform, exiting");
-		return mraa::ERROR_INVALID_PLATFORM;
+    	char message[] ="This sample uses the MRAA/UPM library for I/O access, "
+        		"you are running it on an unrecognized platform. "
+				"You may need to modify the MRAA/UPM initialization code to "
+				"ensure it works properly on your platform.\n\n";
+        printf("%s", message);
 	}
 
+#ifndef SIMULATE_DEVICES
 	// initialize the buzzer
 	buzzer = new upm::Buzzer(5);
 	if (buzzer == NULL) {
 		fprintf(stderr, "Buzzer not initialized");
 		return mraa::ERROR_INVALID_HANDLE;
 	}
-
+#endif
 	// initialize the device client
 	Device_client device_client = Device_client(fire_alert);
 	int rc = device_client.connect();
@@ -168,7 +183,9 @@ int main()
 	}
 
 	// start flame detection
+#ifndef SIMULATE_DEVICES
 	detect_flame(&device_client, &app_client);
+#endif
 	// cleanup the buzzer
 	delete buzzer;
 	return mraa::SUCCESS;

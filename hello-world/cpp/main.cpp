@@ -22,9 +22,12 @@
  */
 
 #include <iostream>
- 
+#include <unistd.h>
+
 int main()
 {
-	std::cout << "Hello, Internet of Things!" << std::endl;
+	std::cout<< "Hello, Internet of Things!" << std::endl;
+	sleep(1);
+	std::cout<< "Bye!" << std::endl;
 	return 0;
 }

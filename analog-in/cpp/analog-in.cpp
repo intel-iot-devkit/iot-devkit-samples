@@ -30,7 +30,7 @@
  * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
  * Sensor, Sound Sensor, Temperature Sensor. Connected to A0
  * TODO Use a platform with analog input capabilities. Intel Galileo, Edison
- * for instnace
+ * for instanace
  */
 
 #include <mraa.hpp>

@@ -19,7 +19,7 @@
          "Gateway 32-Bit",
          "Gateway 64-Bit"
       ],
-      "os": ["yocto", "wrs_32", "wrs_64"]
+      "os": ["yocto", "wrs_32"]
    },
    "additional_fields":[
       {
