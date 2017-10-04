@@ -1,6 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -30,7 +30,7 @@
  * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
  * Sensor, Sound Sensor, Temperature Sensor. Connected to A0
  * TODO Use a platform with analog input capabilities. Intel Galileo, Edison
- * for instanace
+ * for instance
  */
 
 #include <mraa.hpp>

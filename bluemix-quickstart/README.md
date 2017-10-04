@@ -2,8 +2,7 @@
 
 
 ## Introduction
-This sample demonstrates using IBM® Bluemix™ to store information gathered be a sensor in a 
-clould service.
+This sample demonstrates using IBM® Bluemix™ to stream information gathered by a connected sensor to a cloud service.
 
 
 ## Hardware requirements

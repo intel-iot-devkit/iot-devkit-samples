@@ -2,8 +2,7 @@
 
 
 ## Introduction
-This sample demonstrates using IBM® Bluemix™ to store information gathered be a sensor in a 
-clould service.
+This sample demonstrates using IBM® Bluemix™ to stream information gathered by a connected sensor to a cloud service.
 
 
 ## Hardware requirements
@@ -27,7 +26,7 @@ You can build the paho mqtt library from source, or use [this link](https://www.
 
 Refer to [this page](https://console.bluemix.net/) to get started on IBM®  Bluemix™.
 
-Create a new project on Intel(R) System Studio. After choosing the Bluemix Quickstart sample, it'll ask you for a 'Device ID'. Enter something so you can identify messages from your device in Bluemix console.
+Create a new project on Intel(R) System Studio. After choosing the Bluemix Quickstart sample, it'll ask you for a 'Device ID'. Enter a string of your choosing as ID to identify messages from your device in Bluemix console.
 
 ## Note
 
