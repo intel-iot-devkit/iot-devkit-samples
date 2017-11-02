@@ -40,7 +40,8 @@ int main()
 {
 	
 	mraa_gpio_context d_pin = mraa_gpio_init(13);
-
+	//Uncomment this if using the Grove PI shield
+	mraa_add_subplatform(MRAA_GROVEPI, "0");
 	if (d_pin == NULL) {
 		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting");
 		return MRAA_ERROR_UNSPECIFIED;
