@@ -1,6 +1,6 @@
 /*
  * Author: Jessica Gomez <jessica.gomez.hernandez@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,31 +22,63 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
- /**
-  * TODO use a platform with GPIO capabilities and an onboard LED
-	*/
+/* On-board LED Blink
+ * Turns the on-board LED on for one second, then off for one second, repeatedly.
+ */
 
 #include <mraa.h>
-
+#include <mraa/common.h>
 #include <stdio.h>
 #include <unistd.h>
 
+// Define the following if using a Grove Pi Shield
+#define USING_GROVE_PI_SHIELD
+
 int main()
 {
-	//TODO Change the GPIO to one that matches your platform
-	// Intel Galileo Gen 2 = 13
-	// Intel Edison = 13
-	// Intel Joule with expansion board = 100
-	mraa_gpio_context d_pin = mraa_gpio_init(13);
+	int gpioPin = 13;
+	char unknownPlatformMessage[] ="This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
 
+	// check which board we are running on
+	mraa_platform_t platform = mraa_get_platform_type();
+	switch (platform) {
+		case MRAA_UP2:
+		case MRAA_UP:
+		case MRAA_INTEL_EDISON_FAB_C:
+		case MRAA_INTEL_GALILEO_GEN2:
+			break;
+		case MRAA_INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbut
+			gpioPin = 104;
+			break;
+		case MRAA_INTEL_JOULE_EXPANSION:
+			gpioPin = 101;
+			break;
+		default:
+	        fprintf(stderr, "%s", unknownPlatformMessage);
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	gpioPin += 512;
+	mraa_add_subplatform(MRAA_GROVEPI, "0");
+#endif
+	mraa_gpio_context d_pin = mraa_gpio_init(gpioPin);
+	// check if ruuning as root
+	int euid = geteuid();
+	if (euid) {
+		fprintf(stderr, "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n");
+	}
 	if (d_pin == NULL) {
-		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting");
+		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting.\n");
 		return MRAA_ERROR_UNSPECIFIED;
 	}
 
 	// set the pin as output
 	if (mraa_gpio_dir(d_pin, MRAA_GPIO_OUT) != MRAA_SUCCESS) {
-		fprintf(stderr, "Can't set digital pin as output, exiting");
+		fprintf(stderr, "Can't set digital pin as output, exiting.");
 		return MRAA_ERROR_UNSPECIFIED;
 	};
 
