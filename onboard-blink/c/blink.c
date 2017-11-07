@@ -35,12 +35,13 @@
 #include <mraa.h>
 #include <stdio.h>
 #include <unistd.h>
+//Change the pin number according to board
+#define LED_GPIO 13
 
 int main()
 {
-	
-	mraa_gpio_context d_pin = mraa_gpio_init(13);
-	//Uncomment this if using the Grove PI shield
+	mraa_gpio_context d_pin = mraa_gpio_init(LED_GPIO);
+	//Comment this if using the Grove PI shield
 	mraa_add_subplatform(MRAA_GROVEPI, "0");
 	if (d_pin == NULL) {
 		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting");
