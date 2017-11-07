@@ -1,6 +1,6 @@
 /*
  * Author: Jessica Gomez <jessica.gomez.hernandez@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,23 +22,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
- /**
-  * TODO use a platform with GPIO capabilities and an onboard LED
-	*/
-
+/* On-board LED Blink
+ * Turns the on-board LED on for one second, then off for one second, repeatedly.
+ * Note: You need to change the LED_GPIO below to the GPIO pin number that matches your platform
+ * UP2 Board - pin 13
+ * UP2 Board with Grove Pi Shield - Port offset by 512 i.e. 512 + 3 for D3 will be 515. 
+ * Minnowboard Turbot - pin 104
+ * Intel Galileo Gen 2 - pin 13
+ * Intel Edison - pin 13
+ * Intel Joule with expansion board - pin 101
+*/
 #include <mraa.h>
-
 #include <stdio.h>
 #include <unistd.h>
+//Change the pin number according to board
+#define LED_GPIO 13
 
 int main()
 {
-	//TODO Change the GPIO to one that matches your platform
-	// Intel Galileo Gen 2 = 13
-	// Intel Edison = 13
-	// Intel Joule with expansion board = 100
-	mraa_gpio_context d_pin = mraa_gpio_init(13);
-
+	mraa_gpio_context d_pin = mraa_gpio_init(LED_GPIO);
+	//Comment this if using the Grove PI shield
+	mraa_add_subplatform(MRAA_GROVEPI, "0");
 	if (d_pin == NULL) {
 		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting");
 		return MRAA_ERROR_UNSPECIFIED;
