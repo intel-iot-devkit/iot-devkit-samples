@@ -78,7 +78,7 @@ int main()
 
 	// set the pin as output
 	if (mraa_gpio_dir(d_pin, MRAA_GPIO_OUT) != MRAA_SUCCESS) {
-		fprintf(stderr, "Can't set digital pin as output, exiting.");
+		fprintf(stderr, "Can't set digital pin as output, exiting.\n");
 		return MRAA_ERROR_UNSPECIFIED;
 	};
 
