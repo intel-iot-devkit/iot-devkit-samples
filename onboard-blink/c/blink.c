@@ -67,7 +67,7 @@ int main()
 	mraa_add_subplatform(MRAA_GROVEPI, "0");
 #endif
 	mraa_gpio_context d_pin = mraa_gpio_init(gpioPin);
-	// check if ruuning as root
+	// check if running as root
 	int euid = geteuid();
 	if (euid) {
 		fprintf(stderr, "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
