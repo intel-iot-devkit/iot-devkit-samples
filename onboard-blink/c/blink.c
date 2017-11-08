@@ -46,6 +46,10 @@ int main()
 	mraa_platform_t platform = mraa_get_platform_type();
 	switch (platform) {
 		case MRAA_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			break;
+#endif
 		case MRAA_UP:
 		case MRAA_INTEL_EDISON_FAB_C:
 		case MRAA_INTEL_GALILEO_GEN2:
@@ -60,7 +64,6 @@ int main()
 	        fprintf(stderr, "%s", unknownPlatformMessage);
 	}
 #ifdef USING_GROVE_PI_SHIELD
-	gpioPin += 512;
 	mraa_add_subplatform(MRAA_GROVEPI, "0");
 #endif
 	mraa_gpio_context d_pin = mraa_gpio_init(gpioPin);
