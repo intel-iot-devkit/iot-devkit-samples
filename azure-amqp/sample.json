@@ -13,12 +13,6 @@
          "upm",
          "Azure IoT SDK"
       ],
-      "compatible":[
-         "Edison",
-         "MinnowBoard MAX",
-         "Gateway 32-Bit",
-         "Gateway 64-Bit"
-      ],
       "os": ["yocto", "wrs_32"]
    },
    "additional_fields":[

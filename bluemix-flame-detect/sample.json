@@ -13,12 +13,6 @@
          "mraa",
          "upm",
          "paho"
-      ],
-      "compatible":[
-         "Edison",
-         "MinnowBoard MAX",
-         "Gateway 32-Bit",
-         "Gateway 64-Bit"
       ]
    },
    "additional_fields":[

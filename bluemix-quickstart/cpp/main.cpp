@@ -43,7 +43,7 @@ extern "C" {
     
     const char * topic = "iot-2/evt/status/fmt/json";
     const char * clientID = strcat(
-            strcpy(new char[50], "d:quickstart:iotquick-edison:"), DEVICE_ID);
+            strcpy(new char[50], "d:quickstart:iotquick-my-iot-board:"), DEVICE_ID);
     // To authenticate with a token, set the username to "use-token-auth" and the
     // password to the token which you get when you register your device in IBM Bluemix.
     const char * username = NULL;
