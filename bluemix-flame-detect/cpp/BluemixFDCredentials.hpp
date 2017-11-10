@@ -34,8 +34,8 @@
 #define MQTT_DEFAULT_QOS 0
 
 // Credentials used to connect the application and device client
-#define BLUEMIX_FD_DEVICE_ID "edison"
-#define BLUEMIX_FD_DEVICE_TYPE "iotquick-edison"
+#define BLUEMIX_FD_DEVICE_ID "myIoTBoard"
+#define BLUEMIX_FD_DEVICE_TYPE "iotquick-my-iot-board"
 #define BLUEMIX_FD_ORGANIZATION_ID "quickstart"
 // Fire alert command id
 #define BLUEMIX_FD_FIRE_ALERT_CMD_ID "fireAlert"

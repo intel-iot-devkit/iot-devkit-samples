@@ -56,7 +56,7 @@
  *   -- Vcc ->  5V (Vcc)\n
  *   -- Vm  ->  NC (Not Connected)
  *
- * TODO use a platform with I2C, Analog and GPIO capabilities
+ * Use a platform with I2C, Analog and GPIO capabilities
  */
 
 using namespace std;

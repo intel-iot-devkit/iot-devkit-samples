@@ -33,7 +33,7 @@
  * library.
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor.
  *
- * TODO Use a platform with GPIO capabilities
+ * Use a platform with GPIO capabilities
  */
 package iotdk.example;
 

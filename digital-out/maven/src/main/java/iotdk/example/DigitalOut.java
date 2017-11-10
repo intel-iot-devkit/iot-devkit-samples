@@ -32,7 +32,7 @@
  * Demonstrate how to write a digital value to an output pin using the MRAA
  * library.
  * A suitable part to use this example with in the Grove Starter Kit is the LED.
- * TODO Use a platform with GPIO capabilities
+ * Use a platform with GPIO capabilities
  */
 package iotdk.example;
 

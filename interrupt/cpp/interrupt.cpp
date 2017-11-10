@@ -32,7 +32,7 @@
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor,
  * connected to digital pin 4 (Grove Base Shield Port D4)
  *
- * TODO Use a platform with GPIO Interrupt capabilities
+ * Use a platform with GPIO Interrupt capabilities
  */
 
 #include <mraa.hpp>

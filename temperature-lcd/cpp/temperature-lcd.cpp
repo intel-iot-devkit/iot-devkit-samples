@@ -41,7 +41,7 @@
  * - reset MIN and MAX values if the button is being pushed
  * - blink the led to show the temperature was measured and data updated
  *
- * TODO use a platform with I2C, Analog and GPIO capabilities
+ * Use a platform with I2C, Analog and GPIO capabilities
  */
 
 #include "mraa.hpp"

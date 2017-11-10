@@ -42,7 +42,7 @@
  * Grove Dry-Reed Relay connected to the Grove Base Shield Port D2\n
  * Jhd1313m1 LCD connected to any I2C on the Grove Base Shield
  *
- * TODO Use a platform that has I2C, Analog and GPIO capabilities
+ * Use a platform that has I2C, Analog and GPIO capabilities
  */
 
 /*

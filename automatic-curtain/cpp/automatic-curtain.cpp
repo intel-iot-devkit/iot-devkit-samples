@@ -65,7 +65,7 @@
  *   needed;
  * - lux range in [0-60].
  *
- * TODO: Use a platform with Analog Input, I2C and GPIO capabilities
+ *   Use a platform with Analog Input, I2C and GPIO capabilities
  */
 
 using namespace std;

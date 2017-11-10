@@ -33,7 +33,7 @@
  * Vcc or viceversa can be used with this example code.
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor.
  *
- * TODO Use a platform with GPIO Interrupt capabilities
+ * Use a platform with GPIO Interrupt capabilities
  */
 package iotdk.example;
 

@@ -38,7 +38,7 @@
  * - Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0
  * - Grove LCD (Jhd1313m1) connected to any I2C on the Grove Base Shield
  *
- *  TODO use a platfrom with I2C, Analog and GPIO capabilities
+ *  Use a platfrom with I2C, Analog and GPIO capabilities
  */
 package iotdk.example;
 

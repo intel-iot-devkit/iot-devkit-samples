@@ -31,7 +31,7 @@
  * eye, will vary depending on the duty cycle.
  * A suitable part to use this example with in the Grove Starter Kit is the LED.
  *
- * TODO use a platform with PWM capabilities
+ * Use a platform with PWM capabilities
  */
 package iotdk.example;
 
