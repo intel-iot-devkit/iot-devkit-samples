@@ -1,6 +1,6 @@
 /*
  * Author: Ivan De Cesaris <ivan.de.cesaris@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,32 +22,69 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * Demonstrate how to write a digital value to an output pin using the MRAA
- * library.
- * A suitable part to use this example with in the Grove Starter Kit is the LED.
- * Output connected to digital pin 8 (Grove Base Shield Port D8)
- * TODO Use a platform with GPIO capabilities
+/* Digital output
+ * Write values to a gpio digital output pin.
  */
 
 #include <mraa.hpp>
-
 #include <iostream>
 #include <unistd.h>
 
+// Define the following if using a Grove Pi Shield
+#define USING_GROVE_PI_SHIELD
+using namespace std;
+using namespace mraa;
+
 int main()
 {
-	// create a gpio object from MRAA using pin 8
-	mraa::Gpio* d_pin = new mraa::Gpio(8);
-	if(d_pin == NULL) {
-		std::cerr << "Can't create mraa::Gpio object, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+	int gpioPin = 13;
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			break;
+#endif
+		case INTEL_UP:
+		case INTEL_EDISON_FAB_C:
+		case INTEL_GALILEO_GEN2:
+			break;
+		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
+			gpioPin = 104;
+			break;
+		case INTEL_JOULE_EXPANSION:
+			gpioPin = 101;
+			break;
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
 	}
 
+	// create a GPIO object from MRAA for the pin	Gpio * d_pin = new Gpio (gpioPin);
+	Gpio* d_pin = new Gpio(gpioPin);
+	if (d_pin == NULL) {
+		cerr << "MRAA couldn't initialize GPIO, exiting." << endl;
+		return MRAA_ERROR_UNSPECIFIED;
+	}
 	// set the pin as output
-	if (d_pin->dir(mraa::DIR_OUT) != mraa::SUCCESS) {
-		std::cerr << "Can't set digital pin as output, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+	if (d_pin->dir(DIR_OUT) != SUCCESS) {
+		cerr << "Can't set digital pin as output, exiting" << endl;
+		return MRAA_ERROR_UNSPECIFIED;
 	}
 
 	// loop forever toggling the digital output every second
@@ -58,5 +95,5 @@ int main()
 		sleep(1);
 	}
 
-	return mraa::SUCCESS;
+	return SUCCESS;
 }

@@ -27,7 +27,6 @@
  */
 
 #include <mraa.hpp>
-#include <mraa/common.hpp>
 #include <iostream>
 #include <unistd.h>
 #include <string>
@@ -57,7 +56,7 @@ int main()
 		case INTEL_EDISON_FAB_C:
 		case INTEL_GALILEO_GEN2:
 			break;
-		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbut
+		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
 			gpioPin = 104;
 			break;
 		case INTEL_JOULE_EXPANSION:
@@ -77,7 +76,7 @@ int main()
 				"See the project's Readme for more info.\n\n";
 	}
 
-	// set the pin as output
+	// create the pin object
 	Gpio * d_pin = new Gpio (gpioPin);
 	if (d_pin == NULL) {
 		cerr << "MRAA couldn't initialize GPIO, exiting." << endl;

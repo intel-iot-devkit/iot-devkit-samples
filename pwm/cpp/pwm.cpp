@@ -1,6 +1,6 @@
 /*
  * Author: Jessica Gomez <jessica.gomez.hernandez@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,35 +22,53 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <mraa.hpp>
+/* PWM
+ * Write values to a gpio digital output pin.
+ */
 
+#include <mraa.hpp>
 #include <iostream>
 #include <unistd.h>
 
-/**
- * Demonstrate how to use PWM with an output pin using the MRAA library.
- * If the output is connected to a led, its intensity, as perceived by the human
- * eye, will vary depending on the duty cycle.
- * A suitable part to use this example with in the Grove Starter Kit is the LED,
- * connected to digital pin 6 (Grove Base Shield Port D6).
- *
- * TODO use a platform with PWM capabilities
- */
+using namespace std;
+using namespace mraa;
+
 int main()
 {
-	// create a GPIO object from MRAA using pin 6
+	int pwmPin = 33;
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+			break;
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+
 	// note that not all digital pins can be used for PWM, the available ones
 	// are usually marked with a ~ on the board's silk screen
-	mraa::Pwm* pwm_pin = new mraa::Pwm(6);
+	Pwm* pwm_pin = new Pwm(pwmPin);
 	if (pwm_pin == NULL) {
-		std::cerr << "Can't create mraa::Pwm object, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+		cerr << "Can't create mraa::Pwm object, exiting" << endl;
+		return MRAA_ERROR_UNSPECIFIED;
 	}
 
 	// enable PWM on the selected pin
-	if (pwm_pin->enable(true) != mraa::SUCCESS) {
-		std::cerr << "Cannot enable PWM on mraa::PWM object, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+	if (pwm_pin->enable(true) != SUCCESS) {
+		cerr << "Cannot enable PWM on mraa::PWM object, exiting" << endl;
+		return MRAA_ERROR_UNSPECIFIED;
 	}
 
 	// PWM duty_cycle value, 0.0 == 0%, 1.0 == 100%
@@ -71,5 +89,5 @@ int main()
 		}
 	}
 
-	return mraa::SUCCESS;
+	return SUCCESS;
 }

@@ -27,7 +27,6 @@
  */
 
 #include <mraa.h>
-#include <mraa/common.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -54,7 +53,7 @@ int main()
 		case MRAA_INTEL_EDISON_FAB_C:
 		case MRAA_INTEL_GALILEO_GEN2:
 			break;
-		case MRAA_INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbut
+		case MRAA_INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
 			gpioPin = 104;
 			break;
 		case MRAA_INTEL_JOULE_EXPANSION:
@@ -66,7 +65,6 @@ int main()
 #ifdef USING_GROVE_PI_SHIELD
 	mraa_add_subplatform(MRAA_GROVEPI, "0");
 #endif
-	mraa_gpio_context d_pin = mraa_gpio_init(gpioPin);
 	// check if running as root
 	int euid = geteuid();
 	if (euid) {
@@ -74,6 +72,8 @@ int main()
 				"The IO operations below might fail.\n"
 				"See the project's Readme for more info.\n\n");
 	}
+	// create the pin object
+	mraa_gpio_context d_pin = mraa_gpio_init(gpioPin);
 	if (d_pin == NULL) {
 		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting.\n");
 		return MRAA_ERROR_UNSPECIFIED;

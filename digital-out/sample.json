@@ -5,7 +5,7 @@
   "author": "Intel Corporation",
   "date": "2016-09-29",
   "platform" : {
-    "hwreq" : ["Output connected to digital pin 8 (Grove Base Shield Port D8)"],
+    "hwreq" : ["GPIO digital output pin"],
     "libs": ["mraa"]
   }
 }
