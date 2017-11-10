@@ -35,7 +35,7 @@
  * - Mobile Platform Kit
  * - 7.4 V (2-cell) LiPo Battery
  *
- * TODO use a platform with I2C, GPIO capabilities
+ * Use a platform with I2C, GPIO capabilities
  */
 
 #include <unistd.h>

@@ -38,7 +38,7 @@
  * Grove Sound Sensor connected to the Grove Base Shield Port A0\n
  * Grove Led Bar connected to the Grove Base Shield Port D2
  *
- * TODO use a platform with Analog and GPIO capabilities
+ * Use a platform with Analog and GPIO capabilities
  */
 
 #define SOUND_MIN    50

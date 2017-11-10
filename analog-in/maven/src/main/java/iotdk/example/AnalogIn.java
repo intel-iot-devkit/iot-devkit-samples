@@ -32,7 +32,7 @@
  * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
  * Sensor, Sound Sensor, Temperature Sensor.
  *
- * TODO: Use platform with Analog capabilities.
+ * Use platform with Analog capabilities.
  */
 package iotdk.example;
 

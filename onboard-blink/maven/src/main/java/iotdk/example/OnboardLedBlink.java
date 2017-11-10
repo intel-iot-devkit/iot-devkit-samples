@@ -28,7 +28,7 @@
  * Demonstrate how to blink the on board LED, writing a digital value to an
  * output pin using the MRAA library.
  *
- * TODO use a platform with GPIO capabilities and an onboard LED
+ * use a platform with GPIO capabilities and an onboard LED
  */
 package iotdk.example;
 
@@ -41,7 +41,7 @@ import mraa.mraa;
 public class OnboardLedBlink {
 
     public static void main(String[] args) {
-        //TODO Change the GPIO to one that matches your platform
+        // Change the GPIO to one that matches your platform
         // Intel Galileo Gen 2 = 13
         // Intel Edison = 13
         // Intel Joule with expansion board = 100
