@@ -75,7 +75,7 @@ int main()
 				"See the project's Readme for more info.\n\n";
 	}
 
-	// create a GPIO object from MRAA for the pin	Gpio * d_pin = new Gpio (gpioPin);
+	// create a GPIO object from MRAA for the pin
 	Gpio* d_pin = new Gpio(gpioPin);
 	if (d_pin == NULL) {
 		cerr << "MRAA couldn't initialize GPIO, exiting." << endl;
