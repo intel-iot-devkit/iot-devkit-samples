@@ -30,6 +30,7 @@
 #include <iostream>
 #include <unistd.h>
 
+#define USING_GROVE_PI_SHIELD
 using namespace std;
 using namespace mraa;
 
@@ -45,10 +46,17 @@ int main()
 	Platform platform = getPlatformType();
 	switch (platform) {
 		case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
+			break;
+#endif			
 			break;
 		default:
 	        cerr << unknownPlatformMessage;
 	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
 	// check if running as root
 	int euid = geteuid();
 	if (euid) {
