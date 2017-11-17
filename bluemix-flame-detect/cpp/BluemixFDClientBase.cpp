@@ -80,11 +80,11 @@ int Client_base::send_command(
 			if (rc == MQTTCLIENT_SUCCESS) {
 				printf("Message with token %d published\n", dt);
 			} else {
-				fprintf(stderr, "Failed to publish message with token %d", dt);
+				fprintf(stderr, "Failed to publish message with token %d\n", dt);
 				return MQTTCLIENT_FAILURE;
 			}
 		} else {
-			fprintf(stderr, "Failed to publish message with token %d", dt);
+			fprintf(stderr, "Failed to publish message with token %d\n", dt);
 			return MQTTCLIENT_FAILURE;
 		}
 		return MQTTCLIENT_SUCCESS;
@@ -118,14 +118,14 @@ int Client_base::connect(char * host, char * username, char * password,
 	rc = MQTTClient_create(&client, host,
 			clientID, MQTTCLIENT_PERSISTENCE_NONE, NULL);
 	if (rc != MQTTCLIENT_SUCCESS) {
-		fprintf(stderr, "Failed to create MQTT client");
+		fprintf(stderr, "Failed to create MQTT client\n");
 		return rc;
 	}
 
 	// setup call backs
 	rc = MQTTClient_setCallbacks(client, this, cl, ma, dc);
 	if (rc != MQTTCLIENT_SUCCESS) {
-		fprintf(stderr, "Failed to set call backs");
+		fprintf(stderr, "Failed to set call backs\n");
 		return rc;
 	}
 
@@ -135,7 +135,7 @@ int Client_base::connect(char * host, char * username, char * password,
 	// connect the client to the server
 	rc = MQTTClient_connect(client, &data);
 	if (rc != MQTTCLIENT_SUCCESS) {
-		fprintf(stderr, "Failed to connect MQTT client");
+		fprintf(stderr, "Failed to connect MQTT client\n");
 		return rc;
 	}
 	connected = true;
