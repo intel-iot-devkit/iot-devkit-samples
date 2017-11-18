@@ -153,11 +153,11 @@ int main()
 	Platform platform = getPlatformType();
 	switch (platform) {
 		case INTEL_UP2:
-			dPin = 3;  		// D3 Connector
-			pwmPin = 5;  	// PWM Connector
+			dPin = 13;  	// digital in
+			pwmPin = 33;  	// PWM
 #ifdef USING_GROVE_PI_SHIELD
-			dPin += 512;   // 512 offset needed for the shield
-			pwmPin += 512; // 512 offset needed for the shield
+			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
 			break;
 #endif
 		default:
