@@ -53,6 +53,12 @@
 #include <sstream>
 #include <unistd.h>
 
+using namespace std;
+using namespace mraa;
+
+// Define the following if using a Grove Pi Shield for UP2 board
+#define USING_GROVE_PI_SHIELD
+
 void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* button,
 		upm::GroveLed* led, upm::Jhd1313m1 *lcd)
 {
@@ -121,22 +127,58 @@ void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* bu
 
 int main()
 {
-	// button connected to D4 (digital in)
-	upm::GroveButton* button = new upm::GroveButton(4);
 
-	// led connected to D3 (digital out)
-	upm::GroveLed* led = new upm::GroveLed(3);
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
 
-	// temperature sensor connected to A0 (analog in)
-	upm::GroveTemp* temp_sensor = new upm::GroveTemp(0);
+	int dInPin, dOutPin, aPin, i2cPort;
 
-	// LCD connected to the default I2C bus
-	upm::Jhd1313m1* lcd = new upm::Jhd1313m1(0);
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			dInPin = 4 + 512; // D4
+			dOutPin = 3 + 512; // D3
+			aPin = 2 + 512; // A2
+			i2cPort = 0 + 512; // I2C
+			break;
+#else
+			cerr << "Not using Grove provide your pinout" << endl;
+			return -1;
+#endif
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+
+	// button connected to (digital in)
+	upm::GroveButton* button = new upm::GroveButton(dInPin);
+
+	// led connected to (digital out)
+	upm::GroveLed* led = new upm::GroveLed(dOutPin);
+
+	// temperature sensor connected to (analog in)
+	upm::GroveTemp* temp_sensor = new upm::GroveTemp(aPin);
+
+	// LCD connected to the I2C bus
+	upm::Jhd1313m1* lcd = new upm::Jhd1313m1(i2cPort);
 
 	// simple error checking
 	if ((button == NULL) || (led == NULL) || (temp_sensor == NULL) || (lcd == NULL)) {
-		std::cerr << "Can't create all objects, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+		cerr << "Can't create all objects, exiting" << endl;
+		return ERROR_UNSPECIFIED;
 	}
 
 	// loop forever updating the temperature values every second
@@ -145,5 +187,5 @@ int main()
 		sleep(1);
 	}
 
-	return mraa::SUCCESS;
+	return SUCCESS;
 }
