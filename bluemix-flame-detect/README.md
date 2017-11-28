@@ -1,4 +1,4 @@
-# Bluemix flame detect Sample
+# IBM® Cloud (foremerly Bluemix) flame detect Sample
 
 
 ## Introduction
@@ -31,7 +31,7 @@ You can build the paho mqtt library from source, or use [this link](https://www.
 
 ## Setup
 
-Refer to [this page](https://console.bluemix.net/) to get started on IBM®  Bluemix™.
+Refer to [this page](https://console.bluemix.net/) to get started on IBM®  Bluemix™. Also see [this guide](https://github.com/intel-iot-devkit/iot-samples-cloud-setup/blob/master/bluemix-mqtt.md) for further help on initial setup.
 
 Create a new project on Intel(R) System Studio. After choosing the Bluemix Quickstart sample, it'll ask you for a 'Device ID'. Enter a string of your choosing as ID to identify messages from your device in Bluemix console.
 
