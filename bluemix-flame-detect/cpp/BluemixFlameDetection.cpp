@@ -61,9 +61,19 @@
 #include "BluemixFDAppClient.hpp"
 #include "BluemixFDDeviceClient.hpp"
 using namespace std;
+using namespace mraa;
 
 // define the following if not using the sensor & buzzer
 //#define SIMULATE_DEVICES
+
+
+#ifndef SIMULATE_DEVICES
+	int dPin;
+	int pwmPin;
+#endif
+
+// Define the following if using a Grove Pi Shield for UP2 board
+#define USING_GROVE_PI_SHIELD
 
 upm::Buzzer * buzzer;
 
@@ -77,7 +87,7 @@ int detect_flame(Device_client * device_client, App_client * app_client)
 {
 
 #ifndef SIMULATE_DEVICES
-	upm::YG1006 flameSensor = upm::YG1006(3);
+	upm::YG1006 flameSensor(dPin);
 #endif
 	/* Code in this loop will run repeatedly
 	 */
@@ -109,7 +119,7 @@ int detect_flame(Device_client * device_client, App_client * app_client)
 		device_client->send_fire_detected(flameDetected);
 		sleep(3);
 	}
-	return mraa::SUCCESS;
+	return SUCCESS;
 }
 
 /*
@@ -120,40 +130,60 @@ int fire_alert() {
 #ifndef SIMULATE_DEVICES
 	if (buzzer == NULL) {
 		fprintf(stderr, "Buzzer not initialized");
-		return mraa::ERROR_INVALID_HANDLE;
+		return ERROR_INVALID_HANDLE;
 	}
 	// set the volume
 	buzzer->setVolume(1.0);
 	// fire alert
 	buzzer->playSound(BUZZER_MI, 400000);
 #endif
-	return mraa::SUCCESS;
+	return SUCCESS;
 }
 
 int main()
 {
+#ifndef SIMULATE_DEVICES
 
-	// check that we are running on Galileo or Edison
-	mraa::Platform platform = mraa::getPlatformType();
-	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
-			(platform != mraa::INTEL_GALILEO_GEN2) &&
-			(platform != mraa::INTEL_EDISON_FAB_C)) {
-    	char message[] ="This sample uses the MRAA/UPM library for I/O access, "
-        		"you are running it on an unrecognized platform. "
-				"You may need to modify the MRAA/UPM initialization code to "
-				"ensure it works properly on your platform.\n\n";
-        printf("%s", message);
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+			dPin = 13;  	// digital in
+			pwmPin = 33;  	// PWM
+#ifdef USING_GROVE_PI_SHIELD
+			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
+			break;
+#endif
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
 	}
 
-#ifndef SIMULATE_DEVICES
 	// initialize the buzzer
-	buzzer = new upm::Buzzer(5);
+	buzzer = new upm::Buzzer(pwmPin);
 	if (buzzer == NULL) {
 		fprintf(stderr, "Buzzer not initialized");
-		return mraa::ERROR_INVALID_HANDLE;
+		return ERROR_INVALID_HANDLE;
 	}
 #endif
 	// initialize the device client
+	cerr << "Connecting to MQTT client ..." << endl;
+
 	Device_client device_client = Device_client(fire_alert);
 	int rc = device_client.connect();
 	if (rc != MQTTCLIENT_SUCCESS) {
@@ -188,5 +218,5 @@ int main()
 #endif
 	// cleanup the buzzer
 	delete buzzer;
-	return mraa::SUCCESS;
+	return SUCCESS;
 }

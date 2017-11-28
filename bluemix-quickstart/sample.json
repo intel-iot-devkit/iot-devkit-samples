@@ -6,8 +6,8 @@
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
-         "Grove LED (GroveLed) connected to the Grove Base Shield Port D3",
-         "Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0"
+         "Grove LED (GroveLed)",
+         "Grove Temperature Sensor (GroveTemp)"
       ],
       "libs":[
          "mraa",

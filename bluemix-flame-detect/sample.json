@@ -6,8 +6,8 @@
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
-         "Grove Buzzer (GroveLed) connected to the Grove Base Shield Port D5",
-         "Flame Sensor (YG1006) connected to the Grove Base Shield Port D3"
+         "Grove Buzzer (GroveLed)",
+         "Flame Sensor (YG1006)"
       ],
       "libs":[
          "mraa",
