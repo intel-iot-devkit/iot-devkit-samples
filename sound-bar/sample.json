@@ -6,8 +6,8 @@
    "date":"2015-09-16",
    "platform":{
       "hwreq":[
-         "Grove Sound Sensor connected to the Grove Base Shield Port A0",
-         "Grove Led Bar connected to the Grove Base Shield Port D2"
+         "Grove Sound Sensor",
+         "Grove Led Bar"
       ],
       "libs":[
          "mraa",

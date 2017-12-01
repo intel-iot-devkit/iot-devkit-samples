@@ -7,10 +7,10 @@ This sample opens and closes a curtain automatically according to the luminosity
 
 ## Hardware requirements
 
-[Grove Rotary Angle Sensor](http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/)connected to an analog port such as port A0 of the Grove Pi Shield
-[Grove Light Sensor](http://wiki.seeed.cc/Grove-Light_Sensor/) connected to an analog port such as port A3 of the Grove Pi Shield
-[Grove Button](http://wiki.seeed.cc/Grove-Button/) connected to the Grove Base Shield Port D4
-[Jhd1313m1 LCD](https://iotdk.intel.com/docs/master/upm/classupm_1_1_jhd1313m1.html) connected to any I2C on the Grove Base Shield
+[Grove Rotary Angle Sensor](http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/)connected to an analog port
+[Grove Light Sensor](http://wiki.seeed.cc/Grove-Light_Sensor/) connected to an analog port
+[Grove Button](http://wiki.seeed.cc/Grove-Button/) connected to a digital port
+[Jhd1313m1 LCD](https://iotdk.intel.com/docs/master/upm/classupm_1_1_jhd1313m1.html) connected to any I2C
 [Stepper Motor Driver Uln200xa](https://iotdk.intel.com/docs/master/upm/classupm_1_1_u_l_n200_x_a.html) connected in this way:
 	 -- I1  ->  pin D8\n
      -- I2  ->  pin D9\n
@@ -19,6 +19,7 @@ This sample opens and closes a curtain automatically according to the luminosity
      -- GND ->  GND\n
      -- Vcc ->  5V (Vcc)\n
      -- Vm  ->  NC (Not Connected)
+Connect directly to the Up2 board pin or to the extended heads on the Grove Pi+ shield for this.
 A 5V power supply is required in order to run this example
 
 * See the note below if you don't have access to these devices.

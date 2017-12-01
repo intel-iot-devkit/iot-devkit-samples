@@ -243,9 +243,9 @@ int main() {
   switch (platform) {
     case INTEL_UP2:
 #ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPinRotary = 2 + 512;     // A2 Connector
-      aPinLight = 3 + 512;      // A3 Connector
-      dPinButton = 4 + 512;     // D4 Connector
+      aPinRotary = 1 + 512;     // A1 Connector
+      aPinLight = 2 + 512;      // A2 Connector
+      dPinButton = 4 + 512;     // D3 Connector
       i2cPort = 0 + 512;        // I2C Connector
       break;
 #else

@@ -25,7 +25,7 @@
 /**
  * This project template utilizes components in the Grove Robotics Kit to create a working robot.
  *
- * Hhardware - Grove IR Distance Interrupter (SEN09281P)
+ * Hardware - Grove IR Distance Interrupter (SEN09281P)
  * - Grove LCD RGB Backlight (811004001)
  * - Grove 3-Axis Digital Compass (SEN12753P)
  * - Grove I2C Motor Driver (ROB72212P)

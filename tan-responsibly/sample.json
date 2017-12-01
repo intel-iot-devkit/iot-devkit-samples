@@ -6,10 +6,10 @@
    "date":"2015-09-16",
    "platform":{
       "hwreq":[
-         "Grove UV Sensor connected to the Grove Base Shield Port A0",
-         "Grove Temperature Sensor connected to the Grove Base Shield Port A1",
-         "Grove Buzzer connected to the Grove Base Shield Port D2",
-         "Jhd1313m1 LCD connected to any I2C on the Grove Base Shield"
+         "Grove UV Sensor",
+         "Grove Temperature Sensor",
+         "Grove Buzzer",
+         "Jhd1313m1 LCD"
       ],
       "libs":[
          "mraa",
