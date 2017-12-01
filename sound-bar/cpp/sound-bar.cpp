@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
   switch (platform) {
     case INTEL_UP2:
 #ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
-      microphonePin += 512; // A0
+      microphonePin = 0 + 512; // A0
       ledBarPin = 2 + 512;  // D2
       ledBarClockPin = 3 + 512; ///D3
       break;
