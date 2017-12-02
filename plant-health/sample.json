@@ -7,11 +7,11 @@
    "platform":{
       "hwreq":[
          "Board with I2C, AIO and GPIO"
-         "Grove Moisture Sensor connected to the Grove Base Shield Port A0",
-         "Grove Temperature Sensor connected to the Grove Base Shield Port A1",
-         "GUVA-S12D UV sensor to the Grove Base Shield port A2",
-         "Grove Dry-Reed Relay connected to the Grove Base Shield Port D2",
-         "Jhd1313m1 LCD connected to any I2C on the Grove Base Shield"
+         "Grove Moisture Sensor connected to an analog port",
+         "Grove Temperature Sensor connected to another analog port",
+         "GUVA-S12D UV sensor to another analog port",
+         "Grove Dry-Reed Relay connected to a digital port",
+         "Jhd1313m1 LCD connected to any I2C port"
       ],
       "libs":[
          "mraa",

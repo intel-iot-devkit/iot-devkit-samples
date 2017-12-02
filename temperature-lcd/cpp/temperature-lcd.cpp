@@ -140,13 +140,13 @@ int main()
 	switch (platform) {
 		case INTEL_UP2:
 #ifdef USING_GROVE_PI_SHIELD
-			dInPin = 4 + 512; // D4
-			dOutPin = 3 + 512; // D3
-			aPin = 2 + 512; // A2
-			i2cPort = 0 + 512; // I2C
+			dInPin = 4 + 512; 	// D4
+			dOutPin = 3 + 512; 	// D3
+			aPin = 2 + 512; 	// A2
+			i2cPort = 0 + 512; 	// I2C
 			break;
 #else
-			cerr << "Not using Grove provide your pinout" << endl;
+			cerr << "Not using Grove, provide your pinout here" << endl;
 			return -1;
 #endif
 		default:

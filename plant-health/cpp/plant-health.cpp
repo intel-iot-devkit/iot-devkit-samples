@@ -131,20 +131,51 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
 }
 
 int main() {
+
+  int aPin0, aPin1, aPin2, dPin2, i2cPort;
+  // check which board we are running on
+  Platform platform = getPlatformType();
+  switch (platform) {
+    case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
+      aPin0 = 0 + 512;  //A0
+      aPin1 = 1 + 512;  //A1
+      aPin2 = 2 + 512;  //A2
+      dPin2 = 2 + 512;  //D2
+      i2cPort = 0 + 512;//I2C
+      break;
+#else
+      cerr << "Not using Grove Pi Shield, provide your pinout here" << endl;
+      return -1;
+#endif
+    default:
+          cerr << unknownPlatformMessage;
+  }
+#ifdef USING_GROVE_PI_SHIELD
+  addSubplatform(GROVEPI, "0");
+#endif
+  // check if running as root
+  int euid = geteuid();
+  if (euid) {
+    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        "The IO operations below might fail.\n"
+        "See the project's Readme for more info.\n\n";
+  }
+
   // Moisture sensor connected to A0 (analog in)
-  upm::GroveMoisture* moisture_sensor = new upm::GroveMoisture(0);
+  upm::GroveMoisture* moisture_sensor = new upm::GroveMoisture(aPin0);
 
   // Temperature sensor connected to A1 (analog in)
-  upm::GroveTemp* temp_sensor = new upm::GroveTemp(1);
+  upm::GroveTemp* temp_sensor = new upm::GroveTemp(aPin1);
 
   // UV sensor connected to A2 (analog in)
-  upm::GUVAS12D *UV_sensor = new upm::GUVAS12D(2);
+  upm::GUVAS12D *UV_sensor = new upm::GUVAS12D(aPin2);
 
   // Dry Reed relay connected to D2 (digital out)
-  upm::GroveRelay* dry_Reed_relay = new upm::GroveRelay(2);
+  upm::GroveRelay* dry_Reed_relay = new upm::GroveRelay(dPin2);
 
   // LCD connected to the default I2C bus
-  upm::Jhd1313m1* lcd = new upm::Jhd1313m1(0);
+  upm::Jhd1313m1* lcd = new upm::Jhd1313m1(i2cPort);
 
   // Simple error checking
   if ((moisture_sensor == NULL) || (temp_sensor == NULL) || (UV_sensor == NULL)

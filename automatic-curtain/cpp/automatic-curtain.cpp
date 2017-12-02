@@ -37,38 +37,12 @@
 #include <uln200xa.hpp>
 #include <ttp223.hpp>
 
-/**
- * Open and close automatically a curtain according to the luminosity\n
- * Warning: a 5V power supply is required in order to run this example\n
- * \n
- * First set the wished luminosity with the Grove Rotary Angle Sensor. Then
- * push the Grove Button and the program will try to reach this luminosity by
- * opening/closing the curtain.
- *
- * Hhardware Sensors used:\n
- * Grove Rotary Angle Sensor connected to the Grove Base Shield Port A0\n
- * Grove Light Sensor connected to the Grove Base Shield Port A3\n
- * Grove Button connected to the Grove Base Shield Port D4\n
- * Jhd1313m1 LCD connected to any I2C on the Grove Base Shield\n
- * Stepper Motor Driver Uln200xa connected in this way:\n
- *   -- I1  ->  pin D8\n
- *   -- I2  ->  pin D9\n
- *   -- I3  ->  pin D10\n
- *   -- I4  ->  pin D11\n
- *   -- GND ->  GND\n
- *   -- Vcc ->  5V (Vcc)\n
- *   -- Vm  ->  NC (Not Connected)
- *
- *  Hypothesis:
- * - curtain initially open;
- * - to close completely the courtain 2 stepper motor's full revolutions are
- *   needed;
- * - lux range in [0-60].
- *
- *   Use a platform with Analog Input, I2C and GPIO capabilities
- */
 
 using namespace std;
+using namespace mraa;
+
+// define the following if not using a board with all the required hardware
+//#define SIMULATE_DEVICES
 
 // Speed of the stepper motor in revolutions per minute (RPM).
 const int STEPPER_MOTOR_SPEED = 5;
@@ -105,6 +79,7 @@ int setup_lux_target(upm::GroveRotary *rotary_sensor,
     upm::GroveLight *light_sensor, upm::GroveButton *button,
     upm::Jhd1313m1 *lcd) {
   int lux_target = 0;
+  int button_value = 0;
   bool confirmed = false;
 
   while (!confirmed) {
@@ -113,6 +88,11 @@ int setup_lux_target(upm::GroveRotary *rotary_sensor,
      * Dividing Rotary_sensor->abs_deg() by 6 interval [0-60] is
      * obtained.
      */
+#ifndef SIMULATE_DEVICES
+    lux_target = rotary_sensor->abs_deg() / 5;
+#else
+    lux_target = 300/5;
+#endif
     lux_target = rotary_sensor->abs_deg() / 5;
     string lux_target_str = static_cast<ostringstream *>(&(ostringstream()
         << lux_target))->str();
@@ -122,8 +102,14 @@ int setup_lux_target(upm::GroveRotary *rotary_sensor,
     lcd->setCursor(1, 0);
     lcd->cursorBlinkOn();
     lcd->write("Lux Target: " + lux_target_str);
+
+#ifdef SIMULATE_DEVICES
+    button_value = 1;
+#else
+    button_value = button->value();
+#endif
     // The button has been pressed
-    if (button->value() == 1) {
+    if (button_value == 1) {
       confirmed = true;
       lcd->cursorBlinkOff();
     }
@@ -200,9 +186,14 @@ bool open_curtain(upm::ULN200XA *uln200xa) {
 void check_lux(upm::GroveLight *light_sensor, upm::Jhd1313m1 *lcd,
     upm::ULN200XA *uln200xa, int lux_target) {
 
-  int lux_current;
+  int lux_current=0;
   // Get current lux value sensed by the light sensor.
+#ifndef SIMULATE_DEVICES
   lux_current = light_sensor->value();
+#else
+  lux_current++;
+#endif
+
 
   show_on_lcd(lcd, lux_target, lux_current);
 
@@ -237,14 +228,53 @@ int main() {
   // Lux target value
   int lux_target;
 
-  // Instantiate a rotary sensor on analog pin A0
-  upm::GroveRotary *rotary_sensor = new upm::GroveRotary(0);
+  //button state value
+  int button_value;
 
-  // Instantiate a light sensor on analog pin A3
-  upm::GroveLight *light_sensor = new upm::GroveLight(3);
+#ifndef SIMULATE_DEVICES
 
-  // Instantiate a button on digital pin D4
-  upm::GroveButton *button = new upm::GroveButton(4);
+  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+      "you are running it on an unrecognized platform. "
+      "You may need to modify the MRAA/UPM initialization code to "
+      "ensure it works properly on your platform.\n\n";
+  int aPinRotary, aPinLight, dPinButton, i2cPort;
+  // check which board we are running on
+  Platform platform = getPlatformType();
+  switch (platform) {
+    case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
+      aPinRotary = 1 + 512;     // A1 Connector
+      aPinLight = 2 + 512;      // A2 Connector
+      dPinButton = 4 + 512;     // D3 Connector
+      i2cPort = 0 + 512;        // I2C Connector
+      break;
+#else
+      cerr << "Not using Grove provide your pinout here" << endl;
+      return -1;
+#endif
+      default:
+          cerr << unknownPlatformMessage;
+  }
+#ifdef USING_GROVE_PI_SHIELD
+  addSubplatform(GROVEPI, "0");
+#endif
+
+  // check if running as root
+  int euid = geteuid();
+  if (euid) {
+    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        "The IO operations below might fail.\n"
+        "See the project's Readme for more info.\n\n";
+  }
+
+  // Instantiate a rotary sensor
+  upm::GroveRotary *rotary_sensor = new upm::GroveRotary(aPinRotary);
+
+  // Instantiate a light sensor
+  upm::GroveLight *light_sensor = new upm::GroveLight(aPinLight);
+
+  // Instantiate a button
+  upm::GroveButton *button = new upm::GroveButton(dPinButton);
 
   /* Instantiate a stepper motor driver wiring the pins
    * so that I1 is pin D8, I2 is pin D9, I3 is pin D10 and
@@ -254,8 +284,9 @@ int main() {
       STEPPER_MOTOR_STEPS_FULL_REVOLUTION, 8, 9, 10, 11);
 
   // LCD connected to the default I2C bus
-  upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(0);
+  upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(i2cPort);
 
+#endif
   // Simple error checking
   if ((rotary_sensor == NULL) || (light_sensor == NULL) || (button == NULL)
       || (uln200xa == NULL) || (lcd == NULL)) {
@@ -268,8 +299,13 @@ int main() {
   // Loop forever
   for (;;) {
 
+#ifdef SIMULATE_DEVICES
+    button_value = 1;
+#else
+    button_value = button->value();
+#endif
     // The button has been pressed
-    if (button->value() == 1) {
+    if (button_value == 1) {
       status = CONFIG;
     }
 
