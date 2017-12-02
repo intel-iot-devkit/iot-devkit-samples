@@ -88,7 +88,7 @@ int setup_lux_target(upm::GroveRotary *rotary_sensor,
      * Dividing Rotary_sensor->abs_deg() by 6 interval [0-60] is
      * obtained.
      */
-#ifdef SIMULATE_DEVICES
+#ifndef SIMULATE_DEVICES
     lux_target = rotary_sensor->abs_deg() / 5;
 #else
     lux_target = 300/5;
@@ -299,7 +299,7 @@ int main() {
   // Loop forever
   for (;;) {
 
-#ifndef SIMULATE_DEVICES
+#ifdef SIMULATE_DEVICES
     button_value = 1;
 #else
     button_value = button->value();
