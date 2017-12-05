@@ -156,7 +156,7 @@ int main()
 			dPin = 13;  	// digital in
 			pwmPin = 33;  	// PWM
 #ifdef USING_GROVE_PI_SHIELD
-			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			dPin   = 4 + 512; // D4 Connector (512 offset needed for the shield)
 			pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
 			break;
 #endif
