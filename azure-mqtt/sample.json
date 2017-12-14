@@ -15,6 +15,9 @@
       ],
       "os": ["yocto", "wrs_32"]
    },
+   "service_provider": "Microsoft Azure",
+   "service_provider_url": "https://azure.microsoft.com",
+   "service_provider_description": "Microsoft's On-demand cloud computing platform for building, testing, deploying, and managing applications and services through a global network of Microsoft-managed data centers.",
    "additional_fields":[
       {
          "id":"connectionString",
