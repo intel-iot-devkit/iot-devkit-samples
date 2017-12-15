@@ -8,7 +8,7 @@
         "libs": ["AWS IoT C++ SDK"]
     },
     "service_provider": "Amazon Web Services (AWS)",
-    "service_provider_url": "https://aws.amazon.com",
+    "service_provider_uri": "https://aws.amazon.com",
     "service_provider_description": "Amazon's On-demand cloud computing platform that offers a paid sbuscription with a 12-month free-tier option.",
     "additional_fields":[
         {
