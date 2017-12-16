@@ -134,11 +134,11 @@ int main() {
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
+      i2cPort = 0; // I2C
 #ifdef USING_GROVE_PI_SHIELD //Offset port number by 512
       aPinIn1 = 1 + 512; // A1
       aPinIn2 = 2 + 512; // A2
       dPinOut = 3 + 512; // D3
-      i2cPort = 0 + 512; // I2C
       break;
 #else
       cerr << "Not using Grove provide your pinout" << endl;

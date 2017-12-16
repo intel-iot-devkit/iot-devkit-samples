@@ -158,10 +158,10 @@ int main() {
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
+      i2cPort = 0;        // I2C Connector
 #ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
       aPin1 = 1 + 512;     // A1 Connector
       aPin2 = 2 + 512;      // A2 Connector
-      i2cPort = 0 + 512;        // I2C Connector
       break;
 #else
       cerr << "Not using Grove provide your pinout here" << endl;
