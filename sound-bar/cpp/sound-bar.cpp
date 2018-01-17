@@ -55,6 +55,7 @@
 // Define the following if using a Grove Pi Shield
 #define USING_GROVE_PI_SHIELD
 using namespace mraa;
+using namespace std;
 
 /*
  * Continuously acquire the average sound level over a predefined interval and map
@@ -80,7 +81,7 @@ int main(int argc, char **argv) {
     case INTEL_UP2:
 #ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
       microphonePin = 0 + 512; // A0
-      ledBarPin = 2 + 512;  // D2
+      ledBarDataPin = 2 + 512;  // D2
       ledBarClockPin = 3 + 512; ///D3
       break;
 #else
