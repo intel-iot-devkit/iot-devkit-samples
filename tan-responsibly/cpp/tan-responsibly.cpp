@@ -32,6 +32,9 @@
 #include <buzzer.hpp>
 #include <buzzer_tones.h>
 
+using namespace mraa;
+using namespace std;
+
 /**
  * This example helps you to avoid sunburn.
  */
