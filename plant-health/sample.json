@@ -6,7 +6,7 @@
    "date":"2015-09-16",
    "platform":{
       "hwreq":[
-         "Board with I2C, AIO and GPIO"
+         "Board with I2C, AIO and GPIO",
          "Grove Moisture Sensor connected to an analog port",
          "Grove Temperature Sensor connected to another analog port",
          "GUVA-S12D UV sensor to another analog port",
