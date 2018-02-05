@@ -1,6 +1,6 @@
 /*
  * Author: Jessica Gomez <jessica.gomez.hernandez@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,42 +22,66 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <mraa.h>
+/* On-board LED Blink
+ * Turns the on-board LED on for one second, then off for one second, repeatedly.
+ */
 
+#include <mraa.h>
 #include <stdio.h>
 #include <unistd.h>
 
+// Define the following if using a Grove Pi Shield
+#define USING_GROVE_PI_SHIELD
+
 int main()
 {
-	// select onboard LED pin based on the platform type
-	// create a GPIO object from MRAA using it
+	int gpioPin = 13;
+	char unknownPlatformMessage[] ="This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	// check which board we are running on
 	mraa_platform_t platform = mraa_get_platform_type();
-	mraa_gpio_context d_pin = NULL;
 	switch (platform) {
-		case MRAA_INTEL_GALILEO_GEN1:
-			d_pin = mraa_gpio_init_raw(3);
+		case MRAA_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
 			break;
-		case MRAA_INTEL_GALILEO_GEN2:
-			d_pin = mraa_gpio_init(13);
-			break ;
+#endif
+		case MRAA_UP:
 		case MRAA_INTEL_EDISON_FAB_C:
-			d_pin = mraa_gpio_init(13);
+		case MRAA_INTEL_GALILEO_GEN2:
+			break;
+		case MRAA_INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
+			gpioPin = 104;
 			break;
 		case MRAA_INTEL_JOULE_EXPANSION:
-			d_pin = mraa_gpio_init(100);
+			gpioPin = 101;
 			break;
 		default:
-			fprintf(stderr, "Unsupported platform, exiting");
-			return MRAA_ERROR_INVALID_PLATFORM;
+	        fprintf(stderr, "%s", unknownPlatformMessage);
 	}
+#ifdef USING_GROVE_PI_SHIELD
+	mraa_add_subplatform(MRAA_GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		fprintf(stderr, "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n");
+	}
+	// create the pin object
+	mraa_gpio_context d_pin = mraa_gpio_init(gpioPin);
 	if (d_pin == NULL) {
-		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting");
+		fprintf(stderr, "MRAA couldn't initialize GPIO, exiting.\n");
 		return MRAA_ERROR_UNSPECIFIED;
 	}
 
 	// set the pin as output
 	if (mraa_gpio_dir(d_pin, MRAA_GPIO_OUT) != MRAA_SUCCESS) {
-		fprintf(stderr, "Can't set digital pin as output, exiting");
+		fprintf(stderr, "Can't set digital pin as output, exiting.\n");
 		return MRAA_ERROR_UNSPECIFIED;
 	};
 

@@ -1,7 +1,7 @@
 /*
  * Author: Ivan De Cesaris <ivan.de.cesaris@intel.com>
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,25 +24,27 @@
  */
 
 /**
- * @file
- * @ingroup grove 
- * @brief ISR, interrupt service routine
- * 
  * Demonstrate how to react on an external event with an ISR (Interrupt Service
  * Routine), which will run independently of the main program flow using the
  * MRAA library.
  * Any button or sensor that can generate a voltage transition from ground to
  * Vcc or viceversa can be used with this example code.
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor,
- * connected to digital pin 4 (Grove Base Shield Port D4)
+ * connected to a digital pin
  *
- * @date 29/09/2015
+ * Use a platform with GPIO Interrupt capabilities
  */
- 
+
 #include <mraa.hpp>
 
 #include <iostream>
 #include <unistd.h>
+
+// Define the following if using a Grove Pi Shield
+#define USING_GROVE_PI_SHIELD
+
+using namespace std;
+using namespace mraa;
 
 // counter that will be updated by the interrupt routine
 static volatile int counter = 0;
@@ -54,40 +56,68 @@ void interrupt(void * args) {
 
 int main()
 {
-	// check that we are running on Galileo or Edison
-	mraa::Platform platform = mraa::getPlatformType();
-	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
-			(platform != mraa::INTEL_GALILEO_GEN2) &&
-			(platform != mraa::INTEL_EDISON_FAB_C)) {
-		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return mraa::ERROR_INVALID_PLATFORM;
+	int gpioPin = 13;
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			break;
+#endif
+		case INTEL_UP:
+		case INTEL_EDISON_FAB_C:
+		case INTEL_GALILEO_GEN2:
+			break;
+		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
+			gpioPin = 104;
+			break;
+		case INTEL_JOULE_EXPANSION:
+			gpioPin = 101;
+			break;
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
 	}
 
-	// create a GPIO object from MRAA using pin 4
-	mraa::Gpio* d_pin = new mraa::Gpio(4);
+	// create a GPIO object from MRAA for the pin
+	Gpio* d_pin = new Gpio(gpioPin);
 	if (d_pin == NULL) {
-		std::cerr << "Can't create mraa::Gpio object, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+		cerr << "Can't create mraa::Gpio object, exiting" << endl;
+		return MRAA_ERROR_UNSPECIFIED;
 	}
 
 	// set the pin as input
-	if (d_pin->dir(mraa::DIR_IN) != mraa::SUCCESS) {
-		std::cerr << "Can't set digital pin as input, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+	if (d_pin->dir(DIR_IN) != SUCCESS) {
+		cerr << "Can't set digital pin as input, exiting" << endl;
+		return MRAA_ERROR_UNSPECIFIED;
 	}
 
-	// set the ISR, it will be executed on both edges (on Galileo Gen 1 only
-	// this mode is supported)
-	if (d_pin->isr(mraa::EDGE_BOTH, interrupt, NULL) != mraa::SUCCESS) {
-		std::cerr << "Can't assign ISR to pin, exiting" << std::endl;
-		return mraa::ERROR_UNSPECIFIED;
+	// set the ISR, it will be executed on both edges
+	if (d_pin->isr(EDGE_BOTH, interrupt, NULL) != SUCCESS) {
+		cerr << "Can't assign ISR to pin, exiting" << endl;
+		return ERROR_UNSPECIFIED;
 	}
 
 	// loop forever printing the counter value every second
 	for (;;) {
-		std::cout << "counter value " << counter << std::endl;
+		cout << "counter value " << counter << endl;
 		sleep(1);
 	}
 
-	return mraa::SUCCESS;
+	return SUCCESS;
 }

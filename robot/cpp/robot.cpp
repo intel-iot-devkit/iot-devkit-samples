@@ -25,7 +25,7 @@
 /**
  * This project template utilizes components in the Grove Robotics Kit to create a working robot.
  *
- * Hhardware - Grove IR Distance Interrupter (SEN09281P)
+ * Hardware - Grove IR Distance Interrupter (SEN09281P)
  * - Grove LCD RGB Backlight (811004001)
  * - Grove 3-Axis Digital Compass (SEN12753P)
  * - Grove I2C Motor Driver (ROB72212P)
@@ -34,6 +34,8 @@
  * - SeeedStudio 4WD Hercules
  * - Mobile Platform Kit
  * - 7.4 V (2-cell) LiPo Battery
+ *
+ * Use a platform with I2C, GPIO capabilities
  */
 
 #include <unistd.h>
@@ -43,7 +45,7 @@
 #include <thread>
 #include <mutex>
 #include "grovemd.hpp"
-#include "jhd1313m1.hpp" 
+#include "jhd1313m1.hpp"
 #include "rfr359f.hpp"
 #include "hmc5883l.hpp"
 #include "grovevdiv.hpp"

@@ -32,14 +32,11 @@
 #include <buzzer.hpp>
 #include <buzzer_tones.h>
 
+using namespace mraa;
+using namespace std;
+
 /**
  * This example helps you to avoid sunburn.
- *
- * Hhardware Sensors used:\n
- * Grove UV Sensor connected to the Grove Base Shield Port A0\n
- * Grove Temperature Sensor connected to the Grove Base Shield Port A1\n
- * Grove Buzzer connected to the Grove Base Shield Port D2\n
- * Jhd1313m1 LCD connected to any I2C on the Grove Base Shield
  */
 
 /*
@@ -66,6 +63,8 @@
 #define UV_INDEX_THRESHOLD          8
 #define TEMPERATURE_THRESHOLD       30
 
+// Define the following if using a Grove Pi Shield for UP2 board
+#define USING_GROVE_PI_SHIELD
 /*
  * Check dangerous conditions and kindly remind the user about risk of sunburn.
  * Use LCD and buzzer to notify warning conditions.
@@ -127,26 +126,52 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
 }
 
 int main() {
-  // Check that we are running on Galileo or Edison
-  mraa::Platform platform = mraa::getPlatformType();
-  if ((platform != mraa::INTEL_GALILEO_GEN1)
-      && (platform != mraa::INTEL_GALILEO_GEN2)
-      && (platform != mraa::INTEL_EDISON_FAB_C)) {
-    std::cerr << "Unsupported platform, exiting" << std::endl;
-    return mraa::ERROR_INVALID_PLATFORM;
+  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+        "you are running it on an unrecognized platform. "
+      "You may need to modify the MRAA/UPM initialization code to "
+      "ensure it works properly on your platform.\n\n";
+
+  int aPinIn1, aPinIn2, dPinOut, i2cPort;
+
+  // check which board we are running on
+  Platform platform = getPlatformType();
+  switch (platform) {
+    case INTEL_UP2:
+      i2cPort = 0; // I2C
+#ifdef USING_GROVE_PI_SHIELD //Offset port number by 512
+      aPinIn1 = 1 + 512; // A1
+      aPinIn2 = 2 + 512; // A2
+      dPinOut = 3 + 512; // D3
+      break;
+#else
+      cerr << "Not using Grove provide your pinout" << endl;
+      return -1;
+#endif
+    default:
+          cerr << unknownPlatformMessage;
+  }
+#ifdef USING_GROVE_PI_SHIELD
+  addSubplatform(GROVEPI, "0");
+#endif
+  // check if running as root
+  int euid = geteuid();
+  if (euid) {
+    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        "The IO operations below might fail.\n"
+        "See the project's Readme for more info.\n\n";
   }
 
-  // UV sensor connected to A0 (analog in)
-  upm::GUVAS12D *UV_sensor = new upm::GUVAS12D(0);
+  // UV sensor connected
+  upm::GUVAS12D *UV_sensor = new upm::GUVAS12D(aPinIn1);
 
-  // Temperature sensor connected to A1 (analog in)
-  upm::GroveTemp* temp_sensor = new upm::GroveTemp(1);
+  // Temperature sensor
+  upm::GroveTemp* temp_sensor = new upm::GroveTemp(aPinIn2);
 
-  // Buzzer connected to D2 (digital out)
-  upm::Buzzer* buzzer = new upm::Buzzer(5);
+  // Buzzer connected
+  upm::Buzzer* buzzer = new upm::Buzzer(dPinOut);
 
-  // LCD connected to the default I2C bus
-  upm::Jhd1313m1* lcd = new upm::Jhd1313m1(0);
+  // LCD connected
+  upm::Jhd1313m1* lcd = new upm::Jhd1313m1(i2cPort);
 
   // Simple error checking
   if ((UV_sensor == NULL) || (temp_sensor == NULL) || (buzzer == NULL)

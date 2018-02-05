@@ -38,12 +38,7 @@
  * Grove Buzzer connected to the Grove Base Shield Port D2\n
  * Jhd1313m1 LCD connected to any I2C on the Grove Base Shield
  *
- * @req upm_i2clcd.jar
- * @req upm_grove.jar
- * @req upm_buzzer.jar
- * @req upm_guvas12d.jar
- *
- * @date 21/06/2016
+ * Use a platform with I2C, Analog and GPIO capabilities
  */
 package iotdk.example;
 
@@ -141,15 +136,6 @@ public class TanResponsibly {
   }
 
   public static void main(String[] args) {
-    // check that we are running on Galileo or Edison
-    Platform platform = mraa.getPlatformType();
-    if (platform != Platform.INTEL_GALILEO_GEN1 &&
-        platform != Platform.INTEL_GALILEO_GEN2 &&
-        platform != Platform.INTEL_EDISON_FAB_C) {
-      System.err.println("Unsupported platform, exiting");
-      return;
-    }
-
     // UV sensor connected to A0 (analog in)
     GUVAS12D UvSensor = new GUVAS12D(0);
 

@@ -6,21 +6,18 @@
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
-         "Grove LED (GroveLed) connected to the Grove Base Shield Port D3",
-         "Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0"
+         "Grove LED (GroveLed)",
+         "Grove Temperature Sensor (GroveTemp)"
       ],
       "libs":[
          "mraa",
          "upm",
          "paho"
-      ],
-      "compatible":[
-         "Edison",
-         "MinnowBoard MAX",
-         "Gateway 32-Bit",
-         "Gateway 64-Bit"
       ]
    },
+   "service_provider": "IBM Cloud (Bluemix)",
+   "service_provider_uri": "https://www.ibm.com/cloud",
+   "service_provider_description": "IBM Bluemix is a cloud platform as as service. It supports several programming languages and services as well as integated DevOps to build, run deploy, and manage applications on the cloud.",
    "additional_fields":[
       {
          "id":"DEVICE_ID",

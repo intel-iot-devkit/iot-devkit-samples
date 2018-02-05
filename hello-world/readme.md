@@ -1,2 +1,2 @@
 # Hello World!
-Demonstrates Hello World in supported languages and is an example of prefered sample format.
+Demonstrates Hello World in supported languages and is an example of preferred sample format.

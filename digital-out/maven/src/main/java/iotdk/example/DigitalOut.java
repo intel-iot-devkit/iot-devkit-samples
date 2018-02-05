@@ -32,12 +32,7 @@
  * Demonstrate how to write a digital value to an output pin using the MRAA
  * library.
  * A suitable part to use this example with in the Grove Starter Kit is the LED.
- *
- * @hardware Output connected to digital pin 8 (Grove Base Shield Port D8)
- *
- * @req mraa.jar
- *
- * @date 19/08/2015
+ * Use a platform with GPIO capabilities
  */
 package iotdk.example;
 
@@ -50,16 +45,6 @@ import mraa.Result;
 public class DigitalOut {
 
     public static void main(String[] args) {
-        // check that we are running on Galileo or Edison
-        Platform platform = mraa.getPlatformType();
-        if (platform != Platform.INTEL_GALILEO_GEN1 &&
-                platform != Platform.INTEL_GALILEO_GEN2 &&
-                platform != Platform.INTEL_EDISON_FAB_C &&
-                platform != Platform.MRAA_INTEL_JOULE_EXPANSION) {
-            System.err.println("Unsupported platform, exiting");
-            return;
-        }
-
         // create a gpio object from MRAA using pin 8
         Gpio pin = new Gpio(8);
 

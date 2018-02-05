@@ -1,6 +1,6 @@
 /*
  * Author: Marc Ernst <marc.ernst@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -23,9 +23,9 @@
  */
 
 extern "C" {
-#include "MQTTClient.h"
-}
-
+    #include "MQTTClient.h"
+    }
+    
 #include <mraa.hpp>
 #include "stdlib.h"
 
@@ -38,9 +38,18 @@ extern "C" {
 
 #include "credentials.h"
 
+using namespace std;
+using namespace mraa;
+    
+// define the following if not using a board with temp sensor and LED
+//#define SIMULATE_DEVICES
+
+// Define the following if using a Grove Pi Shield for UP2 board
+#define USING_GROVE_PI_SHIELD
+    
 const char * topic = "iot-2/evt/status/fmt/json";
 const char * clientID = strcat(
-        strcpy(new char[50], "d:quickstart:iotquick-edison:"), DEVICE_ID);
+		strcpy(new char[50], "d:quickstart:iotquick-my-iot-board:"), DEVICE_ID);
 // To authenticate with a token, set the username to "use-token-auth" and the
 // password to the token which you get when you register your device in IBM Bluemix.
 const char * username = NULL;
@@ -61,44 +70,52 @@ MQTTClient_deliveryToken dt = 0;
  * - blink the led to show the temperature was measured and data updated
  */
 void temperature_update(upm::GroveTemp* temperature_sensor,
-        upm::GroveLed* led) {
-    // other helper variables
-    int temperature; // temperature sensor value in degrees Celsius
-    std::stringstream row_1; // temperature
+		upm::GroveLed* led) {
+	// other helper variables
+	int temperature = 0; // temperature sensor value in degrees Celsius
+	std::stringstream row_1; // temperature
 
-    // update temperature values
-    temperature = temperature_sensor->value();
-    // convert the message into JSON format
-    row_1 << "{ \"temp\": \"" << temperature << "\" }";
+	// update temperature values
+#ifndef SIMULATE_DEVICES
+	temperature = temperature_sensor->value();
+#else
+	temperature++;
+#endif
+	// convert the message into JSON format
+	row_1 << "{ \"temp\": \"" << temperature << "\" }";
 
-    // send message to IBM Bluemix
-    char payload[80];
-    sprintf(payload, "{ \"temp\": \"%d\" }", temperature);
-    int payloadlen = strlen(payload);
+	// send message to IBM Bluemix
+	char payload[80];
+	sprintf(payload, "{ \"temp\": \"%d\" }", temperature);
+	int payloadlen = strlen(payload);
 
-    int retained = 0;
-    int rc = MQTTClient_publish(client, const_cast<char *>(topic), payloadlen,
-            const_cast<char *>(payload), MQTT_DEFAULT_QOS, retained, &dt);
-    if (rc == MQTTCLIENT_SUCCESS) {
-        printf("Waiting for message with token %d to be published...\n", dt);
-        rc = MQTTClient_waitForCompletion(client, dt, 1000);
-        if (rc == MQTTCLIENT_SUCCESS) {
-            printf("Message with token %d published\n", dt);
-        } else {
-            std::cerr << "Failed to publish message with token " << dt
-                    << std::endl;
-        }
-    } else {
-        std::cerr << "Failed to publish message with token " << dt << std::endl;
-    }
+	int retained = 0;
+	int rc = MQTTClient_publish(client, const_cast<char *>(topic), payloadlen,
+			const_cast<char *>(payload), MQTT_DEFAULT_QOS, retained, &dt);
+	if (rc == MQTTCLIENT_SUCCESS) {
+		printf("Waiting for message with token %d to be published...\n", dt);
+		rc = MQTTClient_waitForCompletion(client, dt, 1000);
+		if (rc == MQTTCLIENT_SUCCESS) {
+			printf("Message with token %d published\n", dt);
+		} else {
+			std::cerr << "Failed to publish message with token " << dt
+					<< std::endl;
+		}
+	} else {
+		std::cerr << "Failed to publish message with token " << dt << std::endl;
+	}
 
-    dt++;
-    // blink the led for 50 ms to show the temperature was actually sampled
-    led->on();
-    usleep(50000);
-    led->off();
+	dt++;
+	// blink the led for 50 ms to show the temperature was actually sampled
+#ifndef SIMULATE_DEVICES
+	led->on();
+#endif
+	usleep(50000);
+#ifndef SIMULATE_DEVICES
+	led->off();
+#endif
 }
-
+    
 /*
  * This function is called when a message has been successfully published
  * to the server
@@ -113,7 +130,7 @@ void temperature_update(upm::GroveTemp* temperature_sensor,
  * to this callback.
  */
 void delivery_complete(void * context, MQTTClient_deliveryToken dt) {
-    printf("Publishing of message with token %d confirmed\n", dt);
+	printf("Publishing of message with token %d confirmed\n", dt);
 }
 
 /*
@@ -125,65 +142,97 @@ void delivery_complete(void * context, MQTTClient_deliveryToken dt) {
  * Currently, <i>cause</i> is always set to NULL.
  */
 void connection_lost(void * context, char* cause) {
-    printf("Connection lost\n");
-    exit(MQTTCLIENT_DISCONNECTED);
+	printf("Connection lost\n");
+	exit(MQTTCLIENT_DISCONNECTED);
 }
-
+    
 int main() {
-    // check that we are running on Galileo or Edison
-    mraa::Platform platform = mraa::getPlatformType();
-    if ((platform != mraa::INTEL_GALILEO_GEN1)
-            && (platform != mraa::INTEL_GALILEO_GEN2)
-            && (platform != mraa::INTEL_EDISON_FAB_C)) {
-        std::cerr << "Unsupported platform, exiting" << std::endl;
-        return mraa::ERROR_INVALID_PLATFORM;
-    }
+#ifndef SIMULATE_DEVICES
 
-    // create the MQTT client
-    int rc = 0;
-    rc = MQTTClient_create(&client, const_cast<char *>(host),
-            const_cast<char *>(clientID), MQTTCLIENT_PERSISTENCE_NONE, NULL);
-    if (rc != MQTTCLIENT_SUCCESS) {
-        std::cerr << "Failed to create MQTT client, exiting" << std::endl;
-        exit(rc);
-    }
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
 
-    // setup call backs before connecting the client to the server
-    MQTTClient_setCallbacks(client, NULL, &connection_lost, NULL,
-            &delivery_complete);
+	int dPin, aPin;
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+			dPin = 3;  		// D3 Connector
+			aPin = 13;  	// A2 Connector
+#ifdef USING_GROVE_PI_SHIELD
+			dPin += 512;   // 512 offset needed for the shield
+			aPin = 2 + 512; // A2 connector, 512 offset needed for the shield
+			break;
+#endif
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
 
-    MQTTClient_connectOptions data = MQTTClient_connectOptions_initializer;
-    data.username = const_cast<char *>(username);
-    data.password = const_cast<char *>(password);
-    // connect the client to the server
-    rc = MQTTClient_connect(client, &data);
-    if (rc != MQTTCLIENT_SUCCESS) {
-        std::cerr << "Failed to connect MQTT client, exiting" << std::endl;
-        exit(rc);
-    }
+#endif
 
-    // led connected to D3 (digital out)
-    upm::GroveLed* led = new upm::GroveLed(3);
+	cerr << "Connecting to MQTT client ..." << endl;
 
-    // temperature sensor connected to A0 (analog in)
-    upm::GroveTemp* temp_sensor = new upm::GroveTemp(0);
+	// create the MQTT client
+	int rc = 0;
+	rc = MQTTClient_create(&client, const_cast<char *>(host),
+			const_cast<char *>(clientID), MQTTCLIENT_PERSISTENCE_NONE, NULL);
+	if (rc != MQTTCLIENT_SUCCESS) {
+		std::cerr << "Failed to create MQTT client, exiting" << std::endl;
+		exit(rc);
+	}
 
-    // simple error checking
-    if ((led == NULL) || (temp_sensor == NULL)) {
-        std::cerr << "Can't create all objects, exiting" << std::endl;
-        return mraa::ERROR_UNSPECIFIED;
-    }
+	// setup call backs before connecting the client to the server
+	MQTTClient_setCallbacks(client, NULL, &connection_lost, NULL,
+			&delivery_complete);
 
-    // loop forever updating the temperature values every second
-    for (;;) {
-        temperature_update(temp_sensor, led);
-        sleep(1);
-    }
+	MQTTClient_connectOptions data = MQTTClient_connectOptions_initializer;
+	data.username = const_cast<char *>(username);
+	data.password = const_cast<char *>(password);
+	// connect the client to the server
+	rc = MQTTClient_connect(client, &data);
+	if (rc != MQTTCLIENT_SUCCESS) {
+		std::cerr << "Failed to connect MQTT client, exiting" << std::endl;
+		exit(rc);
+	}
 
-    printf("Stopping\n");
+	upm::GroveLed* led = NULL;
+	upm::GroveTemp* temp_sensor = NULL;
+#ifndef SIMULATE_DEVICES
+	// led connected to Dx (digital out)
+	led = new upm::GroveLed(dPin);
 
-    int timeout = 100;
-    MQTTClient_disconnect(client, timeout);
-    MQTTClient_destroy(&client);
-    return mraa::SUCCESS;
+	// temperature sensor connected to Ax (analog in)
+	temp_sensor= new upm::GroveTemp(aPin);
+
+	// simple error checking
+	if ((led == NULL) || (temp_sensor == NULL)) {
+		std::cerr << "Can't create all objects, exiting" << std::endl;
+		return mraa::ERROR_UNSPECIFIED;
+	}
+#endif
+	// loop forever updating the temperature values every second
+	for (;;) {
+		temperature_update(temp_sensor, led);
+		sleep(1);
+	}
+
+	printf("Stopping\n");
+
+	int timeout = 100;
+	MQTTClient_disconnect(client, timeout);
+	MQTTClient_destroy(&client);
+	return mraa::SUCCESS;
 }
+    

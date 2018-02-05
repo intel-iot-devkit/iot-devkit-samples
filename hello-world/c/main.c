@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,9 +22,13 @@
  */
 
 #include <stdio.h>
- 
+#include <unistd.h>
+
 int main()
 {
 	printf("Hello, Internet of Things!\n");
+	fflush(stdout);
+	sleep(1);
+	printf("Bye!\n");
 	return 0;
 }

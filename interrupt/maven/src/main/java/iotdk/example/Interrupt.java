@@ -26,10 +26,6 @@
  */
 
 /**
- * @file
- * @ingroup grove
- * @brief ISR, interrupt service routine
- *
  * Demonstrate how to react on an external event with an ISR (Interrupt Service
  * Routine), which will run independently of the main program flow using the
  * MRAA library.
@@ -37,11 +33,7 @@
  * Vcc or viceversa can be used with this example code.
  * Suitable ones in the Grove Starter Kit are the Button and Touch Sensor.
  *
- * @hardware Input connected to digital pin 4 (Grove Base Shield Port D4)
- *
- * @req mraa.jar
- *
- * @date 19/08/2015
+ * Use a platform with GPIO Interrupt capabilities
  */
 package iotdk.example;
 
@@ -70,16 +62,6 @@ class IsrCounterCallback implements Runnable {
 public class Interrupt {
 
     public static void main(String[] args) {
-        // check that we are running on Galileo or Edison
-        Platform platform = mraa.getPlatformType();
-        if (platform != Platform.INTEL_GALILEO_GEN1 &&
-                platform != Platform.INTEL_GALILEO_GEN2 &&
-                platform != Platform.INTEL_EDISON_FAB_C &&
-                platform != Platform.MRAA_INTEL_JOULE_EXPANSION) {
-            System.err.println("Unsupported platform, exiting");
-            return;
-        }
-
         // create a gpio object from MRAA using pin 4
         Gpio pin = new Gpio(4);
 

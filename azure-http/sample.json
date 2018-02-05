@@ -13,14 +13,11 @@
          "upm",
          "Azure IoT SDK"
       ],
-      "compatible":[
-         "Edison",
-         "MinnowBoard MAX",
-         "Gateway 32-Bit",
-         "Gateway 64-Bit"
-      ],
-      "os": ["yocto", "wrs_32", "wrs_64"]
+      "os": ["yocto", "wrs_32"]
    },
+   "service_provider": "Microsoft Azure",
+   "service_provider_uri": "https://azure.microsoft.com",
+   "service_provider_description": "Microsoft's On-demand cloud computing platform for building, testing, deploying, and managing applications and services through a global network of Microsoft-managed data centers.",
    "additional_fields":[
       {
          "id":"connectionString",

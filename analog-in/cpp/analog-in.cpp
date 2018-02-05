@@ -1,6 +1,6 @@
 /*
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,44 +22,62 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
-* 
- * Demonstrate how to read an analog voltage value from an input pin using the
- * MRAA library, any sensor that outputs a variable voltage can be used with
- * this example code.
- * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
- * Sensor, Sound Sensor, Temperature Sensor. Connected to A0
+/* Analog input
+ * Read values from a gpio analog input pin.
  */
 
 #include <mraa.hpp>
-
 #include <iostream>
 #include <unistd.h>
 
+// Define the following if using a Grove Pi Shield
+#define USING_GROVE_PI_SHIELD
+using namespace std;
+using namespace mraa;
+
 int main()
 {
-	// check that we are running on Galileo or Edison
-	mraa_platform_t platform = mraa_get_platform_type();
-	if ((platform != MRAA_INTEL_GALILEO_GEN1) &&
-			(platform != MRAA_INTEL_GALILEO_GEN2) &&
-			(platform != MRAA_INTEL_EDISON_FAB_C)) {
-		std::cerr << "Unsupported platform, exiting" << std::endl;
-		return MRAA_ERROR_INVALID_PLATFORM;
+	int gpioPin = 13;
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			gpioPin = 2 + 512; // A2 Connector (512 offset needed for the shield)
+			break;
+#endif
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
 	}
 
-	// create an analog input object from MRAA using pin A0
-	mraa::Aio* a_pin = new mraa::Aio(0);
+	// create an analog input object from MRAA using the pin
+	Aio* a_pin = new Aio(gpioPin);
 	if (a_pin == NULL) {
-		std::cerr << "Can't create mraa::Aio object, exiting" << std::endl;
+		cerr << "Can't create mraa::Aio object, exiting" << endl;
 		return MRAA_ERROR_UNSPECIFIED;
 	}
 
 	// loop forever printing the input value every second
 	for (;;) {
 		uint16_t pin_value = a_pin->read();
-		std::cout << "analog input value " << pin_value << std::endl;
+		cout << "analog input value " << pin_value << endl;
 		sleep(1);
 	}
 
-	return MRAA_SUCCESS;
+	return SUCCESS;
 }

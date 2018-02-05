@@ -25,18 +25,10 @@
  */
 
 /**
- * @file
- * @ingroup basic
- * @brief On board LED blink Java
- *
  * Demonstrate how to blink the on board LED, writing a digital value to an
  * output pin using the MRAA library.
  *
- * @hardware No external hardware is needed.
- *
- * @req mraa.jar
- *
- * @date 19/08/2015
+ * use a platform with GPIO capabilities and an onboard LED
  */
 package iotdk.example;
 
@@ -49,20 +41,13 @@ import mraa.mraa;
 public class OnboardLedBlink {
 
     public static void main(String[] args) {
-        // select onboard LED pin based on the platform type
-        // create a GPIO object from MRAA using it
-        Platform platform = mraa.getPlatformType();
-        Gpio pin = null;
-        if (platform == Platform.INTEL_GALILEO_GEN1)
-            pin = new Gpio(3);
-        else if (platform == Platform.INTEL_GALILEO_GEN2)
-            pin = new Gpio(13);
-        else if (platform == Platform.INTEL_EDISON_FAB_C)
-            pin = new Gpio(13);
-        else if (platform == Platform.MRAA_INTEL_JOULE_EXPANSION)
-            pin = new Gpio(100);
-
+        // Change the GPIO to one that matches your platform
+        // Intel Galileo Gen 2 = 13
+        // Intel Edison = 13
+        // Intel Joule with expansion board = 100
         // set the pin as output
+        Gpio pin = new Gpio(13);
+
         if (pin == null) {
             System.err.println("Could not initialize GPIO, exiting");
             return;

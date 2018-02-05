@@ -39,12 +39,12 @@
  * the movement of the sun, directing it towards the maximum light radiated
  * during the day using the maximum light intensity detected by two light
  * sensor placed parallel to each other.\n
- * The idea is to compute the sensors average light in a calibration step and 
+ * The idea is to compute the sensors average light in a calibration step and
  * use this number to move motor according to the movement of light.
  *
  * Hhardware Sensors used:\n
- * GroveLight sensor connected to the Grove Base Shield Port A0\n
- * GroveLight sensor connected to the Grove Base Shield Port A1\n
+ * GroveLight sensor connected to any analog port.
+ * GroveLight sensor connected to any analog port
  * ULN200XA Stepper Motor connected to pin 6,7,8,9\n
  * Jhd1313m1 LCD connected to any I2C on the Grove Base Shield\n
  * Stepper Motor Driver Uln200xa connected in this way:\n
@@ -56,9 +56,11 @@
  *   -- Vcc ->  5V (Vcc)\n
  *   -- Vm  ->  NC (Not Connected)
  *
+ * Use a platform with I2C, Analog and GPIO capabilities
  */
 
 using namespace std;
+using namespace mraa;
 
 // Threshold of light
 #define THRESHOLD 2
@@ -148,24 +150,48 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
 }
 
 int main() {
-  // Check that we are running on Galileo or Edison
-  mraa::Platform platform = mraa::getPlatformType();
-  if ((platform != mraa::INTEL_GALILEO_GEN1)
-      && (platform != mraa::INTEL_GALILEO_GEN2)
-      && (platform != mraa::INTEL_EDISON_FAB_C)) {
-    std::cerr << "Unsupported platform, exiting" << std::endl;
-    return mraa::ERROR_INVALID_PLATFORM;
+  int i2cPort, aPin1, aPin2;
+  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+      "you are running it on an unrecognized platform. "
+      "You may need to modify the MRAA/UPM initialization code to "
+      "ensure it works properly on your platform.\n\n";
+  // check which board we are running on
+  Platform platform = getPlatformType();
+  switch (platform) {
+    case INTEL_UP2:
+      i2cPort = 0;        // I2C Connector
+#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
+      aPin1 = 1 + 512;     // A1 Connector
+      aPin2 = 2 + 512;      // A2 Connector
+      break;
+#else
+      cerr << "Not using Grove provide your pinout here" << endl;
+      return -1;
+#endif
+      default:
+          cerr << unknownPlatformMessage;
+  }
+#ifdef USING_GROVE_PI_SHIELD
+  addSubplatform(GROVEPI, "0");
+#endif
+
+  // check if running as root
+  int euid = geteuid();
+  if (euid) {
+    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        "The IO operations below might fail.\n"
+        "See the project's Readme for more info.\n\n";
   }
 
+
   // LCD screen object (the lcd is connected to I2C port, bus 0)
-  upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(0);
+  upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(i2cPort);
 
-  //Left light sensor object (Analog pin 0)
-  upm::GroveLight* lightL = new upm::GroveLight(0);
+  //Left light sensor object
+  upm::GroveLight* lightL = new upm::GroveLight(aPin1);
 
-  //Right light sensor object (Analog pin 1)
-  upm::GroveLight* lightR = new upm::GroveLight(1);
-
+  //Right light sensor object
+  upm::GroveLight* lightR = new upm::GroveLight(aPin2);
   /* Instantiate a Stepper motor on a ULN200XA Dual H-Bridge.
    * Wire the pins so that I1 is pin D6, I2 is D7, I3 is D8 and I4 is D9
    */

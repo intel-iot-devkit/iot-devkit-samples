@@ -1,6 +1,6 @@
 /*
  * Author: Marc Ernst <marc.ernst@intel.com>
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2017 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -56,11 +56,24 @@
 #include <yg1006.hpp>
 #include <unistd.h>
 #include <buzzer.hpp>
-#include <buzzer_tones.hpp>
+#include <buzzer_tones.h>
 
 #include "BluemixFDAppClient.hpp"
 #include "BluemixFDDeviceClient.hpp"
 using namespace std;
+using namespace mraa;
+
+// define the following if not using the sensor & buzzer
+//#define SIMULATE_DEVICES
+
+
+#ifndef SIMULATE_DEVICES
+	int dPin;
+	int pwmPin;
+#endif
+
+// Define the following if using a Grove Pi Shield for UP2 board
+#define USING_GROVE_PI_SHIELD
 
 upm::Buzzer * buzzer;
 
@@ -72,8 +85,10 @@ upm::Buzzer * buzzer;
  */
 int detect_flame(Device_client * device_client, App_client * app_client)
 {
-	upm::YG1006 flameSensor = upm::YG1006(3);
 
+#ifndef SIMULATE_DEVICES
+	upm::YG1006 flameSensor(dPin);
+#endif
 	/* Code in this loop will run repeatedly
 	 */
 	for (;;) {
@@ -91,7 +106,10 @@ int detect_flame(Device_client * device_client, App_client * app_client)
 		}
 
 		// check for flames or similar light sources
-		bool flameDetected = flameSensor.flameDetected();
+		bool flameDetected = 0;
+#ifndef SIMULATE_DEVICES
+		flameDetected = flameSensor.flameDetected();
+#endif
 		if (flameDetected) {
 			printf("Flame or similar light source detected!\n");
 		} else {
@@ -101,7 +119,7 @@ int detect_flame(Device_client * device_client, App_client * app_client)
 		device_client->send_fire_detected(flameDetected);
 		sleep(3);
 	}
-	return mraa::SUCCESS;
+	return SUCCESS;
 }
 
 /*
@@ -109,36 +127,63 @@ int detect_flame(Device_client * device_client, App_client * app_client)
  */
 int fire_alert() {
 	printf("Fire alert called\n");
+#ifndef SIMULATE_DEVICES
 	if (buzzer == NULL) {
 		fprintf(stderr, "Buzzer not initialized");
-		return mraa::ERROR_INVALID_HANDLE;
+		return ERROR_INVALID_HANDLE;
 	}
 	// set the volume
 	buzzer->setVolume(1.0);
 	// fire alert
 	buzzer->playSound(BUZZER_MI, 400000);
-	return mraa::SUCCESS;
+#endif
+	return SUCCESS;
 }
 
 int main()
 {
-	// check that we are running on Galileo or Edison
-	mraa::Platform platform = mraa::getPlatformType();
-	if ((platform != mraa::INTEL_GALILEO_GEN1) &&
-			(platform != mraa::INTEL_GALILEO_GEN2) &&
-			(platform != mraa::INTEL_EDISON_FAB_C)) {
-		fprintf(stderr, "Unsupported platform, exiting");
-		return mraa::ERROR_INVALID_PLATFORM;
+#ifndef SIMULATE_DEVICES
+
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+			dPin = 13;  	// digital in
+			pwmPin = 33;  	// PWM
+#ifdef USING_GROVE_PI_SHIELD
+			dPin   = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
+			break;
+#endif
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
 	}
 
 	// initialize the buzzer
-	buzzer = new upm::Buzzer(5);
+	buzzer = new upm::Buzzer(pwmPin);
 	if (buzzer == NULL) {
 		fprintf(stderr, "Buzzer not initialized");
-		return mraa::ERROR_INVALID_HANDLE;
+		return ERROR_INVALID_HANDLE;
 	}
-
+#endif
 	// initialize the device client
+	cerr << "Connecting to MQTT client ..." << endl;
+
 	Device_client device_client = Device_client(fire_alert);
 	int rc = device_client.connect();
 	if (rc != MQTTCLIENT_SUCCESS) {
@@ -168,8 +213,10 @@ int main()
 	}
 
 	// start flame detection
+#ifndef SIMULATE_DEVICES
 	detect_flame(&device_client, &app_client);
+#endif
 	// cleanup the buzzer
 	delete buzzer;
-	return mraa::SUCCESS;
+	return SUCCESS;
 }

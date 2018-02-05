@@ -1,7 +1,7 @@
 /*
  * Author: Mihai T Panu <mihai.tudor.panu@intel.com>
  * Author: Petre Eftime <petre.p.eftime@intel.com>
- * 
+ *
  * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,9 +26,9 @@
 
 /**
  * @file
- * @ingroup other 
- * @brief Robot 
- * 
+ * @ingroup other
+ * @brief Robot
+ *
  * This project template utilizes components in the Grove Robotics Kit to create a working robot.
  * Known Limitation: This demo needs to be ran directly over a ssh or serial connection for full functionality,
  * Eclipse does not forward console input.
@@ -43,13 +43,7 @@
  * - Mobile Platform Kit
  * - 7.4 V (2-cell) LiPo Battery
  *
- * @req upm_grovemd.jar
- * @req upm_i2clcd.jar
- * @req upm_rfr359f.jar
- * @req upm_hmc5883l.jar
- * @req upm_grovevdiv.jar
- *
- * @date 19/08/2015
+ *  Use a platform with I2C and GPIO capabilities
  */
 package iotdk.example;
 
@@ -91,7 +85,7 @@ public class Robot {
 
         @Override
         public void run() {
-            running = false;		
+            running = false;
         }
     };
 

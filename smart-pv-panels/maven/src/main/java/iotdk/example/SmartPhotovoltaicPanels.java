@@ -28,9 +28,6 @@
  */
 
 /**
- * @file
- * @ingroup other
- * @brief Smart Photovoltaic Panels
  *
  * Move photovoltaic panel following the maximum brightness of the sun.\n\n
  * The idea is to move photovoltaic panel (represented by a motor) according to
@@ -54,20 +51,14 @@
  *   -- Vcc ->  5V (Vcc)\n
  *   -- Vm  ->  NC (Not Connected)
  *
- * @req mraa.jar
- * @req upm_grove.jar
- * @req upm_i2clcd.jar
- * @req upm_uln200xa.jar
- *
- * @date 16/06/2016
+ * Use a platform with I2C, Analog and GPIO capabilities
  */
 package iotdk.example;
 
-import mraa.Platform;
-import mraa.mraa;
 import upm_grove.GroveLight;
 import upm_i2clcd.Jhd1313m1;
-import upm_uln200xa.ULN200XA; 
+import upm_uln200xa.ULN200XA;
+import upm_uln200xa.ULN200XA_DIRECTION_T;
 
 public class SmartPhotovoltaicPanels {
 
@@ -127,11 +118,11 @@ public class SmartPhotovoltaicPanels {
       // a)
       if (lightLST < lightRST) {
         // Rotating 1/32 revolution clockwise
-        stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CW);
+        stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CW);
         // b)
       } else if (lightLST > lightRST) {
         // Rotating 1/32 revolution clockwise
-        stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CCW);
+        stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CCW);
       }
 
       stepperMotor.stepperSteps(STEPS_PER_REV / 32);
@@ -142,26 +133,17 @@ public class SmartPhotovoltaicPanels {
       // a)
       if (lightRST < lightLST) {
         // Rotating 1/32 revolution counter clockwise
-        stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CCW);
+        stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CCW);
         // b)
       } else if (lightRST > lightLST) {
         // Rotating 1/32 revolution counter clockwise
-        stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CW);
+        stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CW);
       }
       stepperMotor.stepperSteps(STEPS_PER_REV / 32);
     }
   }
 
   public static void main(String[] args) {
-    // check that we are running on Galileo or Edison
-    Platform platform = mraa.getPlatformType();
-    if (platform != Platform.INTEL_GALILEO_GEN1 &&
-        platform != Platform.INTEL_GALILEO_GEN2 &&
-        platform != Platform.INTEL_EDISON_FAB_C) {
-      System.err.println("Unsupported platform, exiting");
-      return;
-    }
-
     // LCD screen object (the lcd is connected to I2C port, bus 0)
     Jhd1313m1 lcd = new Jhd1313m1(0);
 
@@ -196,7 +178,7 @@ public class SmartPhotovoltaicPanels {
     int brightL1, brightL2, brightR1, brightR2;
 
     // Rotating 1/8 revolution clockwise
-    stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CW);
+    stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CW);
     stepperMotor.stepperSteps(STEPS_PER_REV / 8);
     brightL1 = lightL.value();
     brightR1 = lightR.value();
@@ -207,7 +189,7 @@ public class SmartPhotovoltaicPanels {
     }
 
     // Rotating 1/4 revolution counter clockwise
-    stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CCW);
+    stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CCW);
     stepperMotor.stepperSteps(STEPS_PER_REV / 4);
     brightL2 = lightL.value();
     brightR2 = lightR.value();
@@ -232,6 +214,5 @@ public class SmartPhotovoltaicPanels {
         System.err.println("Sleep interrupted: " + e.toString());
       }
     }
-
   }
 }

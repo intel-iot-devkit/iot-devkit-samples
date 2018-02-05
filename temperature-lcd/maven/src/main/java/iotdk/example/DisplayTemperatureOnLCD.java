@@ -1,7 +1,7 @@
 /*
  * Author: Ivan De Cesaris <ivan.de.cesaris@intel.com>
  * Author: Petre Eftime <petre.p.eftime@intel.com>
- * 
+ *
  * Copyright (c) 2015 - 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,23 +26,19 @@
 
 /**
  * @file
- * @ingroup grove 
+ * @ingroup grove
  * @brief Display temperature on LCD
  *
  * This project template includes the starting code needed
  * to use the various sensors that come with the Grove Starter Kit.
  * Update the temperature values and reflect the changes on the LCD.
- * 
+ *
  * @hardware - Grove LED (GroveLed) connected to the Grove Base Shield Port D3
  * - Grove Button (GroveButton) connected to the Grove Base Shield Port D4
  * - Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0
  * - Grove LCD (Jhd1313m1) connected to any I2C on the Grove Base Shield
  *
- *  @req upm_i2clcd.jar
- *  @req upm_grove.jar
- *  @req mraa.jar
- *
- * @date 19/08/2015
+ *  Use a platfrom with I2C, Analog and GPIO capabilities
  */
 package iotdk.example;
 
@@ -102,7 +98,7 @@ public class DisplayTemperatureOnLCD {
         lcd.setCursor(0,0);
         lcd.write(String.format("Temp %d    ", temperature));
         lcd.setCursor(1,0);
-        lcd.write(String.format("Min %d Max %d    ", min_temperature, 
+        lcd.write(String.format("Min %d Max %d    ", min_temperature,
                 max_temperature));
 
         // set the fade value depending on where we are in the temperature range
@@ -134,15 +130,6 @@ public class DisplayTemperatureOnLCD {
     }
 
     public static void main(String[] args) {
-        // check that we are running on Galileo or Edison
-        Platform platform = mraa.getPlatformType();
-        if (platform != Platform.INTEL_GALILEO_GEN1 &&
-                platform != Platform.INTEL_GALILEO_GEN2 &&
-                platform != Platform.INTEL_EDISON_FAB_C) {
-            System.err.println("Unsupported platform, exiting");
-            return;
-        }
-
         // button connected to D4 (digital in)
         GroveButton button = new GroveButton(4);
 
