@@ -38,12 +38,18 @@
 #include "iothub_message.h"
 #include "iothubtransportmqtt.h"
 
+// define the following if not using a board with sensors
+#define SIMULATE_DEVICES
+
 #include <iostream>
 
 #include "credentials.h"
 #include "certs.h"
 #include <mraa.hpp>
+
+#ifndef SIMULATE_DEVICES
 #include <grove.hpp>
+#endif
 
 /**
  * This project template allow you to test the Microsoft* Azure* IoT Hub.
@@ -61,8 +67,6 @@
  * * Other names and brands may be claimed as the property of others.
  */
 
-DEFINE_ENUM_STRINGS(IOTHUB_CLIENT_CONFIRMATION_RESULT,
-        IOTHUB_CLIENT_CONFIRMATION_RESULT_VALUES);
 
 static int callbackCounter;
 static bool g_continueRunning;
@@ -147,6 +151,7 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result,
 }
 
 int main(void) {
+#ifndef SIMULATE_DEVICES
     // Initialize temperature sensor connected to A0 (analog in)
     upm::GroveTemp* temp_sensor = new upm::GroveTemp(0);
     if (temp_sensor == NULL) {
@@ -154,7 +159,7 @@ int main(void) {
                 "exiting");
         return mraa::ERROR_UNSPECIFIED;
     }
-
+#endif
     // Initialize the Azure IoT SDK
     IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle;
     EVENT_INSTANCE messages[MESSAGE_COUNT];
@@ -193,7 +198,11 @@ int main(void) {
     size_t iterator = 0;
     do {
         if (iterator < MESSAGE_COUNT) {
+#ifndef SIMULATE_DEVICES
             float analogValue = temp_sensor->raw_value();
+#else
+            float analogValue = 1.0;
+#endif
             sprintf_s(msgText, sizeof(msgText),
                     "{\"deviceId\": \"myFirstDevice\",\"temperature\": %.2f}",
                     analogValue);
