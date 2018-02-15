@@ -13,7 +13,7 @@
          "upm",
          "Azure IoT SDK"
       ],
-      "os": ["ubuntu"]
+      "os": ["ubuntu-desktop-xenial-64bit"]
    },
    "service_provider": "Microsoft Azure",
    "service_provider_uri": "https://azure.microsoft.com",
