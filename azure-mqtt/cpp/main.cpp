@@ -39,7 +39,7 @@
 #include "iothubtransportmqtt.h"
 
 // define the following if not using a board with sensors
-#define SIMULATE_DEVICES
+//#define SIMULATE_DEVICES
 
 // Define the following if using a Grove Pi Shield for UP2 board
 #define USING_GROVE_PI_SHIELD
@@ -56,23 +56,6 @@
 
 using namespace std;
 using namespace mraa;
-
-/**
- * This project template allow you to test the Microsoft* Azure* IoT Hub.
- * It will read the temperature from the Grove Temperature Sensor and send
- * it to the Azure* IoT Hub.
- *
- * First steps:
- * - Create an IoT HuB following the instruction in
- * https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal
- * - Create a connection string for a device following the instruction in
- * https://aka.ms/manageiothub
- * - Copy the connection string inside the "credentials.h" header
- * - Run the example and check the results inside your Azure* IoT Hub
- *
- * * Other names and brands may be claimed as the property of others.
- */
-
 
 static int callbackCounter;
 static bool g_continueRunning;
@@ -204,10 +187,12 @@ int main(void) {
     g_continueRunning = true;
     callbackCounter = 0;
 
+#ifndef SIMULATE_DEVICES
     if (platform_init() != 0) {
         fprintf(stderr, "ERROR: Failed to initialize the platform.\n");
         return mraa::ERROR_UNSPECIFIED;
     }
+#endif
     printf("Starting the IoTHub client sample MQTT...\n");
 
     if ((iotHubClientHandle = IoTHubClient_LL_CreateFromConnectionString(

@@ -1,12 +1,12 @@
 {
-   "name":"Azure* IoT Hub with MQTT",
+   "name":"Azure IoT Hub with MQTT",
    "category":"Cloud",
    "tag":"cloud",
-   "description":"This project template allow you to test the Microsoft* Azure* IoT Hub.\nIt will read the temperature from the Grove Temperature Sensor then send it to the Azure* IoT Hub.\n\nFirst steps:\nCreate an IoT hub following the instruction in https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal. \nCreate a connection string for a device following the instruction in https://aka.ms/manageiothub.\nRun the example and check the results inside your Azure* IoT Hub\n\n* Other names and brands may be claimed as the property of others.",
+   "description":"This project shows you how to send data to Microsoft Azure IoT Hub using MQTT protocol.\nIt will read the temperature from the Grove Temperature Sensor, then sends it to the Azure IoT Hub.\n\nSee the details in the sample's README in GitHub: https://github.com/intel-iot-devkit/iot-devkit-samples/tree/master/azure-mqtt",
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
-         "Grove Temperature Sensor (GroveTemp) connected to the Grove Base Shield Port A0"
+         "Grove Temperature Sensor (GroveTemp) connected to a Grove Base Shield Analog In Port"
       ],
       "libs":[
          "mraa",
