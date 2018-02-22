@@ -1,4 +1,4 @@
 {
-  "ldflags": "-lssl -lcrypto -lpaho-mqtt3cs -ljwt -o mqtt_ciotc",
+  "ldflags": "-lssl -lcrypto -lpaho-mqtt3cs -ljwt",
   "main": "mqtt_iotc.cpp"
 }
