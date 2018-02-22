@@ -15,5 +15,27 @@
     },
     "service_provider": "Google Cloud IoT Core",
     "service_provider_uri": "https://cloud.google.com/iot-core/m",
-    "service_provider_description": "A fully managed service to easily and securely connect, manage, and ingest data from globally dispersed devices"
+    "service_provider_description": "A fully managed service to easily and securely connect, manage, and ingest data from globally dispersed devices",
+	"additional_fields":[
+		{
+		 "id":"deviceId",
+		 "name":"Device id",
+		 "description":"Registered device id"
+		},
+		{
+		 "id":"region",
+		 "name":"Region",
+		 "description":"The server region"
+		},
+		{
+		 "id":"registryId ",
+		 "name":"Registry Id",
+		 "description":"The registry id"
+		},
+		{
+		 "id":"projectId",
+		 "name":"Project ID",
+		 "description":"The project id"
+		}
+	]
 }
