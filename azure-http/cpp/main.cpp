@@ -26,6 +26,11 @@
  * THE SOFTWARE.
  */
 
+/**
+ * For instructions on how to setup the cloud service for this sample, see:
+ * https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/azure-http/README.md
+ */
+
 /* This sample uses the _LL APIs of iothub_client for example purposes.
  That does not mean that HTTP only works with the _LL APIs.
  Simply changing using the convenience layer (functions not having _LL)

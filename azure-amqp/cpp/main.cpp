@@ -26,6 +26,12 @@
  * THE SOFTWARE.
  */
 
+/**
+ * For instructions on how to setup the cloud service for this sample, see:
+ * https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/azure-amqp/README.md
+ */
+
+
 #include "azure_c_shared_utility/platform.h"
 #include "azure_c_shared_utility/threadapi.h"
 #include "azure_c_shared_utility/crt_abstractions.h"
