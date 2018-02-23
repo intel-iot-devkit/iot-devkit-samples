@@ -30,25 +30,13 @@
  * listening for the device topic will be notified when the message has been sent.
  * Depending on the result, the application will send a command to the device client
  * to turn on/off the fire alert. The fire alert will be simulated by enabling the
- * Grove Buzzer for some seconds.\n\n
- *
+ * Grove Buzzer for some seconds.
+ * 
  * Note: Publishing and subscribing to commands requires an account and is not
- * available with IBM* Quickstart.\n\n
+ * available with IBM* Quickstart.
  *
- * First steps:\n
- * Go to https://quickstart.internetofthings.ibmcloud.com/#/ and enter
- * the device id used in the credentials header file.\n
- * Run the example and check the results at:\n
- * https://quickstart.internetofthings.ibmcloud.com/#/device/{DEVICE ID}/sensor/
- * \n
- * \n* Other names and brands may be claimed as the property of others.
- *
- * Hardware Sensors used:\n
- * Grove Buzzer (GroveLed)\n
- * connected to the Grove Base Shield Port D5\n
- * Flame Sensor (YG1006)\n
- * connected to the Grove Base Shield Port D3\n
- *
+ * For instructions on how to setup the cloud service for this sample, see:
+ * https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/bluemix-quickstart/README.md
  */
 
 #include "mraa.hpp"
