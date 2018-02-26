@@ -41,13 +41,28 @@ import mraa.Result;
 import mraa.mraa;
 
 public class PWM {
+  // Set true if using a Grove Pi Shield, else false
+  static final boolean USING_GROVE_PI_SHIELD = true;
+  static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+      "you are running it on an unrecognized platform. " +
+      "You may need to modify the MRAA/UPM initialization code to " +
+      "ensure it works properly on your platform.\n\n";
 
   public static void main(String[] args) {
-    // create a PWM object from MRAA using pin 6
+    Platform platform = mraa.getPlatformType();
+    int pinNumber = 5;
+    if(platform.equals(Platform.INTEL_UP)) {
+      if(USING_GROVE_PI_SHIELD) {
+        pinNumber = pinNumber + 512; // A0 Connector (512 offset needed for the shield)
+      }
+    } else {
+        System.err.println(unknownPlatformMessage);
+    }
+    // create a PWM object from MRAA using pin 5
     // note that not all digital pins can be used for PWM, the available ones
     // are usually marked with a ~ on the board's silk screen
     Pwm pwm_pin = null;
-    pwm_pin = new Pwm(6);
+    pwm_pin = new Pwm(pinNumber);
     // select PWM period of 1ms
     if (pwm_pin.period_ms(1) != Result.SUCCESS) {
       System.err.println("Could not initalize the PMW period, exiting");
