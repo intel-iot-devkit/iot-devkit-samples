@@ -58,7 +58,7 @@ public class PWM {
     } else {
         System.err.println(unknownPlatformMessage);
     }
-    // create a PWM object from MRAA using pin 6
+    // create a PWM object from MRAA using pin 5
     // note that not all digital pins can be used for PWM, the available ones
     // are usually marked with a ~ on the board's silk screen
     Pwm pwm_pin = null;
