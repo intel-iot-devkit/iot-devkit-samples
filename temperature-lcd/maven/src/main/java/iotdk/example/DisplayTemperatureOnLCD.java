@@ -128,19 +128,41 @@ public class DisplayTemperatureOnLCD {
         // apply the calculated result
         lcd.setColor(r, g, b);
     }
+    // Set true if using a Grove Pi Shield, else false
+    static final boolean USING_GROVE_PI_SHIELD = true;
+    static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+        "you are running it on an unrecognized platform. " +
+        "You may need to modify the MRAA/UPM initialization code to " +
+        "ensure it works properly on your platform.\n\n";
 
     public static void main(String[] args) {
+        Platform platform = mraa.getPlatformType();
+        int dInPin = 4,
+            dOutPin = 3,
+            aPin = 2,
+            i2cPort = 0;
+        if(platform.equals(Platform.INTEL_UP)) {
+            if(USING_GROVE_PI_SHIELD) {
+                dInPin = dInPin + 512;   // D4
+                dOutPin = dOutPin + 512;  // D3
+                aPin = aPin + 512;     // A2
+                i2cPort = i2cPort + 512;  // I2C
+            }
+        } else {
+                System.err.println(unknownPlatformMessage);
+        }
+
         // button connected to D4 (digital in)
-        GroveButton button = new GroveButton(4);
+        GroveButton button = new GroveButton(dOnPin);
 
         // led connected to D3 (digital out)
-        GroveLed led = new GroveLed(3);
+        GroveLed led = new GroveLed(dOutPin);
 
         // temperature sensor connected to A0 (analog in)
-        GroveTemp temp = new GroveTemp(0);
+        GroveTemp temp = new GroveTemp(aPin);
 
         // LCD connected to the default I2C bus
-        Jhd1313m1 lcd = new Jhd1313m1(0);
+        Jhd1313m1 lcd = new Jhd1313m1(i2cPort);
 
         // loop forever updating the temperature values every second
         while (true) {
