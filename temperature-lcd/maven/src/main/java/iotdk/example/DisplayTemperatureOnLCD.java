@@ -153,7 +153,7 @@ public class DisplayTemperatureOnLCD {
         }
 
         // button connected to D4 (digital in)
-        GroveButton button = new GroveButton(dOnPin);
+        GroveButton button = new GroveButton(dInPin);
 
         // led connected to D3 (digital out)
         GroveLed led = new GroveLed(dOutPin);
