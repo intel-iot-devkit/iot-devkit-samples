@@ -19,32 +19,32 @@
     "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/google-pub/c/README.md",
 	"additional_fields":[
 		{
-		 "id":"deviceId",
+		 "id":"deviceId_iss",
 		 "name":"Device id",
 		 "description":"Registered device id"
 		},
 		{
-		 "id":"region",
+		 "id":"region_iss",
 		 "name":"Region",
 		 "description":"The server region"
 		},
 		{
-		 "id":"registryId ",
+		 "id":"registryId_iss",
 		 "name":"Registry Id",
 		 "description":"The registry id"
 		},
 		{
-		 "id":"projectId",
+		 "id":"projectId_iss",
 		 "name":"Project ID",
 		 "description":"The project id"
 		},
 		{
-		 "id":"ecpath",
+		 "id":"ecpath_iss",
 		 "name":"Private EC Key File Path",
 		 "description":"Full Path to Private EC Key File, e.g. /etc/google-cloud-keys/ec_private.pem"
 		},
 		{
-		 "id":"rootpath",
+		 "id":"rootpath_iss",
 		 "name":"roots.pem file path",
 		 "description":"Full Path to roots.pem File, e.g. /etc/google-cloud-keys/roots.pem"
 		}

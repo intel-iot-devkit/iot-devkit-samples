@@ -28,18 +28,26 @@
 #include "MQTTClient.h"
 // [END iot_mqtt_include]
 
+// Intel System Studio defines
+// define this to override getting the settings from the config file
+#define ISS_PROJECT
+
+#ifdef ISS_PROJECT
+#include "credentials.h"
+#endif
+
 #define TRACE 1 /* Set to 1 to enable tracing */
+enum CLIENTID { clientid_maxlen = 256, clientid_size} ;
 
 struct {
   char* address;
-  enum { clientid_maxlen = 256, clientid_size };
   char clientid[clientid_size];
-  char* deviceid;
-  char* ecpath;
-  char* projectid;
-  char* region;
-  char* registryid;
-  char* rootpath;
+  const char* deviceid;
+  const char* ecpath;
+  const char* projectid;
+  const char* region;
+  const char* registryid;
+  const char* rootpath;
   char* topic;
   char* payload;
 } opts = {
@@ -56,6 +64,9 @@ struct {
 };
 
 void Usage() {
+#ifdef ISS_PROJECT
+  printf("Set the relevant variables for the following in credentials.h\n");
+#endif
   printf("mqtt_ciotc <message> \\\n");
   printf("\t--deviceid <your device id>\\\n");
   printf("\t--region <e.g. us-central1>\\\n");
@@ -155,6 +166,18 @@ static char* CreateJwt(const char* ec_private_path, const char* project_id) {
  */
 // [START iot_mqtt_opts]
 bool GetOpts(int argc, char** argv) {
+#ifdef ISS_PROJECT
+	bool calcvalues = true;
+	opts.payload = "Test message!";
+	opts.deviceid = deviceId_iss;
+	opts.region = region_iss;
+	opts.registryid = registryId_iss;
+	opts.projectid = projectId_iss;
+	opts.ecpath = ecpath_iss;
+	opts.rootpath = rootpath_iss;
+
+#else
+
   int pos = 1;
   bool calcvalues = false;
 
@@ -206,7 +229,7 @@ bool GetOpts(int argc, char** argv) {
     }
     pos++;
   }
-
+#endif
   if (calcvalues) {
     int n = snprintf(opts.clientid, sizeof(opts.clientid),
         "projects/%s/locations/%s/registries/%s/devices/%s",
