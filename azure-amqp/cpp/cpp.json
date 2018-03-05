@@ -1,5 +1,5 @@
 {
-  "ldflags": "-liothub_client -liothub_client_http_transport -laziotsharedutil -luamqp -lpthread -lcurl -lssl -lcrypto -luuid -lmraa -lupm-grove",
+  "ldflags": "-liothub_client -liothub_client_amqp_transport -laziotsharedutil -luamqp -lpthread -lcurl -lssl -lcrypto -luuid -lmraa -lupm-grove",
   "cxxflags": "-std=c++11 -I/usr/include/azureiot -I/usr/include/azureiot/inc",
   "main": "main.cpp"
 }
