@@ -14,7 +14,7 @@
 	"os": ["ubuntu-desktop-xenial-64bit"]
     },
     "service_provider": "Google Cloud IoT Core",
-    "service_provider_uri": "https://cloud.google.com/iot-core/m",
+    "service_provider_uri": "https://cloud.google.com/iot-core",
     "service_provider_description": "A fully managed service to easily and securely connect, manage, and ingest data from globally dispersed devices",
     "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/google-pub/c/README.md",
 	"additional_fields":[
