@@ -60,6 +60,7 @@
  */
 
 using namespace std;
+using namespace mraa;
 
 // Threshold of light
 #define THRESHOLD 2
@@ -149,7 +150,7 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
 }
 
 int main() {
-  int i2CPort, aPin1, aPin2;
+  int i2cPort, aPin1, aPin2;
   string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
       "you are running it on an unrecognized platform. "
       "You may need to modify the MRAA/UPM initialization code to "
@@ -158,10 +159,10 @@ int main() {
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
+      i2cPort = 0;        // I2C Connector
 #ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
       aPin1 = 1 + 512;     // A1 Connector
       aPin2 = 2 + 512;      // A2 Connector
-      i2cPort = 0 + 512;        // I2C Connector
       break;
 #else
       cerr << "Not using Grove provide your pinout here" << endl;
@@ -184,7 +185,7 @@ int main() {
 
 
   // LCD screen object (the lcd is connected to I2C port, bus 0)
-  upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(i2CPort);
+  upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(i2cPort);
 
   //Left light sensor object
   upm::GroveLight* lightL = new upm::GroveLight(aPin1);

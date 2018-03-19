@@ -7,6 +7,22 @@ devkit libraries.
 Some samples might require additional libraries or SDKs be installed on
 your target boards. Refer to each sample's documentation.
 
+Branches
+------------
+These samples are released with Intel System Studio releases
+
+Latest Intel System Studio Release - master
+
+Intel System Studio 2018 - iss2018-gold
+
+Intel System Studio 2018 - Update 1	iss2018-update1
+
+Intel System Studio 2018 - Update 2	iss2018-update2
+
+
+
+
+
 Contributing
 ------------
 
