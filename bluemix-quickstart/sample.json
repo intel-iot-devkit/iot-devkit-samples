@@ -2,7 +2,7 @@
    "name":"IBM* Bluemix Quickstart",
    "category":"Cloud",
    "tag":"cloud",
-   "description":"This project template allow you to quickly test the IBM* Bluemix.\nIt will read the temperature from the Grove Temperature Sensor then send it to the IBM* Bluemix.\n\nFirst steps:\nGo to https://quickstart.internetofthings.ibmcloud.com/#/ and enter a unique device ID (e.g. the MAC address of your device). \nReplace the placeholder {DEVICE_ID} by this value.\nRun the example and check the results at:\nhttps://quickstart.internetofthings.ibmcloud.com/#/device/{DEVICE_ID}/sensor/\n\n* Other names and brands may be claimed as the property of others.",
+   "description":"This project template allows you to quickly test the IBM* Bluemix.\nIt will read the temperature from the Grove Temperature Sensor then send it to the IBM* Bluemix.\n\nFirst steps:\nGo to https://quickstart.internetofthings.ibmcloud.com/#/ and enter a unique device ID (e.g. the MAC address of your device). \nReplace the placeholder {DEVICE_ID} by this value.\nRun the example and check the results at:\nhttps://quickstart.internetofthings.ibmcloud.com/#/device/{DEVICE_ID}/sensor/\n\n* Other names and brands may be claimed as the property of others.",
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
