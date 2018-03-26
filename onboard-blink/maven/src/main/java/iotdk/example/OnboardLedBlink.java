@@ -48,13 +48,14 @@ public class OnboardLedBlink {
 
     public static void main(String[] args) {
 		Platform platform = mraa.getPlatformType();
-		int pinNumber = 2;
-		if(platform.equals(Platform.INTEL_UP)) {
+		int pinNumber = 13;
+		if(platform.equals(Platform.INTEL_UP2)) {
 			if(USING_GROVE_PI_SHIELD) {
-				pinNumber = pinNumber + 512; // A2 Connector (512 offset needed for the shield)
+				mraa.addSubplatform(Platform.GROVEPI, "0");
+				pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
 			}
 		} else {
-				System.err.println(unknownPlatformMessage);
+			System.err.println(unknownPlatformMessage);
 		}
         Gpio pin = new Gpio(pinNumber);
 
