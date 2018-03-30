@@ -47,6 +47,20 @@ libcurl: On your target Ubuntu system do: `apt install libcurl3`
 
 * Open Intel(R) System Studio. Start the 'New Project Creation Wizard' (File > New > Example project for building on a container and running on Linux). Choose Ubuntu, C++, Cloud, and select 'Azure IoT Hub with HTTP' sample.  It'll ask you for 'connection string'. Copy the string you got from the Azure Dashbord in the previous step and continue to create a new project based on this sample.
 
+* After creating the new project, right click the project and go to properties. Go to `C/C++ General` > `Paths and Symbols` view and open the `GNU C++` Language. 
+
+	Delete the following entries: 
+
+	* `//${DOCKER_IMAGE}${DOCKER_SYSROOT}/usr/include/azureiot`
+	* `//${DOCKER_IMAGE}${DOCKER_SYSROOT}/usr/include/azureiot/inc`
+
+	Add the following entries:
+
+	* `//includes-${DOCKER_IMAGE}.${DOCKER_IMAGE_TAG}/usr/include/azureiot`
+	* `//includes-${DOCKER_IMAGE}.${DOCKER_IMAGE_TAG}/usr/include/azureiot/inc`
+
+	Save your changes. Then, right-click the project again and select `Index` > `Rebuild` to rebuild your includes list.
+
 ## Notes
 
 * If you don't have an IoT board or the sensor, you can still run the sample to see how it sends info to
