@@ -22,6 +22,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * For instructions on how to setup the cloud service for this sample, see:
+ * https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/bluemix-quickstart/README.md
+ */
+
+
 extern "C" {
     #include "MQTTClient.h"
     }
