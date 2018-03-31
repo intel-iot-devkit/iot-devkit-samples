@@ -19,6 +19,12 @@
  *
  */
 
+/**
+ * For instructions on how to setup the cloud service for this sample, see:
+ * https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/aws-pub-sub/cpp/README.md
+ */
+
+
 #include <chrono>
 #include <cstring>
 

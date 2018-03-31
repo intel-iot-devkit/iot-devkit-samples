@@ -39,14 +39,25 @@ import mraa.Result;
 import mraa.mraa;
 
 public class OnboardLedBlink {
+	// Set true if using a Grove Pi Shield, else false
+    static final boolean USING_GROVE_PI_SHIELD = true;
+    static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+		"you are running it on an unrecognized platform. " +
+		"You may need to modify the MRAA/UPM initialization code to " +
+		"ensure it works properly on your platform.\n\n";
 
     public static void main(String[] args) {
-        // Change the GPIO to one that matches your platform
-        // Intel Galileo Gen 2 = 13
-        // Intel Edison = 13
-        // Intel Joule with expansion board = 100
-        // set the pin as output
-        Gpio pin = new Gpio(13);
+		Platform platform = mraa.getPlatformType();
+		int pinNumber = 13;
+		if(platform.equals(Platform.INTEL_UP2)) {
+			if(USING_GROVE_PI_SHIELD) {
+				mraa.addSubplatform(Platform.GROVEPI, "0");
+				pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
+			}
+		} else {
+			System.err.println(unknownPlatformMessage);
+		}
+        Gpio pin = new Gpio(pinNumber);
 
         if (pin == null) {
             System.err.println("Could not initialize GPIO, exiting");

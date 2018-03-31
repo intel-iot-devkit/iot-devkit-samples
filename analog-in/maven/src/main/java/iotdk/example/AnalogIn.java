@@ -2,7 +2,7 @@
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Author: Petre Eftime <petre.p.eftime@intel.com>
  *
- * Copyright (c) 2015 - 2016 Intel Corporation.
+ * Copyright (c) 2015 - 2018 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,16 +24,10 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- *
- * Demonstrate how to read an analog voltage value from an input pin using the
- * MRAA library, any sensor that outputs a variable voltage can be used with
- * this example code.
- * Suitable ones in the Grove Starter Kit are the Rotary Angle Sensor, Light
- * Sensor, Sound Sensor, Temperature Sensor.
- *
- * Use platform with Analog capabilities.
+/* Analog input
+ * Read values from a gpio analog input pin.
  */
+
 package iotdk.example;
 
 import mraa.Aio;
@@ -42,10 +36,25 @@ import mraa.mraa;
 
 public class AnalogIn {
 
-    public static void main(String[] args) {
+	// Set true if using a Grove Pi Shield, else false
+    static final boolean USING_GROVE_PI_SHIELD = true;
+	static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+		"you are running it on an unrecognized platform. " +
+		"You may need to modify the MRAA/UPM initialization code to " +
+		"ensure it works properly on your platform.\n\n";
 
+	public static void main(String[] args) {
+		Platform platform = mraa.getPlatformType();
+		int pinNumber = 0;
+		if(platform.equals(Platform.INTEL_UP)) {
+			if(USING_GROVE_PI_SHIELD) {
+				pinNumber = pinNumber + 512; // A0 Connector (512 offset needed for the shield)
+			}
+		} else {
+				System.err.println(unknownPlatformMessage);
+		}
         // create an analog input object from MRAA using pin A0
-        Aio pin = new Aio(0);
+	    Aio pin = new Aio(pinNumber);
 
         // loop forever printing the input value every second
         while (true) {

@@ -4,7 +4,7 @@
  * All rights reserved.
  *
  * Author: Thomas Lyet <thomas.lyet@intel.com>
- * Copyright (c) 2016 Intel Corporation.
+ * Copyright (c) 2016-2018 Intel Corporation.
  *
  * MIT License
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,6 +26,12 @@
  * THE SOFTWARE.
  */
 
+/**
+ * For instructions on how to setup the cloud service for this sample, see:
+ * https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/azure-amqp/README.md
+ */
+
+
 #include "azure_c_shared_utility/platform.h"
 #include "azure_c_shared_utility/threadapi.h"
 #include "azure_c_shared_utility/crt_abstractions.h"
@@ -33,31 +39,24 @@
 #include "iothub_message.h"
 #include "iothubtransportamqp.h"
 
+// define the following if not using a board with sensors
+//#define SIMULATE_DEVICES
+
+// Define the following if using a Grove Pi Shield for UP2 board
+#define USING_GROVE_PI_SHIELD
+
 #include <iostream>
 
 #include "certs.h"
 #include "credentials.h"
 #include <mraa.hpp>
+
+#ifndef SIMULATE_DEVICES
 #include <grove.hpp>
+#endif
 
-/**
- * This project template allow you to test the Microsoft* Azure* IoT Hub.
- * It will read the temperature from the Grove Temperature Sensor and send
- * it to the Azure* IoT Hub.
- *
- * First steps:
- * - Create an IoT HuB following the instruction in
- * https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal
- * - Create a connection string for a device following the instruction in
- * https://aka.ms/manageiothub
- * - Copy the connection string inside the "credentials.h" header
- * - Run the example and check the results inside your Azure* IoT Hub
- *
- * * Other names and brands may be claimed as the property of others.
- */
-
-DEFINE_ENUM_STRINGS(IOTHUB_CLIENT_CONFIRMATION_RESULT,
-        IOTHUB_CLIENT_CONFIRMATION_RESULT_VALUES);
+using namespace std;
+using namespace mraa;
 
 static int callbackCounter;
 static bool g_continueRunning;
@@ -173,14 +172,46 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result,
 }
 
 int main(void) {
-    // Initialize temperature sensor connected to A0 (analog in)
-    upm::GroveTemp* temp_sensor = new upm::GroveTemp(0);
+#ifndef SIMULATE_DEVICES
+
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+    		"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+
+	int aPin;
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+		case INTEL_UP2:
+			aPin = 13;  	// A2 Connector
+#ifdef USING_GROVE_PI_SHIELD
+			aPin = 2 + 512; // A2 connector, 512 offset needed for the shield
+			break;
+#endif
+		default:
+	        cerr << unknownPlatformMessage;
+	}
+#ifdef USING_GROVE_PI_SHIELD
+	addSubplatform(GROVEPI, "0");
+#endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+
+
+    // Initialize temperature sensor connected to an analog in pin
+    upm::GroveTemp* temp_sensor = new upm::GroveTemp(aPin);
     if (temp_sensor == NULL) {
         fprintf(stderr, "ERROR: MRAA couldn't initialize Analog interface, "
                 "exiting");
         return mraa::ERROR_UNSPECIFIED;
     }
-
+#endif
     // Initialize the Azure IoT SDK
     IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle;
     EVENT_INSTANCE messages[MESSAGE_COUNT];
@@ -188,10 +219,12 @@ int main(void) {
     g_continueRunning = true;
     callbackCounter = 0;
 
+#ifndef SIMULATE_DEVICES
     if (platform_init() != 0) {
         fprintf(stderr, "ERROR: Failed to initialize the platform.\n");
         return mraa::ERROR_UNSPECIFIED;
     }
+#endif
     printf("Starting the IoTHub client sample AMQP...\n");
 
     if ((iotHubClientHandle = IoTHubClient_LL_CreateFromConnectionString(
@@ -221,7 +254,12 @@ int main(void) {
     size_t iterator = 0;
     do {
         if (iterator < MESSAGE_COUNT) {
-            float analogValue = temp_sensor->raw_value();
+        	float analogValue = 0.0f;
+#ifndef SIMULATE_DEVICES
+            analogValue = temp_sensor->raw_value();
+#else
+            analogValue += 1.0f;
+#endif
             sprintf_s(msgText, sizeof(msgText),
                     "{\"deviceId\": \"myFirstDevice\",\"temperature\": %.2f}",
                     analogValue);

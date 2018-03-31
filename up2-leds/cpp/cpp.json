@@ -1,0 +1,4 @@
+{
+  "main": "up2-leds.cpp",
+  "ldflags": "-lmraa"
+}
