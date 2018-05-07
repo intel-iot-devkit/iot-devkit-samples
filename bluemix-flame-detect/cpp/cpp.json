@@ -1,5 +1,11 @@
 {
   "cflags": "-std=c++11",
   "ldflags": " -lmraa -lupm-buzzer -lupm-yg1006 -lpaho-mqtt3c",
-  "main": "BluemixFlameDetection.cpp"
+  "main": "BluemixFlameDetection.cpp",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }

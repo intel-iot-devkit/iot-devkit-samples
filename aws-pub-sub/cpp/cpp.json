@@ -1,5 +1,11 @@
 {
     "main": "PubSub.cpp",
     "cflags": "-std=c++0x -I/workspace/${ProjName}/src/include -I/usr/include/awsiotsdk",
-    "ldflags": "-laws-iot-sdk-cpp -lssl -lcrypto -lpthread"
+    "ldflags": "-laws-iot-sdk-cpp -lssl -lcrypto -lpthread",
+    "projectOptions": [
+       {
+         "projectType": "cdt",
+         "dockerSupported": "true"
+       }
+    ]
 }

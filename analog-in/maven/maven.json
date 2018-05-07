@@ -1,3 +1,9 @@
 {
-  "main": "iotdk.example.AnalogIn"
+  "main": "iotdk.example.AnalogIn",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }

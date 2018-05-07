@@ -1,3 +1,9 @@
 {
-  "main": "iotdk.example.Interrupt"
+  "main": "iotdk.example.Interrupt",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }

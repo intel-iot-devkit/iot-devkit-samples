@@ -1,3 +1,9 @@
 {
-  "main": "iotdk.example.DigitalOut"
+  "main": "iotdk.example.DigitalOut",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }

@@ -1,3 +1,9 @@
 {
-  "main": "iotdk.example.AutomaticCurtain"
+  "main": "iotdk.example.AutomaticCurtain",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }
