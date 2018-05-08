@@ -1,7 +1,7 @@
 {
   "name": "Digital Output",
   "category": "Grove Starter Kit",
-  "description": "Demonstrate how to write a digital value to an output pin using the MRAA library. A suitable part to use this example with in the Grove Starter Kit is the LED. Output connected to digital pin 8 (Grove Base Shield Port D8)",
+  "description": "Demonstrate how to write a digital value to an output pin using the MRAA library. A suitable part to use this example with in the Grove Starter Kit is the LED. Output connected to digital pin 4 (Grove Base Shield Port D4)",
   "author": "Intel Corporation",
   "date": "2016-09-29",
   "platform" : {
