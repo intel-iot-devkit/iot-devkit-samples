@@ -48,7 +48,7 @@ public class DigitalOut {
     static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
         "you are running it on an unrecognized platform. " +
         "You may need to modify the MRAA/UPM initialization code to " +
-        "ensure it works properly on your platform.\n\n";s
+        "ensure it works properly on your platform.\n\n";
 
     public static void main(String[] args) {
         Platform platform = mraa.getPlatformType();
