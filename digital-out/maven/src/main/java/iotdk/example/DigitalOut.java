@@ -55,7 +55,7 @@ public class DigitalOut {
         int pinNumber = 4;
         if(platform.equals(Platform.INTEL_UP)) {
             if(USING_GROVE_PI_SHIELD) {
-                pinNumber = pinNumber + 512; // A0 Connector (512 offset needed for the shield)
+                pinNumber = pinNumber + 512; // D4 Connector (512 offset needed for the shield)
             }
         } else {
                 System.err.println(unknownPlatformMessage);
