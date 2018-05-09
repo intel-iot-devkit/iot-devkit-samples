@@ -1,5 +1,11 @@
 {
   "ldflags": "-liothub_client -liothub_client_mqtt_transport -laziotsharedutil -lumqtt -lpthread -lcurl -lssl -lcrypto -lmraa -lupm-grove -lparson",
   "cxxflags": "-std=c++11 -I/usr/include/azureiot -I/usr/include/azureiot/inc",
-  "main": "main.cpp"
+  "main": "main.cpp",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }

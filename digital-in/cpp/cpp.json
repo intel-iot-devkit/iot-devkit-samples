@@ -1,4 +1,10 @@
 {
   "main": "digital-in.cpp",
-  "ldflags": "-lmraa"
+  "ldflags": "-lmraa",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }
