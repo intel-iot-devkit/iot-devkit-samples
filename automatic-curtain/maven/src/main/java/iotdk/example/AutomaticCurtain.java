@@ -79,6 +79,7 @@ import upm_grove.GroveLight;
 import upm_grove.GroveRotary;
 import upm_i2clcd.Jhd1313m1;
 import upm_uln200xa.ULN200XA;
+import upm_uln200xa.ULN200XA_DIRECTION_T;
 
 public class AutomaticCurtain {
 
@@ -185,7 +186,7 @@ public class AutomaticCurtain {
   static boolean drawCurtain(ULN200XA stepperMotor) {
     // Check if the curtain is already completely closed.
     if (stepper_motor_current_step != STEPPER_MOTOR_MAX_STEPS) {
-      stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CW);
+      stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CW);
       stepperMotor.stepperSteps(STEPPER_MOTOR_ACTIVATION_STEPS);
       stepper_motor_current_step += STEPPER_MOTOR_ACTIVATION_STEPS;
       stepperMotor.release();
@@ -205,7 +206,7 @@ public class AutomaticCurtain {
    */
   static boolean openCurtain(ULN200XA stepperMotor) {
     if (stepper_motor_current_step != 0) {
-      stepperMotor.setDirection(ULN200XA.ULN200XA_DIRECTION_T.DIR_CCW);
+      stepperMotor.setDirection(ULN200XA_DIRECTION_T.ULN200XA_DIR_CCW);
       stepperMotor.stepperSteps(STEPPER_MOTOR_ACTIVATION_STEPS);
       stepper_motor_current_step -= STEPPER_MOTOR_ACTIVATION_STEPS;
       stepperMotor.release();
