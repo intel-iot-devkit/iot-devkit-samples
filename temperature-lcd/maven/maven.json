@@ -3,7 +3,7 @@
   "projectOptions": [
      {
        "projectType": "cdt",
-       "dockerSupported": "true"
+       "dockerSupported": "false"
      }
   ]
 }
