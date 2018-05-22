@@ -2,7 +2,7 @@
   "main": "iotdk.example.Up2Leds",
   "projectOptions": [
      {
-       "projectType": "cdt",
+       "projectType": "maven",
        "dockerSupported": "false"
      }
   ]

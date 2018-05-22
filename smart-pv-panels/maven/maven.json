@@ -2,7 +2,7 @@
   "main": "iotdk.example.SmartPhotovoltaicPanels",
   "projectOptions": [
      {
-       "projectType": "cdt",
+       "projectType": "maven",
        "dockerSupported": "false"
      }
   ]

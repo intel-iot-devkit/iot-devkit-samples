@@ -2,7 +2,7 @@
   "main": "iotdk.example.Interrupt",
   "projectOptions": [
      {
-       "projectType": "cdt",
+       "projectType": "maven",
        "dockerSupported": "false"
      }
   ]

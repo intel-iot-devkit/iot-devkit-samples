@@ -2,7 +2,7 @@
   "main": "iotdk.example.AutomaticCurtain",
   "projectOptions": [
      {
-       "projectType": "cdt",
+       "projectType": "maven",
        "dockerSupported": "false"
      }
   ]

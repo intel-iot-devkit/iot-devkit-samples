@@ -2,7 +2,7 @@
   "main": "iotdk.example.DigitalIn",
   "projectOptions": [
      {
-       "projectType": "cdt",
+       "projectType": "maven",
        "dockerSupported": "false"
      }
   ]
