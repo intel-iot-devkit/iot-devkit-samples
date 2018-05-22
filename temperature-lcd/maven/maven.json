@@ -2,7 +2,7 @@
   "main": "iotdk.example.DisplayTemperatureOnLCD",
   "projectOptions": [
      {
-       "projectType": "cdt",
+       "projectType": "maven",
        "dockerSupported": "false"
      }
   ]
