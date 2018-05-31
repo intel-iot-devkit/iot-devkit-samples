@@ -72,8 +72,6 @@
  */
 package iotdk.example;
 
-import mraa.Platform;
-import mraa.mraa;
 import upm_grove.GroveButton;
 import upm_grove.GroveLight;
 import upm_grove.GroveRotary;
@@ -257,11 +255,11 @@ public class AutomaticCurtain {
     // Lux target value
     int luxTarget = 0;
 
-    // Instantiate a rotary sensor on analog pin A0
-    GroveRotary rotarySensor = new GroveRotary(0);
+    // Instantiate a rotary sensor on analog pin A1
+    GroveRotary rotarySensor = new GroveRotary(1);
 
-    // Instantiate a light sensor on analog pin A3
-    GroveLight lightSensor = new GroveLight(3);
+    // Instantiate a light sensor on analog pin A2
+    GroveLight lightSensor = new GroveLight(2);
 
     // Instantiate a button on digital pin D4
     GroveButton button = new GroveButton(4);
