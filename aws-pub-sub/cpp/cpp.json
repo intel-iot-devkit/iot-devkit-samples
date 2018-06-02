@@ -1,6 +1,6 @@
 {
     "main": "PubSub.cpp",
-    "cflags": "-std=c++0x -I/workspace/${ProjName}/src/include -I/usr/include/awsiotsdk",
+    "cflags": "-std=c++11 -I/workspace/${ProjName}/src/include -I/usr/include/awsiotsdk",
     "ldflags": "-laws-iot-sdk-cpp -lssl -lcrypto -lpthread",
     "projectOptions": [
        {
