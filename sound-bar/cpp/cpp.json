@@ -1,6 +1,6 @@
 {
   "main": "sound-bar.cpp",
-  "ldflags": "-lmraa -lupm-grove -lupm-mic -lupm-my9221",
+  "ldflags": "-lmraa -lupm-grove -lupm-mic -lupm-my9221 -std=c++11",
   "projectOptions": [
      {
        "projectType": "cdt",
