@@ -1,7 +1,7 @@
 {
   "main": "automatic-curtain.cpp",
   "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove -lupm-uln200xa -std=c++11",
-  "cxxflags": "-std=c++11"
+  "cxxflags": "-std=c++11",
   "projectOptions": [
      {
        "projectType": "cdt",
