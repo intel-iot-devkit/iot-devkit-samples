@@ -60,8 +60,6 @@ class IsrCounterCallback implements Runnable {
 }
 
 public class Interrupt {
-    // Set true if using a Grove Pi Shield, else false
-    static final boolean USING_GROVE_PI_SHIELD = true;
     static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
         "you are running it on an unrecognized platform. " +
         "You may need to modify the MRAA/UPM initialization code to " +
@@ -69,14 +67,20 @@ public class Interrupt {
 
     public static void main(String[] args) {
         Platform platform = mraa.getPlatformType();
-        int pinNumber = 4;
-        if(platform.equals(Platform.INTEL_UP)) {
-            if(USING_GROVE_PI_SHIELD) {
-                pinNumber = pinNumber + 512; // A0 Connector (512 offset needed for the shield)
-            }
-        } else {
+        int pinNumber = 13;
+
+        switch (platform) {
+            case Platform.INTEL_MINNOWBOARD_MAX:
+            case Platform.INTEL_JOULE_EXPANSION:
+                pinNumber = 26;
+                break;
+            case Platform.UNKNOWN_PLATFORM:
                 System.err.println(unknownPlatformMessage);
+                break;
+            default:
+                break;
         }
+
         // create a gpio object from MRAA
         Gpio pin = new Gpio(pinNumber);
 
