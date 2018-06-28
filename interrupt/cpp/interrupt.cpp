@@ -40,9 +40,6 @@
 #include <iostream>
 #include <unistd.h>
 
-// Define the following if using a Grove Pi Shield
-#define USING_GROVE_PI_SHIELD
-
 using namespace std;
 using namespace mraa;
 
@@ -65,23 +62,15 @@ int main()
 	// check which board we are running on
 	Platform platform = getPlatformType();
 	switch (platform) {
-		case INTEL_UP2:
-#ifdef USING_GROVE_PI_SHIELD
-			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
-			break;
-#endif
-		case INTEL_UP:
-		case INTEL_EDISON_FAB_C:
-		case INTEL_GALILEO_GEN2:
-			break;
 		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
-			gpioPin = 104;
-			break;
 		case INTEL_JOULE_EXPANSION:
-			gpioPin = 101;
+			gpioPin = 26;
 			break;
-		default:
+		case UNKNOWN_PLATFORM:
 	        cerr << unknownPlatformMessage;
+            break;
+        default:
+            break;
 	}
 #ifdef USING_GROVE_PI_SHIELD
 	addSubplatform(GROVEPI, "0");
