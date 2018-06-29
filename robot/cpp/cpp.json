@@ -1,5 +1,11 @@
 {
   "main": "robot.cpp",
   "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grovemd -lupm-rfr359f -lupm-hmc5883l -lupm-grovevdiv -lpthread",
-  "cxxflags": "-std=c++11 -Wno-delete-non-virtual-dtor "
+  "cxxflags": "-std=c++11 -Wno-delete-non-virtual-dtor ",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }

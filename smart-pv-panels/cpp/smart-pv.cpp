@@ -150,7 +150,9 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
 }
 
 int main() {
-  int i2cPort, aPin1, aPin2;
+  int i2cPort = 0,       // I2C Connector
+      aPin1 = 1,         // A1 Connector
+      aPin2 = 2;         // A2 Connector
   string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
       "you are running it on an unrecognized platform. "
       "You may need to modify the MRAA/UPM initialization code to "
@@ -159,10 +161,9 @@ int main() {
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
-      i2cPort = 0;        // I2C Connector
 #ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPin1 = 1 + 512;     // A1 Connector
-      aPin2 = 2 + 512;      // A2 Connector
+      aPin1 += 512;
+      aPin2 += 512;
       break;
 #else
       cerr << "Not using Grove provide your pinout here" << endl;
