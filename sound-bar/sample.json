@@ -4,6 +4,7 @@
    "description":"This example show how to use a Led Bar to show ambient sound level.",
    "author":"Fabio Federici",
    "date":"2015-09-16",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/sound-bar/README.md",
    "platform":{
       "hwreq":[
          "Grove Sound Sensor",

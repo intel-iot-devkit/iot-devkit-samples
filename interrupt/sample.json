@@ -4,6 +4,7 @@
   "description": "Demonstrate how to react on an external event with an ISR (Interrupt Service Routine), which will run independently of the main program flow using the MRAA library.",
   "author": "Intel Corporation",
   "date": "2016-09-29",
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/interrupt/README.md",
   "platform" : {
     "hwreq" : ["Input connected to digital pin 13"],
     "libs": ["mraa"]

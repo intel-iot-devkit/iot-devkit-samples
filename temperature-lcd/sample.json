@@ -4,6 +4,7 @@
    "description":"This project template includes the starting code needed to use the various sensors that come with the Grove Starter Kit. Update the temperature values and reflect the changes on the LCD.",
    "author":"Intel Corporation",
    "date":"2016-09-19",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/temperature-lcd/README.md",
    "platform":{
       "hwreq":[
          "Grove LED (GroveLed) connected to the Grove Base Shield Port D3",

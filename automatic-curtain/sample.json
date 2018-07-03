@@ -4,6 +4,7 @@
    "description":"Example that operates a curtain depending on readings from a light sensor",
    "author":"Bufalino Andrea, Carocci Eugenio, Ranalli Alessandro",
    "date":"2015-08-25",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/automatic-curtain/README.md",
    "platform":{
       "hwreq":[
          "Grove Rotary Angle Sensor",

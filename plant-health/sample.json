@@ -4,6 +4,7 @@
    "description":"Example to simulate a Plant Health Monitoring System.",
    "author":"Fabio Federici",
    "date":"2015-09-16",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/plant-health/README.md",
    "platform":{
       "hwreq":[
          "Board with I2C, AIO and GPIO",

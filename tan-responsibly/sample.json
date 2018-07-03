@@ -4,6 +4,7 @@
    "description":"This example helps you to avoid sunburn.",
    "author":"Fabio Federici",
    "date":"2015-09-16",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/tan-responsibly/README.md",
    "platform":{
       "hwreq":[
          "Grove UV Sensor",
