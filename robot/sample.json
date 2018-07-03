@@ -4,6 +4,7 @@
    "description":"This project template utilizes components in the Grove Robotics Kit to create a working robot",
    "author":"Intel Corporation",
    "date":"2015-07-06",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/robot/README.md",
    "platform":{
       "hwreq":[
          "Grove LCD RGB Backlight (811004001)",

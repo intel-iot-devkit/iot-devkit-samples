@@ -4,6 +4,7 @@
    "description":"Move photovoltaic panel following the maximum brightness of the sun.\n\nThe idea is to move photovoltaic panel (represented by a motor) according to the movement of the sun, directing it towards the maximum light radiated during the day using the maximum light intensity detected by two light sensor placed parallel to each other.\nThe idea is to compute the sensors average light in a calibration step and use this number to move motor according to the movement of light.",
    "author":"Vittoriano Muttillo, Giacomo Valente, Fabio Federici",
    "date":"2015-09-16",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/smart-pv-panels/README.md",
    "platform":{
       "hwreq":[
          "GroveLight sensor connected to the Grove Base Shield Port A0",

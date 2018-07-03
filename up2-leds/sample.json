@@ -4,6 +4,7 @@
   "description": "This sample shows how to use the new LED class and APIs added to the MRAA library. It is intended to run on the UP Squared board, and will utilize the 4 built-in color LEDs located under the Ethernet ports. No additional hardware is required.",
   "author": "Intel Corporation",
   "date": "2018-03-15",
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/up2-leds/README.md",
   "platform" : {
     "hwreq" : ["UP Squared Board"],
     "libs": ["mraa"]

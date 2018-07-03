@@ -4,6 +4,7 @@
   "description": "Demonstrate how to blink the on board LED, writing a digital value to an output pin using the MRAA library",
   "author": "Intel Corporation",
   "date": "2016-06-13",
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/master/onboard-blink/c/README.md",
   "platform" : {
     "hwreq" : ["gpio"],
     "libs": ["mraa"]
