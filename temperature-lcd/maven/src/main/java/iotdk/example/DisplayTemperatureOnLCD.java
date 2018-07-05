@@ -139,13 +139,13 @@ public class DisplayTemperatureOnLCD {
         Platform platform = mraa.getPlatformType();
         int dInPin = 4,
             dOutPin = 3,
-            aPin = 2,
+            aPin = 0,
             i2cPort = 0;
-        if(platform.equals(Platform.INTEL_UP)) {
+        if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
                 dInPin = dInPin + 512;   // D4
                 dOutPin = dOutPin + 512;  // D3
-                aPin = aPin + 512;     // A2
+                aPin = aPin + 512;     // A0
                 i2cPort = i2cPort + 512;  // I2C
             }
         } else {
