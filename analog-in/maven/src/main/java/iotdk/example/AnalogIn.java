@@ -45,15 +45,15 @@ public class AnalogIn {
 
 	public static void main(String[] args) {
 		Platform platform = mraa.getPlatformType();
-		int pinNumber = 0;
-		if(platform.equals(Platform.INTEL_UP)) {
+		int pinNumber = 2;
+		if(platform.equals(Platform.INTEL_UP2)) {
 			if(USING_GROVE_PI_SHIELD) {
-				pinNumber = pinNumber + 512; // A0 Connector (512 offset needed for the shield)
+				pinNumber = pinNumber + 512; // A2 Connector (512 offset needed for the shield)
 			}
 		} else {
 				System.err.println(unknownPlatformMessage);
 		}
-        // create an analog input object from MRAA using pin A0
+        // create an analog input object from MRAA using pin A2
 	    Aio pin = new Aio(pinNumber);
 
         // loop forever printing the input value every second

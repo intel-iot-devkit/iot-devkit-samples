@@ -54,7 +54,7 @@ public class DigitalIn {
     public static void main(String[] args) {
         Platform platform = mraa.getPlatformType();
         int pinNumber = 4;
-        if(platform.equals(Platform.INTEL_UP)) {
+        if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
                 pinNumber = pinNumber + 512; // D4 Connector (512 offset needed for the shield)
             }

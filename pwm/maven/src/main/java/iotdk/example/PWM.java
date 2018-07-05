@@ -51,9 +51,9 @@ public class PWM {
   public static void main(String[] args) {
     Platform platform = mraa.getPlatformType();
     int pinNumber = 5;
-    if(platform.equals(Platform.INTEL_UP)) {
+    if(platform.equals(Platform.INTEL_UP2)) {
       if(USING_GROVE_PI_SHIELD) {
-        pinNumber = pinNumber + 512; // A0 Connector (512 offset needed for the shield)
+        pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
       }
     } else {
         System.err.println(unknownPlatformMessage);
