@@ -185,8 +185,25 @@ void distanceIR(GroveMD *motors, RFR359F *fl, RFR359F *fr, RFR359F *rl, RFR359F 
     }
 }
 
+// check if running as root
+void CheckRoot(void)
+{
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+	return;
+}
+
+
 int main(int argc, char **argv)
 {
+
+  // check if running as root
+  CheckRoot();
+
   // Register signal handler
   signal(SIGINT, signalHandler);
 

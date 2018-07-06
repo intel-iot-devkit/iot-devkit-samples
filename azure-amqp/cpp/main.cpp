@@ -171,7 +171,24 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result,
     IoTHubMessage_Destroy(eventInstance->messageHandle);
 }
 
+// check if running as root
+void CheckRoot(void)
+{
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+	return;
+}
+
+
 int main(void) {
+
+	// check if running as root
+	CheckRoot();
+
 #ifndef SIMULATE_DEVICES
 
 	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
@@ -195,13 +212,6 @@ int main(void) {
 #ifdef USING_GROVE_PI_SHIELD
 	addSubplatform(GROVEPI, "0");
 #endif
-	// check if running as root
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
 
 
     // Initialize temperature sensor connected to an analog in pin
