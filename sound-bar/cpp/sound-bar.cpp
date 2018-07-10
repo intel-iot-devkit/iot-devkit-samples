@@ -58,7 +58,7 @@ using namespace mraa;
 using namespace std;
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -77,7 +77,7 @@ void CheckRoot(void)
 int main(int argc, char **argv) {
 
   // check if running as root
-  CheckRoot();
+  checkRoot();
 
   string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
       "you are running it on an unrecognized platform. "

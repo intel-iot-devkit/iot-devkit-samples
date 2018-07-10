@@ -276,7 +276,7 @@ namespace awsiotsdk {
 }
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -290,7 +290,7 @@ void CheckRoot(void)
 
 int main(int argc, char **argv) {
 
-    CheckRoot();
+    checkRoot();
     std::shared_ptr<awsiotsdk::util::Logging::ConsoleLogSystem> p_log_system =
         std::make_shared<awsiotsdk::util::Logging::ConsoleLogSystem>(awsiotsdk::util::Logging::LogLevel::Info);
     awsiotsdk::util::Logging::InitializeAWSLogging(p_log_system);

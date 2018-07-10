@@ -49,7 +49,7 @@ sig_handler(int signum)
 }
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -66,7 +66,7 @@ main()
 {
 
     // check if running as root
-    CheckRoot();
+    checkRoot();
 
     // Perform a basic platform and version check
     if (mraa::getPlatformType() != mraa::INTEL_UP2) {

@@ -172,7 +172,7 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result,
 }
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -187,7 +187,7 @@ void CheckRoot(void)
 int main(void) {
 
 	// check if running as root
-	CheckRoot();
+	checkRoot();
 
 #ifndef SIMULATE_DEVICES
 

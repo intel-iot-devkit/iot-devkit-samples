@@ -36,7 +36,7 @@ using namespace std;
 using namespace mraa;
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -51,7 +51,7 @@ int main()
 {
 
 	// check if running as root
-	CheckRoot();
+	checkRoot();
 
 	int gpioPin = 13;
 	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "

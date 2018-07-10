@@ -134,7 +134,7 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
 }
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -149,7 +149,7 @@ void CheckRoot(void)
 int main() {
 
   // check if running as root
-  CheckRoot();
+  checkRoot();
 
   int aPin0 = 0,
       aPin1 = 1,

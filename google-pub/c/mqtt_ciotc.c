@@ -325,7 +325,7 @@ int Publish(char* payload, int payload_size) {
 // [END iot_mqtt_publish]
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -344,7 +344,7 @@ void CheckRoot(void)
 int main(int argc, char* argv[]) {
 
   // check if running as root
-  CheckRoot();
+  checkRoot();
 
   OpenSSL_add_all_algorithms();
   OpenSSL_add_all_digests();

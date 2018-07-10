@@ -42,7 +42,7 @@ using namespace std;
 using namespace mraa;
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -228,7 +228,7 @@ void check_lux(upm::GroveLight *light_sensor, upm::Jhd1313m1 *lcd,
 int main() {
 
   // check if running as root
-  CheckRoot();
+  checkRoot();
 
   /*
    * System can be in two states:

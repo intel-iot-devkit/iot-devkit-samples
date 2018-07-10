@@ -186,7 +186,7 @@ void distanceIR(GroveMD *motors, RFR359F *fl, RFR359F *fr, RFR359F *rl, RFR359F 
 }
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -202,7 +202,7 @@ int main(int argc, char **argv)
 {
 
   // check if running as root
-  CheckRoot();
+  checkRoot();
 
   // Register signal handler
   signal(SIGINT, signalHandler);

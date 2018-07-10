@@ -151,7 +151,7 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
 
 
 // check if running as root
-void CheckRoot(void)
+void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
@@ -166,7 +166,7 @@ void CheckRoot(void)
 int main() {
 
   // check if running as root
-  CheckRoot();
+  checkRoot();
 
   int i2cPort = 0,       // I2C Connector
       aPin1 = 1,         // A1 Connector
