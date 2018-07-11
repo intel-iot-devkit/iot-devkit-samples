@@ -280,7 +280,7 @@ void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+		std::cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
 				"The IO operations below might fail.\n"
 				"See the project's Readme for more info.\n\n";
 	}

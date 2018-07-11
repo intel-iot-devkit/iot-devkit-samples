@@ -327,12 +327,12 @@ int Publish(char* payload, int payload_size) {
 // check if running as root
 void checkRoot(void)
 {
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
+  int euid = geteuid();
+  if (euid) {
+    printf("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+    "The IO operations below might fail.\n"
+    "See the project's Readme for more info.\n\n");
+  }
 	return;
 }
 

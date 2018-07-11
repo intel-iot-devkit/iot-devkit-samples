@@ -143,7 +143,21 @@ public class SmartPhotovoltaicPanels {
     }
   }
 
+    public static void checkRoot(){
+      String username = System.getProperty("user.name");
+      System.out.println(username);
+      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+      if(!username.equals("root"))
+      {
+        System.out.println(message);
+      }
+    }
+
   public static void main(String[] args) {
+
+    checkRoot();
+
     // LCD screen object (the lcd is connected to I2C port, bus 0)
     Jhd1313m1 lcd = new Jhd1313m1(0);
 
