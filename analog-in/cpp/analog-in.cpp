@@ -50,7 +50,7 @@ void checkRoot(void)
 int main()
 {
 	// check if running as root
-        checkRoot();
+	checkRoot();
 
 	int gpioPin = 13;
 	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
