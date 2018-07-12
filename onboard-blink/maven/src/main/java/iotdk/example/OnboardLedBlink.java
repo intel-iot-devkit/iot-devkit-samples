@@ -58,8 +58,8 @@ public class OnboardLedBlink {
     }
 
     public static void main(String[] args) {
-
-                checkRoot();
+		
+		checkRoot();
 
 		Platform platform = mraa.getPlatformType();
 		int pinNumber = 13;
