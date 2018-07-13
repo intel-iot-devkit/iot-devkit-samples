@@ -50,7 +50,7 @@ public class PWM {
 
     public static void checkRoot(){
       String username = System.getProperty("user.name");
-      System.out.println(username);
+
       String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
       "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
       if(!username.equals("root"))
@@ -68,6 +68,7 @@ public class PWM {
     int pinNumber = 5;
     if(platform.equals(Platform.INTEL_UP2)) {
       if(USING_GROVE_PI_SHIELD) {
+		mraa.addSubplatform(Platform.GROVEPI, "0");
         pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
       }
     } else {
