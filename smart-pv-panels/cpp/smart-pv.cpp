@@ -149,7 +149,25 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   sleep(1);
 }
 
+
+// check if running as root
+void checkRoot(void)
+{
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+	return;
+}
+
+
 int main() {
+
+  // check if running as root
+  checkRoot();
+
   int i2cPort = 0,       // I2C Connector
       aPin1 = 1,         // A1 Connector
       aPin2 = 2;         // A2 Connector
@@ -176,13 +194,6 @@ int main() {
   addSubplatform(GROVEPI, "0");
 #endif
 
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
 
   // LCD screen object (the lcd is connected to I2C port, bus 0)
