@@ -133,7 +133,23 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
   lcd->write(row_2.str());
 }
 
+// check if running as root
+void checkRoot(void)
+{
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+	return;
+}
+
+
 int main() {
+
+  // check if running as root
+  checkRoot();
 
   int aPin0 = 0,
       aPin1 = 1,
@@ -164,13 +180,6 @@ int main() {
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
   // Moisture sensor connected to A0 (analog in)
   upm::GroveMoisture* moisture_sensor = new upm::GroveMoisture(aPin0);
