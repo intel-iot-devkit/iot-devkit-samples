@@ -68,7 +68,7 @@ public class PWM {
     int pinNumber = 5;
     if(platform.equals(Platform.INTEL_UP2)) {
       if(USING_GROVE_PI_SHIELD) {
-		mraa.addSubplatform(Platform.GROVEPI, "0");
+    		mraa.addSubplatform(Platform.GROVEPI, "0");
         pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
       }
     } else {
