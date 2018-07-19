@@ -41,6 +41,19 @@
 using namespace std;
 using namespace mraa;
 
+// check if running as root
+void checkRoot(void)
+{
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+	return;
+}
+
+
 // define the following if not using a board with all the required hardware
 //#define SIMULATE_DEVICES
 
@@ -213,6 +226,10 @@ void check_lux(upm::GroveLight *light_sensor, upm::Jhd1313m1 *lcd,
 }
 
 int main() {
+
+  // check if running as root
+  checkRoot();
+
   /*
    * System can be in two states:
    * - CONFIG: A lux target can be specified from the user.
@@ -262,13 +279,6 @@ int main() {
   addSubplatform(GROVEPI, "0");
 #endif
 
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
   // Instantiate a rotary sensor
   upm::GroveRotary *rotary_sensor = new upm::GroveRotary(aPinRotary);
