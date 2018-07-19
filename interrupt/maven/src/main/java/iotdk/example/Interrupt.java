@@ -84,13 +84,17 @@ public class Interrupt {
         Platform platform = mraa.getPlatformType();
         int pinNumber = 13;
 
-        if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
-          pinNumber = 26;
-        if(platform.equals(Platform.INTEL_JOULE_EXPANSION))
-          pinNumber = 26;
-        if(platform.equals(Platform.UNKNOWN_PLATFORM))
-          System.err.println(unknownPlatformMessage);
-
+        switch (platform) {
+            case Platform.INTEL_MINNOWBOARD_MAX:
+            case Platform.INTEL_JOULE_EXPANSION:
+                pinNumber = 26;
+                break;
+            case Platform.UNKNOWN_PLATFORM:
+                System.err.println(unknownPlatformMessage);
+                break;
+            default:
+                break;
+        }
         // create a gpio object from MRAA
         Gpio pin = new Gpio(pinNumber);
 
