@@ -167,7 +167,6 @@ int main() {
 
   // check if running as root
   checkRoot();
-
   int i2cPort = 0,       // I2C Connector
       aPin1 = 1,         // A1 Connector
       aPin2 = 2;         // A2 Connector
