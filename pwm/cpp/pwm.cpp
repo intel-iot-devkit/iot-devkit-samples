@@ -46,6 +46,26 @@ void checkRoot(void)
 	return;
 }
 
+void initPlatform(int& pwmPin)
+{
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+	case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+		pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
+		break;
+#endif			
+		break;
+	default:
+		string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+			"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+		cerr << unknownPlatformMessage;
+	}
+	return;
+}
 
 int main()
 {
@@ -54,23 +74,8 @@ int main()
 	checkRoot();
 
 	int pwmPin = 33;
-	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-    		"you are running it on an unrecognized platform. "
-			"You may need to modify the MRAA/UPM initialization code to "
-			"ensure it works properly on your platform.\n\n";
+	initPlatform(pwmPin);
 
-	// check which board we are running on
-	Platform platform = getPlatformType();
-	switch (platform) {
-		case INTEL_UP2:
-#ifdef USING_GROVE_PI_SHIELD
-			pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
-			break;
-#endif			
-			break;
-		default:
-	        cerr << unknownPlatformMessage;
-	}
 #ifdef USING_GROVE_PI_SHIELD
 	addSubplatform(GROVEPI, "0");
 #endif

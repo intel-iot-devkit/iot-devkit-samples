@@ -38,10 +38,6 @@ public class AnalogIn {
 
 	// Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-	static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-		"you are running it on an unrecognized platform. " +
-		"You may need to modify the MRAA/UPM initialization code to " +
-		"ensure it works properly on your platform.\n\n";
 
     public static void checkRoot(){
 		String username = System.getProperty("user.name");
@@ -53,20 +49,27 @@ public class AnalogIn {
 			System.out.println(message);
 		}
     }
-	public static void main(String[] args) {
-		
-		checkRoot();
 
+	public static void initPlatform(int pinNumber){
 		Platform platform = mraa.getPlatformType();
-		int pinNumber = 2;
 		if(platform.equals(Platform.INTEL_UP2)) {
 			if(USING_GROVE_PI_SHIELD) {
 				mraa.addSubplatform(Platform.GROVEPI, "0");
 				pinNumber = pinNumber + 512; // A2 Connector (512 offset needed for the shield)
 			}
 		} else {
-				System.err.println(unknownPlatformMessage);
+			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+				"you are running it on an unrecognized platform. " +
+				"You may need to modify the MRAA/UPM initialization code to " +
+				"ensure it works properly on your platform.\n\n";
+			System.err.println(unknownPlatformMessage);
 		}
+	}
+	public static void main(String[] args) {
+		
+		checkRoot();
+		int pinNumber = 2;
+		initPlatform(pinNumber);
         // create an analog input object from MRAA using pin A2
 	    Aio pin = new Aio(pinNumber);
 

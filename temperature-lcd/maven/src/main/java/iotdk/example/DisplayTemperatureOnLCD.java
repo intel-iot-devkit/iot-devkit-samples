@@ -130,10 +130,6 @@ public class DisplayTemperatureOnLCD {
     }
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-    static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-        "you are running it on an unrecognized platform. " +
-        "You may need to modify the MRAA/UPM initialization code to " +
-        "ensure it works properly on your platform.\n\n";
 
     public static void checkRoot(){
       String username = System.getProperty("user.name");
@@ -145,17 +141,10 @@ public class DisplayTemperatureOnLCD {
         System.out.println(message);
       }
     }
-
-
-    public static void main(String[] args) {
-
-        checkRoot();
-
-        Platform platform = mraa.getPlatformType();
-        int dInPin = 4,
-            dOutPin = 3,
-            aPin = 0,
-            i2cPort = 0;
+	
+	public static void initPlatform(long dInPin, int dOutPin, int aPin, int i2cPort){
+		Platform platform = mraa.getPlatformType();
+        
         if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
                 dInPin = dInPin + 512;   // D4
@@ -164,8 +153,23 @@ public class DisplayTemperatureOnLCD {
                 i2cPort = i2cPort + 512;  // I2C
             }
         } else {
-                System.err.println(unknownPlatformMessage);
+			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+				"you are running it on an unrecognized platform. " +
+				"You may need to modify the MRAA/UPM initialization code to " +
+				"ensure it works properly on your platform.\n\n";
+            System.err.println(unknownPlatformMessage);
         }
+	}
+
+    public static void main(String[] args) {
+
+        checkRoot();
+
+		long dInPin = 4;
+		int	dOutPin = 3,
+			aPin = 0,
+			i2cPort = 0;
+		initPlatform(dInPin, dOutPin, aPin, i2cPort);
 
         // button connected to D4 (digital in)
         GroveButton button = new GroveButton(dInPin);

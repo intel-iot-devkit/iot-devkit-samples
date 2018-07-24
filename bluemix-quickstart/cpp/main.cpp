@@ -163,34 +163,38 @@ void checkRoot(void)
 	}
 	return;
 }
+
+void initPlatform(int& dPin, int& aPin)
+{
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+	case INTEL_UP2:
+		dPin = 3;  		// D3 Connector
+		aPin = 13;  	// A2 Connector
+#ifdef USING_GROVE_PI_SHIELD
+		dPin += 512;   // 512 offset needed for the shield
+		aPin = 2 + 512; // A2 connector, 512 offset needed for the shield
+		break;
+#endif
+	default:
+		string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+			"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+		cerr << unknownPlatformMessage;
+	}
+	return;
+}
     
 int main() {
-	
 	// check if running as root
 	checkRoot();
 
 #ifndef SIMULATE_DEVICES
 
-	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-    		"you are running it on an unrecognized platform. "
-			"You may need to modify the MRAA/UPM initialization code to "
-			"ensure it works properly on your platform.\n\n";
-
 	int dPin, aPin;
-	// check which board we are running on
-	Platform platform = getPlatformType();
-	switch (platform) {
-		case INTEL_UP2:
-			dPin = 3;  		// D3 Connector
-			aPin = 13;  	// A2 Connector
-#ifdef USING_GROVE_PI_SHIELD
-			dPin += 512;   // 512 offset needed for the shield
-			aPin = 2 + 512; // A2 connector, 512 offset needed for the shield
-			break;
-#endif
-		default:
-	        cerr << unknownPlatformMessage;
-	}
+	initPlatform(dPin, aPin);
 #ifdef USING_GROVE_PI_SHIELD
 	addSubplatform(GROVEPI, "0");
 #endif
