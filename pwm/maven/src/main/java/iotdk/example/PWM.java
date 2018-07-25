@@ -35,14 +35,16 @@
  */
 package iotdk.example;
 
-import mraa.Platform;
 import mraa.Pwm;
-import mraa.Result;
 import mraa.mraa;
+import mraa.Platform;
+import mraa.Result;
 
 public class PWM {
   // Set true if using a Grove Pi Shield, else false
   static final boolean USING_GROVE_PI_SHIELD = true;
+  
+  static int pinNumber = 5;
   
     public static void checkRoot(){
       String username = System.getProperty("user.name");
@@ -55,7 +57,7 @@ public class PWM {
       }
     }
 	
-	public static void initPlatform(int pinNumber){
+    public static void initPlatform(){
       Platform platform = mraa.getPlatformType();
       if(platform.equals(Platform.INTEL_UP2)) {
         if(USING_GROVE_PI_SHIELD) {
@@ -73,14 +75,14 @@ public class PWM {
 
 
   public static void main(String[] args) {
-
     checkRoot();
-    int pinNumber = 5;
-    initPlatform(pinNumber);
+    initPlatform();
     // create a PWM object from MRAA using pin 5
     // note that not all digital pins can be used for PWM, the available ones
     // are usually marked with a ~ on the board's silk screen
-    Pwm pwm_pin = new Pwm(pinNumber);
+
+	Pwm pwm_pin = null;
+    pwm_pin = new Pwm(pinNumber);
     // select PWM period of 1ms
     if (pwm_pin.period_ms(1) != Result.SUCCESS) {
       System.err.println("Could not initalize the PMW period, exiting");

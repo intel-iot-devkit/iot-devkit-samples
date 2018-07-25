@@ -130,6 +130,11 @@ public class DisplayTemperatureOnLCD {
     }
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
+	
+	static int dInPin = 4;
+	static int dOutPin = 3;
+	static int aPin = 0;
+	static int i2cPort = 0;
 
     public static void checkRoot(){
       String username = System.getProperty("user.name");
@@ -142,7 +147,7 @@ public class DisplayTemperatureOnLCD {
       }
     }
 	
-	public static void initPlatform(long dInPin, int dOutPin, int aPin, int i2cPort){
+	public static void initPlatform(){
 		Platform platform = mraa.getPlatformType();
         
         if(platform.equals(Platform.INTEL_UP2)) {
@@ -150,7 +155,6 @@ public class DisplayTemperatureOnLCD {
                 dInPin = dInPin + 512;   // D4
                 dOutPin = dOutPin + 512;  // D3
                 aPin = aPin + 512;     // A0
-                i2cPort = i2cPort + 512;  // I2C
             }
         } else {
 			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
@@ -162,14 +166,8 @@ public class DisplayTemperatureOnLCD {
 	}
 
     public static void main(String[] args) {
-
         checkRoot();
-
-		long dInPin = 4;
-		int	dOutPin = 3,
-			aPin = 0,
-			i2cPort = 0;
-		initPlatform(dInPin, dOutPin, aPin, i2cPort);
+		initPlatform();
 
         // button connected to D4 (digital in)
         GroveButton button = new GroveButton(dInPin);

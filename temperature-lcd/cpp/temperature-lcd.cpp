@@ -143,11 +143,11 @@ int initPlatform(int& dInPin, int& dOutPin, int& aPin, int& i2cPort)
 	Platform platform = getPlatformType();
 	switch (platform) {
 	case INTEL_UP2:
-		i2cPort = 0; 	// I2C
 #ifdef USING_GROVE_PI_SHIELD
 		dInPin = 4 + 512; 	// D4
 		dOutPin = 3 + 512; 	// D3
 		aPin = 0 + 512; 	// A0
+		i2cPort = 0 + 512; 	// I2C
 		break;
 #else
 		cerr << "Not using Grove, provide your pinout here" << endl;
@@ -160,6 +160,7 @@ int initPlatform(int& dInPin, int& dOutPin, int& aPin, int& i2cPort)
 			"ensure it works properly on your platform.\n\n";
 		cerr << unknownPlatformMessage;
 	}
+	return 0;
 }
 
 int main()

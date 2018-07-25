@@ -60,6 +60,8 @@ class IsrCounterCallback implements Runnable {
 }
 
 public class Interrupt {
+	
+	static int pinNumber = 13;
 
     public static void checkRoot(){
       String username = System.getProperty("user.name");
@@ -72,7 +74,7 @@ public class Interrupt {
       }
     }
 	
-	public static void initPlatform(int pinNumber){
+	public static void initPlatform(){
 		Platform platform = mraa.getPlatformType();
 		if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
           pinNumber = 26;
@@ -92,9 +94,7 @@ public class Interrupt {
     public static void main(String[] args) {
 
         checkRoot();
-
-        int pinNumber = 13;
-		initPlatform(pinNumber);
+		initPlatform();
 
         // create a gpio object from MRAA
         Gpio pin = new Gpio(pinNumber);

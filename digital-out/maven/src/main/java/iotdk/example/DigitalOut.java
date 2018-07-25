@@ -44,7 +44,7 @@ import mraa.Result;
 public class DigitalOut {
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-    
+    static int pinNumber = 4;
 
 	public static void checkRoot(){
 		String username = System.getProperty("user.name");
@@ -57,7 +57,7 @@ public class DigitalOut {
 		}
     }
 	
-	public static void initPlatform(int pinNumber){
+	public static void initPlatform(){
 		Platform platform = mraa.getPlatformType();
         if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
@@ -77,8 +77,7 @@ public class DigitalOut {
     public static void main(String[] args) {
 
         checkRoot();
-		int pinNumber = 4;
-		initPlatform(pinNumber);
+		initPlatform();
 
         // create a gpio object from MRAA
         Gpio pin = new Gpio(pinNumber);
