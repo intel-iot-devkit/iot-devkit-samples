@@ -21,6 +21,8 @@ Intel System Studio 2018 - Update 2	iss2018-update2
 
 Intel System Studio 2019 Beta iss2019-beta
 
+Intel System Studio 2019 Gold iss2019-gold
+
 
 
 
