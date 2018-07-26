@@ -152,6 +152,7 @@ public class DisplayTemperatureOnLCD {
         
         if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
+                mraa.addSubplatform(Platform.GROVEPI, "0");
                 dInPin = dInPin + 512;   // D4
                 dOutPin = dOutPin + 512;  // D3
                 aPin = aPin + 512;     // A0
