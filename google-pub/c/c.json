@@ -1,10 +1,4 @@
 {
   "ldflags": "-lssl -lcrypto -lpaho-mqtt3cs -ljwt",
-  "main": "mqtt_ciotc.c",
-  "projectOptions": [
-     {
-       "projectType": "cdt",
-       "dockerSupported": "true"
-     }
-  ]
+  "main": "mqtt_ciotc.c"
 }

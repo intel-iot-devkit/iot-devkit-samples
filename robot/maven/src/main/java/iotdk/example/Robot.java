@@ -204,21 +204,8 @@ public class Robot {
         }
     };
 
-    public static void checkRoot(){
-      String username = System.getProperty("user.name");
-      System.out.println(username);
-      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
-      if(!username.equals("root"))
-      {
-        System.out.println(message);
-      }
-    }
 
     public static void main(String[] args) {
-
-        checkRoot();
-
         // Register signal handler
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(new Thread(shutdown));

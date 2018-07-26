@@ -1,11 +1,4 @@
 {
   "main": "tan-responsibly.cpp",
-  "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove -lupm-buzzer -lupm-guvas12d",
-  "cxxflags": "-std=c++11",
-  "projectOptions": [
-     {
-       "projectType": "cdt",
-       "dockerSupported": "true"
-     }
-  ]
+  "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove -lupm-buzzer -lupm-guvas12d"
 }

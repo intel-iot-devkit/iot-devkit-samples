@@ -1,11 +1,4 @@
 {
   "main": "plant-health.cpp",
-  "ldflags": "-lmraa -lupm-grovemoisture -lupm-grove -lupm-jhd1313m1 -lupm-guvas12d",
-  "cxxflags": "-std=c++11",
-  "projectOptions": [
-     {
-       "projectType": "cdt",
-       "dockerSupported": "true"
-     }
-  ]
+  "ldflags": "-lmraa -lupm-grovemoisture -lupm-grove -lupm-jhd1313m1 -lupm-guvas12d"
 }

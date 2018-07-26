@@ -1,11 +1,4 @@
 {
   "main": "smart-pv.cpp",
-  "ldflags": "-lmraa -lupm-grove -lupm-uln200xa -lupm-jhd1313m1",
-  "cxxflags": "-std=c++11",
-  "projectOptions": [
-     {
-       "projectType": "cdt",
-       "dockerSupported": "true"
-     }
-  ]
+  "ldflags": "-lmraa -lupm-grove -lupm-uln200xa -lupm-jhd1313m1"
 }

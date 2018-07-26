@@ -1,9 +1,3 @@
 {
-  "main": "iotdk.example.Up2Leds",
-  "projectOptions": [
-     {
-       "projectType": "maven",
-       "dockerSupported": "false"
-     }
-  ]
+  "main": "iotdk.example.Up2Leds"
 }

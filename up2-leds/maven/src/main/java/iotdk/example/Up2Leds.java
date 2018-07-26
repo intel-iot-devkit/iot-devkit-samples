@@ -43,20 +43,7 @@ public class Up2Leds {
     final static int minBrightness = 0;
     final static int maxBrightness = 255;
 
-    public static void checkRoot(){
-      String username = System.getProperty("user.name");
-      System.out.println(username);
-      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
-      if(!username.equals("root"))
-      {
-        System.out.println(message);
-      }
-    }
-
     public static void main(String argv[]) throws InterruptedException {
-
-        checkRoot();
 
         // Perform a basic platform and version check
         if (mraa.getPlatformType() != Platform.INTEL_UP2) {

@@ -20,8 +20,8 @@
 	"additional_fields":[
 		{
 		 "id":"deviceId_iss",
-		 "name":"Device ID",
-		 "description":"Registered device ID"
+		 "name":"Device id",
+		 "description":"Registered device id"
 		},
 		{
 		 "id":"region_iss",
@@ -30,13 +30,13 @@
 		},
 		{
 		 "id":"registryId_iss",
-		 "name":"Registry ID",
-		 "description":"The registry ID"
+		 "name":"Registry Id",
+		 "description":"The registry id"
 		},
 		{
 		 "id":"projectId_iss",
 		 "name":"Project ID",
-		 "description":"The project ID"
+		 "description":"The project id"
 		},
 		{
 		 "id":"ecpath_iss",

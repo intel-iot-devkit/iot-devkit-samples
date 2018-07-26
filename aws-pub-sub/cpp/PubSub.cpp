@@ -47,8 +47,6 @@
 #define MESSAGE_COUNT 5
 #define SDK_SAMPLE_TOPIC "sdk/test/cpp"
 
-
-
 namespace awsiotsdk {
     namespace samples {
         ResponseCode PubSub::RunPublish(int msg_count) {
@@ -275,22 +273,7 @@ namespace awsiotsdk {
     }
 }
 
-// check if running as root
-void checkRoot(void)
-{
-	int euid = geteuid();
-	if (euid) {
-		std::cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
-}
-
-
 int main(int argc, char **argv) {
-
-    checkRoot();
     std::shared_ptr<awsiotsdk::util::Logging::ConsoleLogSystem> p_log_system =
         std::make_shared<awsiotsdk::util::Logging::ConsoleLogSystem>(awsiotsdk::util::Logging::LogLevel::Info);
     awsiotsdk::util::Logging::InitializeAWSLogging(p_log_system);

@@ -1,9 +1,3 @@
 {
-  "main": "iotdk.example.TanResponsibly",
-  "projectOptions": [
-     {
-       "projectType": "maven",
-       "dockerSupported": "false"
-     }
-  ]
+  "main": "iotdk.example.TanResponsibly"
 }

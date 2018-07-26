@@ -41,19 +41,6 @@
 using namespace std;
 using namespace mraa;
 
-// check if running as root
-void checkRoot(void)
-{
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
-}
-
-
 // define the following if not using a board with all the required hardware
 //#define SIMULATE_DEVICES
 
@@ -226,10 +213,6 @@ void check_lux(upm::GroveLight *light_sensor, upm::Jhd1313m1 *lcd,
 }
 
 int main() {
-
-  // check if running as root
-  checkRoot();
-
   /*
    * System can be in two states:
    * - CONFIG: A lux target can be specified from the user.
@@ -254,19 +237,16 @@ int main() {
       "you are running it on an unrecognized platform. "
       "You may need to modify the MRAA/UPM initialization code to "
       "ensure it works properly on your platform.\n\n";
-  //Update these values as per the hardware board being used.
-  int aPinRotary = 1,
-      aPinLight = 2,
-      dPinButton = 4,
-      i2cPort = 0;
+  int aPinRotary, aPinLight, dPinButton, i2cPort;
   // check which board we are running on
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
+      i2cPort = 0;        // I2C Connector
 #ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPinRotary += 512;     // A1 Connector
-      aPinLight += 512;      // A2 Connector
-      dPinButton += 512;     // D4 Connector
+      aPinRotary = 1 + 512;     // A1 Connector
+      aPinLight = 2 + 512;      // A2 Connector
+      dPinButton = 4 + 512;     // D3 Connector
       break;
 #else
       cerr << "Not using Grove provide your pinout here" << endl;
@@ -279,6 +259,13 @@ int main() {
   addSubplatform(GROVEPI, "0");
 #endif
 
+  // check if running as root
+  int euid = geteuid();
+  if (euid) {
+    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        "The IO operations below might fail.\n"
+        "See the project's Readme for more info.\n\n";
+  }
 
   // Instantiate a rotary sensor
   upm::GroveRotary *rotary_sensor = new upm::GroveRotary(aPinRotary);

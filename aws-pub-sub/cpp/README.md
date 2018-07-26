@@ -24,6 +24,3 @@ Create a new project on Intel(R) System Studio. After choosing the PubSub sample
 
 ## Note
 In the original PubSub sample, the configuration info is read from the SampleConfig.json file. But in this version, during the new project creation a new file, 'src/credentials.h' is generated that keeps the configuration information you entered in the wizard. Afterwards, you can modify this header file if the information changes. Also if you need to modify other configuration information, see the defines in 'src/common/ConfigCommon.cpp'.
-
-## Disclaimer
-IMPORTANT NOTICE: This software is sample software. It is not designed or intended for use in any medical, life-saving or life-sustaining systems, transportation systems, nuclear systems, or for any other mission-critical application in which the failure of the system could lead to critical injury or death. The software may not be fully tested and may contain bugs or errors; it may not be intended or suitable for commercial release. No regulatory approvals for the software have been obtained, and therefore software may not be certified for use in certain countries or environments.

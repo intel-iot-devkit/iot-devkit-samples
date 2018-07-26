@@ -90,6 +90,3 @@ The following example demonstrates usage of the sample if my device ID is my-dev
 
     mqtt_ciotc "Hello world!" --deviceid my-device-id --registryid my-registry\
         --projectid blue-ocean-123
-
-## Disclaimer
-IMPORTANT NOTICE: This software is sample software. It is not designed or intended for use in any medical, life-saving or life-sustaining systems, transportation systems, nuclear systems, or for any other mission-critical application in which the failure of the system could lead to critical injury or death. The software may not be fully tested and may contain bugs or errors; it may not be intended or suitable for commercial release. No regulatory approvals for the software have been obtained, and therefore software may not be certified for use in certain countries or environments.

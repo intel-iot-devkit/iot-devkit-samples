@@ -149,27 +149,8 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   sleep(1);
 }
 
-
-// check if running as root
-void checkRoot(void)
-{
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
-}
-
-
 int main() {
-
-  // check if running as root
-  checkRoot();
-  int i2cPort = 0,       // I2C Connector
-      aPin1 = 1,         // A1 Connector
-      aPin2 = 2;         // A2 Connector
+  int i2cPort, aPin1, aPin2;
   string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
       "you are running it on an unrecognized platform. "
       "You may need to modify the MRAA/UPM initialization code to "
@@ -178,9 +159,10 @@ int main() {
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
+      i2cPort = 0;        // I2C Connector
 #ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPin1 += 512;
-      aPin2 += 512;
+      aPin1 = 1 + 512;     // A1 Connector
+      aPin2 = 2 + 512;      // A2 Connector
       break;
 #else
       cerr << "Not using Grove provide your pinout here" << endl;
@@ -193,6 +175,13 @@ int main() {
   addSubplatform(GROVEPI, "0");
 #endif
 
+  // check if running as root
+  int euid = geteuid();
+  if (euid) {
+    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        "The IO operations below might fail.\n"
+        "See the project's Readme for more info.\n\n";
+  }
 
 
   // LCD screen object (the lcd is connected to I2C port, bus 0)
