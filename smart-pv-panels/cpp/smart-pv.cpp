@@ -32,6 +32,7 @@
 #include <grove.hpp>
 #include <jhd1313m1.hpp>
 #include <uln200xa.hpp>
+#include <string>
 
 /**
  * Move photovoltaic panel following the maximum brightness of the sun.\n\n
@@ -162,33 +163,40 @@ void checkRoot(void)
 	return;
 }
 
+int initPlatform(int& i2cPort, int& aPin1, int& aPin2)
+{
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+	case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
+		aPin1 += 512;
+		aPin2 += 512;
+		break;
+#else
+		cerr << "Not using Grove provide your pinout here" << endl;
+		return -1;
+#endif
+	default:
+		string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+			"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+		cerr << unknownPlatformMessage;
+	}
+	return 0;
+}
+
 
 int main() {
 
   // check if running as root
   checkRoot();
   int i2cPort = 0,       // I2C Connector
-      aPin1 = 1,         // A1 Connector
-      aPin2 = 2;         // A2 Connector
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-      "you are running it on an unrecognized platform. "
-      "You may need to modify the MRAA/UPM initialization code to "
-      "ensure it works properly on your platform.\n\n";
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
-    case INTEL_UP2:
-#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPin1 += 512;
-      aPin2 += 512;
-      break;
-#else
-      cerr << "Not using Grove provide your pinout here" << endl;
-      return -1;
-#endif
-      default:
-          cerr << unknownPlatformMessage;
-  }
+	  aPin1 = 1,         // A1 Connector
+	  aPin2 = 2;         // A2 Connector
+  if (initPlatform(i2cPort, aPin1, aPin2) == -1)
+	return -1;
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif

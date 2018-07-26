@@ -63,31 +63,36 @@ void checkRoot(void)
 	return;
 }
 
+void initPlatform(int& gpioPin)
+{
+	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+		"you are running it on an unrecognized platform. "
+		"You may need to modify the MRAA/UPM initialization code to "
+		"ensure it works properly on your platform.\n\n";
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+	case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
+	case INTEL_JOULE_EXPANSION:
+		gpioPin = 26;
+		break;
+	case UNKNOWN_PLATFORM:
+		cerr << unknownPlatformMessage;
+		break;
+	default:
+		break;
+	}
+	return;
+}
+
 int main()
 {
-
 	// check if running as root
 	checkRoot();
 
 	int gpioPin = 13;
-	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-    		"you are running it on an unrecognized platform. "
-			"You may need to modify the MRAA/UPM initialization code to "
-			"ensure it works properly on your platform.\n\n";
+	initPlatform(gpioPin);
 
-	// check which board we are running on
-	Platform platform = getPlatformType();
-	switch (platform) {
-		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
-		case INTEL_JOULE_EXPANSION:
-			gpioPin = 26;
-			break;
-		case UNKNOWN_PLATFORM:
-	        cerr << unknownPlatformMessage;
-            break;
-        default:
-            break;
-	}
 #ifdef USING_GROVE_PI_SHIELD
 	addSubplatform(GROVEPI, "0");
 #endif

@@ -130,10 +130,11 @@ public class DisplayTemperatureOnLCD {
     }
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-    static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-        "you are running it on an unrecognized platform. " +
-        "You may need to modify the MRAA/UPM initialization code to " +
-        "ensure it works properly on your platform.\n\n";
+	
+	static int dInPin = 4;
+	static int dOutPin = 3;
+	static int aPin = 0;
+	static int i2cPort = 0;
 
     public static void checkRoot(){
       String username = System.getProperty("user.name");
@@ -145,27 +146,29 @@ public class DisplayTemperatureOnLCD {
         System.out.println(message);
       }
     }
-
-
-    public static void main(String[] args) {
-
-        checkRoot();
-
-        Platform platform = mraa.getPlatformType();
-        int dInPin = 4,
-            dOutPin = 3,
-            aPin = 0,
-            i2cPort = 0;
+	
+	public static void initPlatform(){
+		Platform platform = mraa.getPlatformType();
+        
         if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
+                mraa.addSubplatform(Platform.GROVEPI, "0");
                 dInPin = dInPin + 512;   // D4
                 dOutPin = dOutPin + 512;  // D3
                 aPin = aPin + 512;     // A0
-                i2cPort = i2cPort + 512;  // I2C
             }
         } else {
-                System.err.println(unknownPlatformMessage);
+			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+				"you are running it on an unrecognized platform. " +
+				"You may need to modify the MRAA/UPM initialization code to " +
+				"ensure it works properly on your platform.\n\n";
+            System.err.println(unknownPlatformMessage);
         }
+	}
+
+    public static void main(String[] args) {
+        checkRoot();
+		initPlatform();
 
         // button connected to D4 (digital in)
         GroveButton button = new GroveButton(dInPin);

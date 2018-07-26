@@ -61,8 +61,7 @@ void checkRoot(void)
 }
 
 // Main function
-int
-main()
+int main()
 {
 
     // check if running as root
