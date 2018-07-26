@@ -1,3 +1,9 @@
 {
-  "main": "iotdk.example.PWM"
+  "main": "iotdk.example.PWM",
+  "projectOptions": [
+     {
+       "projectType": "maven",
+       "dockerSupported": "false"
+     }
+  ]
 }

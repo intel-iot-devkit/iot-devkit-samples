@@ -1,3 +1,9 @@
 {
-  "main": "main.cpp"
+  "main": "main.cpp",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
 }

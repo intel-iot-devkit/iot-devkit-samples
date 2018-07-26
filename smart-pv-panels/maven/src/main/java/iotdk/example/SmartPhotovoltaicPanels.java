@@ -55,13 +55,20 @@
  */
 package iotdk.example;
 
+import mraa.Platform;
+import mraa.mraa;
 import upm_grove.GroveLight;
 import upm_i2clcd.Jhd1313m1;
 import upm_uln200xa.ULN200XA;
 import upm_uln200xa.ULN200XA_DIRECTION_T;
 
 public class SmartPhotovoltaicPanels {
-
+  static final boolean USING_GROVE_PI_SHIELD = true;
+  
+  static int aPinIn1 = 1;
+  static int aPinIn2 = 2;
+  static int i2cPort = 0;
+  
   // Threshold of light
   static final int THRESHOLD = 2;
 
@@ -143,15 +150,48 @@ public class SmartPhotovoltaicPanels {
     }
   }
 
+    public static void checkRoot(){
+      String username = System.getProperty("user.name");
+      System.out.println(username);
+      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+      if(!username.equals("root"))
+      {
+        System.out.println(message);
+      }
+    }
+	
+    public static void initPlatform(){
+      Platform platform = mraa.getPlatformType();
+
+        if(platform.equals(Platform.INTEL_UP2)){
+            if(USING_GROVE_PI_SHIELD) {
+                mraa.addSubplatform(Platform.GROVEPI, "0");
+			    aPin1 = aPin1 + 512; 
+                aPin2 = aPin2 + 512; 
+            }
+        } else {
+	        String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+		        "you are running it on an unrecognized platform. " +
+		        "You may need to modify the MRAA/UPM initialization code to " +
+		        "ensure it works properly on your platform.\n\n";
+	        System.err.println(unknownPlatformMessage);
+        }
+    }
+
   public static void main(String[] args) {
-    // LCD screen object (the lcd is connected to I2C port, bus 0)
-    Jhd1313m1 lcd = new Jhd1313m1(0);
+
+    checkRoot();
+	initPlatform();
+	
+	// LCD screen object (the lcd is connected to I2C port, bus 0)
+    Jhd1313m1 lcd = new Jhd1313m1(i2cPort);
 
     // Left light sensor object (Analog pin 0)
-    GroveLight lightL = new GroveLight(0);
+    GroveLight lightL = new GroveLight(aPin1);
 
     // Right light sensor object (Analog pin 1)
-    GroveLight lightR = new GroveLight(1);
+    GroveLight lightR = new GroveLight(aPin2);
 
     /* Instantiate a Stepper motor on a ULN200XA Dual H-Bridge.
      * Wire the pins so that I1 is pin D6, I2 is D7, I3 is D8 and I4 is D9

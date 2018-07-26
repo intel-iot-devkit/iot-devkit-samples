@@ -32,6 +32,9 @@
 #include <jhd1313m1.hpp>
 #include <guvas12d.hpp>
 
+using namespace std;
+using namespace mraa;
+
 /**
  * Example to simulate a Plant Health Monitoring System.
  *
@@ -130,19 +133,42 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
   lcd->write(row_2.str());
 }
 
+// check if running as root
+void checkRoot(void)
+{
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
+	return;
+}
+
+
 int main() {
 
-  int aPin0, aPin1, aPin2, dPin2, i2cPort;
+  // check if running as root
+  checkRoot();
+
+  int aPin0 = 0,
+      aPin1 = 1,
+      aPin2 = 2,
+      dPin2 = 2,
+      i2cPort = 0;
+  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+      "you are running it on an unrecognized platform. "
+      "You may need to modify the MRAA/UPM initialization code to "
+      "ensure it works properly on your platform.\n\n";
   // check which board we are running on
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
-      i2cPort = 0; // I2C
 #ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
-      aPin0 = 0 + 512;  // A0
-      aPin1 = 1 + 512;  // A1
-      aPin2 = 2 + 512;  // A2
-      dPin2 = 2 + 512;  // D2
+      aPin0 += 512;  // A0
+      aPin1 += 512;  // A1
+      aPin2 += 512;  // A2
+      dPin2 += 512;  // D2
       break;
 #else
       cerr << "Not using Grove Pi Shield, provide your pinout here" << endl;
@@ -154,13 +180,6 @@ int main() {
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
   // Moisture sensor connected to A0 (analog in)
   upm::GroveMoisture* moisture_sensor = new upm::GroveMoisture(aPin0);

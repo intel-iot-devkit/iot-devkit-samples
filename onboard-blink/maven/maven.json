@@ -1,3 +1,9 @@
 {
-  "main": "iotdk.example.OnboardLedBlink"
+  "main": "iotdk.example.OnboardLedBlink",
+  "projectOptions": [
+     {
+       "projectType": "maven",
+       "dockerSupported": "false"
+     }
+  ]
 }

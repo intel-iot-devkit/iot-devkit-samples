@@ -48,12 +48,28 @@ public class PWM {
       "You may need to modify the MRAA/UPM initialization code to " +
       "ensure it works properly on your platform.\n\n";
 
+    public static void checkRoot(){
+      String username = System.getProperty("user.name");
+
+      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+      if(!username.equals("root"))
+      {
+        System.out.println(message);
+      }
+    }
+
+
   public static void main(String[] args) {
+
+    checkRoot();
+
     Platform platform = mraa.getPlatformType();
     int pinNumber = 5;
-    if(platform.equals(Platform.INTEL_UP)) {
+    if(platform.equals(Platform.INTEL_UP2)) {
       if(USING_GROVE_PI_SHIELD) {
-        pinNumber = pinNumber + 512; // A0 Connector (512 offset needed for the shield)
+    		mraa.addSubplatform(Platform.GROVEPI, "0");
+        pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
       }
     } else {
         System.err.println(unknownPlatformMessage);

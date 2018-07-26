@@ -50,6 +50,11 @@ import upm_guvas12d.GUVAS12D;
 import upm_i2clcd.Jhd1313m1;
 
 public class TanResponsibly {
+    static final boolean USING_GROVE_PI_SHIELD = true;
+    static int aPinIn1 = 1; // A1
+    static int aPinIn2 = 2; // A2
+    static int dPinOut = 3; // D3
+    static int i2cPort = 0; // I2C
 
   /*
    * Some colors for LCD background
@@ -135,18 +140,51 @@ public class TanResponsibly {
     }
   }
 
+    public static void checkRoot(){
+      String username = System.getProperty("user.name");
+      System.out.println(username);
+      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+      if(!username.equals("root"))
+      {
+        System.out.println(message);
+      }
+    }
+	
+	public static void initPlatform(){
+	    Platform platform = mraa.getPlatformType();
+        if(platform.equals(Platform.INTEL_UP2)){
+            if(USING_GROVE_PI_SHIELD) {
+				mraa.addSubplatform(Platform.GROVEPI, "0");
+			    aPin1 = aPin1 + 512; 
+                aPin2 = aPin2 + 512; 
+                aPin4 = aPin4 + 512;
+            }
+        } else {
+            String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+	            "you are running it on an unrecognized platform. " +
+	            "You may need to modify the MRAA/UPM initialization code to " +
+	            "ensure it works properly on your platform.\n\n";
+            System.err.println(unknownPlatformMessage);
+        }
+	}
+
   public static void main(String[] args) {
-    // UV sensor connected to A0 (analog in)
-    GUVAS12D UvSensor = new GUVAS12D(0);
+
+    checkRoot();
+	initPlatform();
+	
+	// UV sensor connected to A0 (analog in)
+    GUVAS12D UvSensor = new GUVAS12D(dInPin);
 
     // Temperature sensor connected to A1 (analog in)
-    GroveTemp temp_sensor = new GroveTemp(1);
+    GroveTemp temp_sensor = new GroveTemp(aPin);
 
     // Buzzer connected to D2 (digital out)
-    Buzzer buzzer = new Buzzer(5);
+    Buzzer buzzer = new Buzzer(dOutPin);
 
     // LCD connected to the default I2C bus
-    Jhd1313m1 lcd = new Jhd1313m1(0);
+    Jhd1313m1 lcd = new Jhd1313m1(i2cPort);
 
     // Simple error checking
     if ((UvSensor == null) || (temp_sensor == null) || (buzzer == null)

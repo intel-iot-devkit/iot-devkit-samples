@@ -1,3 +1,9 @@
 {
-  "main": "iotdk.example.HelloWorld"
+  "main": "iotdk.example.HelloWorld",
+  "projectOptions": [
+     {
+       "projectType": "maven",
+       "dockerSupported": "false"
+     }
+  ]
 }
