@@ -1,9 +1,3 @@
 {
-  "main": "iotdk.example.DigitalIn",
-  "projectOptions": [
-     {
-       "projectType": "maven",
-       "dockerSupported": "false"
-     }
-  ]
+  "main": "iotdk.example.DigitalIn"
 }

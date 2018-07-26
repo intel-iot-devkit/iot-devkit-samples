@@ -125,23 +125,7 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
   }
 }
 
-// check if running as root
-void checkRoot(void)
-{
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
-}
-
 int main() {
-
-  // check if running as root
-  checkRoot();
-
   string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
         "you are running it on an unrecognized platform. "
       "You may need to modify the MRAA/UPM initialization code to "
@@ -169,6 +153,13 @@ int main() {
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
+  // check if running as root
+  int euid = geteuid();
+  if (euid) {
+    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        "The IO operations below might fail.\n"
+        "See the project's Readme for more info.\n\n";
+  }
 
   // UV sensor connected
   upm::GUVAS12D *UV_sensor = new upm::GUVAS12D(aPinIn1);

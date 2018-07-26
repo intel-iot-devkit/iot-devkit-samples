@@ -40,6 +40,9 @@
 #include <iostream>
 #include <unistd.h>
 
+// Define the following if using a Grove Pi Shield
+#define USING_GROVE_PI_SHIELD
+
 using namespace std;
 using namespace mraa;
 
@@ -51,24 +54,8 @@ void interrupt(void * args) {
 	++counter;
 }
 
-// check if running as root
-void checkRoot(void)
-{
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
-}
-
 int main()
 {
-
-	// check if running as root
-	checkRoot();
-
 	int gpioPin = 13;
 	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
     		"you are running it on an unrecognized platform. "
@@ -78,19 +65,34 @@ int main()
 	// check which board we are running on
 	Platform platform = getPlatformType();
 	switch (platform) {
-		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
-		case INTEL_JOULE_EXPANSION:
-			gpioPin = 26;
+		case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD
+			gpioPin = 4 + 512; // D4 Connector (512 offset needed for the shield)
 			break;
-		case UNKNOWN_PLATFORM:
+#endif
+		case INTEL_UP:
+		case INTEL_EDISON_FAB_C:
+		case INTEL_GALILEO_GEN2:
+			break;
+		case INTEL_MINNOWBOARD_MAX: // Same for Minnowboard Turbot
+			gpioPin = 104;
+			break;
+		case INTEL_JOULE_EXPANSION:
+			gpioPin = 101;
+			break;
+		default:
 	        cerr << unknownPlatformMessage;
-            break;
-        default:
-            break;
 	}
 #ifdef USING_GROVE_PI_SHIELD
 	addSubplatform(GROVEPI, "0");
 #endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
 
 	// create a GPIO object from MRAA for the pin
 	Gpio* d_pin = new Gpio(gpioPin);

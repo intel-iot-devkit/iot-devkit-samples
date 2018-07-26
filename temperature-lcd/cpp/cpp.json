@@ -1,11 +1,5 @@
 {
   "cflags": "-std=c++11",
   "main": "temperature-lcd.cpp",
-  "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove",
-  "projectOptions": [
-     {
-       "projectType": "cdt",
-       "dockerSupported": "true"
-     }
-  ]
+  "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove"
 }

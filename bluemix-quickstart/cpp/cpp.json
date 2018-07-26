@@ -1,10 +1,4 @@
 {
   "ldflags": " -lmraa -lupm-grove -lpaho-mqtt3c",
-  "main": "main.cpp",
-  "projectOptions": [
-     {
-       "projectType": "cdt",
-       "dockerSupported": "true"
-     }
-  ]
+  "main": "main.cpp"
 }

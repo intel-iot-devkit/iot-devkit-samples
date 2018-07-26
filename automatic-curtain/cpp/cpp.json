@@ -1,11 +1,4 @@
 {
   "main": "automatic-curtain.cpp",
-  "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove -lupm-uln200xa",
-  "cxxflags": "-std=c++11",
-  "projectOptions": [
-     {
-       "projectType": "cdt",
-       "dockerSupported": "true"
-     }
-  ]
+  "ldflags": "-lmraa -lupm-jhd1313m1 -lupm-grove -lupm-uln200xa"
 }

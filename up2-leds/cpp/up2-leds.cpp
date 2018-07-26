@@ -48,26 +48,10 @@ sig_handler(int signum)
     }
 }
 
-// check if running as root
-void checkRoot(void)
-{
-	int euid = geteuid();
-	if (euid) {
-		std::cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
-}
-
 // Main function
 int
 main()
 {
-
-    // check if running as root
-    checkRoot();
-
     // Perform a basic platform and version check
     if (mraa::getPlatformType() != mraa::INTEL_UP2) {
         std::cout << "This example is meant for the UP Squared board." << std::endl;

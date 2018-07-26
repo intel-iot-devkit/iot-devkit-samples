@@ -1,9 +1,3 @@
 {
-  "main": "iotdk.example.AnalogIn",
-  "projectOptions": [
-     {
-       "projectType": "maven",
-       "dockerSupported": "false"
-     }
-  ]
+  "main": "iotdk.example.AnalogIn"
 }

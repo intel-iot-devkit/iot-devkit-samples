@@ -34,25 +34,8 @@
 using namespace std;
 using namespace mraa;
 
-// check if running as root
-void checkRoot(void)
-{
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
-}
-
-
 int main()
 {
-
-	// check if running as root
-	checkRoot();
-
 	int pwmPin = 33;
 	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
     		"you are running it on an unrecognized platform. "
@@ -74,6 +57,13 @@ int main()
 #ifdef USING_GROVE_PI_SHIELD
 	addSubplatform(GROVEPI, "0");
 #endif
+	// check if running as root
+	int euid = geteuid();
+	if (euid) {
+		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+				"The IO operations below might fail.\n"
+				"See the project's Readme for more info.\n\n";
+	}
 
 	// note that not all digital pins can be used for PWM, the available ones
 	// are usually marked with a ~ on the board's silk screen
