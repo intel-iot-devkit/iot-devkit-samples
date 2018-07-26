@@ -73,7 +73,6 @@ public class Interrupt {
         System.out.println(message);
       }
     }
-	
 	public static void initPlatform(){
 		Platform platform = mraa.getPlatformType();
 		if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
@@ -89,13 +88,11 @@ public class Interrupt {
           System.err.println(unknownPlatformMessage);
 		}
 	}
-	
 
     public static void main(String[] args) {
 
         checkRoot();
-		initPlatform();
-
+		    initPlatform();
         // create a gpio object from MRAA
         Gpio pin = new Gpio(pinNumber);
 

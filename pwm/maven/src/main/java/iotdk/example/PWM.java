@@ -77,11 +77,11 @@ public class PWM {
   public static void main(String[] args) {
     checkRoot();
     initPlatform();
+
     // create a PWM object from MRAA using pin 5
     // note that not all digital pins can be used for PWM, the available ones
     // are usually marked with a ~ on the board's silk screen
-
-	Pwm pwm_pin = null;
+	  Pwm pwm_pin = null;
     pwm_pin = new Pwm(pinNumber);
     // select PWM period of 1ms
     if (pwm_pin.period_ms(1) != Result.SUCCESS) {
