@@ -80,7 +80,7 @@ import upm_uln200xa.ULN200XA;
 import upm_uln200xa.ULN200XA_DIRECTION_T;
 
 public class AutomaticCurtain {
-
+  static final boolean USING_GROVE_PI_SHIELD = true;
   // Speed of the stepper motor in revolutions per minute (RPM).
   static final int STEPPER_MOTOR_SPEED = 5;
   // Number of steps per full revolution.
@@ -103,6 +103,11 @@ public class AutomaticCurtain {
 
   // Position of stepper motor.
   static int stepper_motor_current_step = 0;
+  
+  static int aPin1 = 1; 
+  static int aPin2 = 2; 
+  static int aPin4 = 4;
+  static int  i2cPort = 0;
 
   /*
    * System can be in two states:
@@ -258,25 +263,45 @@ public class AutomaticCurtain {
         System.out.println(message);
       }
     }
+	
+	public static void initPlatform(){
+		Platform platform = mraa.getPlatformType();
+        
+        if(platform.equals(Platform.INTEL_UP2)){
+            if(USING_GROVE_PI_SHIELD) {
+				mraa.addSubplatform(Platform.GROVEPI, "0");
+			    aPin1 = aPin1 + 512; 
+                aPin2 = aPin2 + 512; 
+                aPin4 = aPin4 + 512;
+            }
+        } else {
+			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+				"you are running it on an unrecognized platform. " +
+				"You may need to modify the MRAA/UPM initialization code to " +
+				"ensure it works properly on your platform.\n\n";
+            System.err.println(unknownPlatformMessage);
+        }
+	}
 
   public static void main(String[] args) {
 
     checkRoot();
-
-    // Starting state for the system
+	initPlatform();
+	
+	// Starting state for the system
     State status = State.CONFIG;
 
     // Lux target value
     int luxTarget = 0;
 
     // Instantiate a rotary sensor on analog pin A1
-    GroveRotary rotarySensor = new GroveRotary(1);
+    GroveRotary rotarySensor = new GroveRotary(aPin1);
 
     // Instantiate a light sensor on analog pin A2
-    GroveLight lightSensor = new GroveLight(2);
+    GroveLight lightSensor = new GroveLight(aPin2);
 
     // Instantiate a button on digital pin D4
-    GroveButton button = new GroveButton(4);
+    GroveButton button = new GroveButton(dPin4);
 
     /* Instantiate a stepper motor driver wiring the pins
      * so that I1 is pin D8, I2 is pin D9, I3 is pin D10 and
@@ -286,7 +311,7 @@ public class AutomaticCurtain {
         STEPPER_MOTOR_STEPS_FULL_REVOLUTION, 8, 9, 10, 11);
 
     // LCD connected to the default I2C bus
-    Jhd1313m1 lcd = new Jhd1313m1(0);
+    Jhd1313m1 lcd = new Jhd1313m1(i2cPort);
 
     // Simple error checking
     if ((rotarySensor == null) || (lightSensor == null) || (button == null)
