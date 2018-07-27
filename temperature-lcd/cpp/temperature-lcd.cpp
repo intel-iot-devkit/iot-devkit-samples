@@ -60,140 +60,143 @@ using namespace mraa;
 #define USING_GROVE_PI_SHIELD
 
 void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* button,
-		upm::GroveLed* led, upm::Jhd1313m1 *lcd)
+        upm::GroveLed* led, upm::Jhd1313m1 *lcd)
 {
-	// minimum and maximum temperatures registered, the initial values will be
-	// replaced after the first read
-	static int min_temperature = INT_MAX;
-	static int max_temperature = INT_MIN;
+    // minimum and maximum temperatures registered, the initial values will be
+    // replaced after the first read
+    static int min_temperature = INT_MAX;
+    static int max_temperature = INT_MIN;
 
-	// the temperature range in degrees Celsius,
-	// adapt to your room temperature for a nicer effect!
-	const int TEMPERATURE_RANGE_MIN_VAL = 18;
-	const int TEMPERATURE_RANGE_MAX_VAL = 31;
+    // the temperature range in degrees Celsius,
+    // adapt to your room temperature for a nicer effect!
+    const int TEMPERATURE_RANGE_MIN_VAL = 18;
+    const int TEMPERATURE_RANGE_MAX_VAL = 31;
 
-	// other helper variables
-	int temperature; // temperature sensor value in degrees Celsius
-	float fade; // fade value [0.0 .. 1.0]
-	uint8_t r, g, b; // resulting LCD backlight color components [0 .. 255]
-	std::stringstream row_1, row_2; // LCD rows
+    // other helper variables
+    int temperature; // temperature sensor value in degrees Celsius
+    float fade; // fade value [0.0 .. 1.0]
+    uint8_t r, g, b; // resulting LCD backlight color components [0 .. 255]
+    std::stringstream row_1, row_2; // LCD rows
 
-	// update the min and max temperature values, reset them if the button is
-	// being pushed
-	temperature = temperature_sensor->value();
-	if (button->value() == 1) {
-		min_temperature = temperature;
-		max_temperature = temperature;
-	} else {
-		if (temperature < min_temperature) {
-			min_temperature = temperature;
-		}
-		if (temperature > max_temperature) {
-			max_temperature = temperature;
-		}
-	}
+    // update the min and max temperature values, reset them if the button is
+    // being pushed
+    temperature = temperature_sensor->value();
+    if (button->value() == 1) {
+        min_temperature = temperature;
+        max_temperature = temperature;
+    } else {
+        if (temperature < min_temperature) {
+            min_temperature = temperature;
+        }
+        if (temperature > max_temperature) {
+            max_temperature = temperature;
+        }
+    }
 
-	// display the temperature values on the LCD
-	row_1 << "Temp " << temperature << "    ";
-	row_2 << "Min " << min_temperature << " Max " << max_temperature << "    ";
-	lcd->setCursor(0,0);
-	lcd->write(row_1.str());
-	lcd->setCursor(1,0);
-	lcd->write(row_2.str());
+    // display the temperature values on the LCD
+    row_1 << "Temp " << temperature << "    ";
+    row_2 << "Min " << min_temperature << " Max " << max_temperature << "    ";
+    lcd->setCursor(0,0);
+    lcd->write(row_1.str());
+    lcd->setCursor(1,0);
+    lcd->write(row_2.str());
 
-	// set the fade value depending on where we are in the temperature range
-	if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {
-		fade = 0.0;
-	} else if (temperature >= TEMPERATURE_RANGE_MAX_VAL) {
-		fade = 1.0;
-	} else {
-		fade = (float)(temperature - TEMPERATURE_RANGE_MIN_VAL) /
-				(TEMPERATURE_RANGE_MAX_VAL - TEMPERATURE_RANGE_MIN_VAL);
-	}
+    // set the fade value depending on where we are in the temperature range
+    if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {
+        fade = 0.0;
+    } else if (temperature >= TEMPERATURE_RANGE_MAX_VAL) {
+        fade = 1.0;
+    } else {
+        fade = (float)(temperature - TEMPERATURE_RANGE_MIN_VAL) /
+                (TEMPERATURE_RANGE_MAX_VAL - TEMPERATURE_RANGE_MIN_VAL);
+    }
 
-	// fade the color components separately
-	r = (int)(255 * fade);
-	g = (int)(64 * fade);
-	b = (int)(255 * (1 - fade));
+    // fade the color components separately
+    r = (int)(255 * fade);
+    g = (int)(64 * fade);
+    b = (int)(255 * (1 - fade));
 
-	// blink the led for 50 ms to show the temperature was actually sampled
-	led->on();
-	usleep(50000);
-	led->off();
+    // blink the led for 50 ms to show the temperature was actually sampled
+    led->on();
+    usleep(50000);
+    led->off();
 
-	// apply the calculated result
-	lcd->setColor(r, g, b);
+    // apply the calculated result
+    lcd->setColor(r, g, b);
 }
 
 // check if running as root
 void checkRoot(void)
 {
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
+    int euid = geteuid();
+    if (euid) {
+        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+                "The IO operations below might fail.\n"
+                "See the project's Readme for more info.\n\n";
+    }
+    return;
+}
+
+int initPlatform(int& dInPin, int& dOutPin, int& aPin, int& i2cPort)
+{
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
+    case INTEL_UP2:
+        i2cPort = 0; 	// I2C
+#ifdef USING_GROVE_PI_SHIELD
+        dInPin = 4 + 512; 	// D4
+        dOutPin = 3 + 512; 	// D3
+        aPin = 0 + 512; 	// A0
+        break;
+#else
+        return -1;
+#endif
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n\n";
+        cerr << unknownPlatformMessage;
+    }
+    return 0;
 }
 
 int main()
 {
+    // check if running as root
+    checkRoot();
+    int dInPin, dOutPin, aPin, i2cPort;
+    if (initPlatform(dInPin, dOutPin, aPin, i2cPort) == -1)
+        cerr << "Not using Grove, provide your pinout here" << endl;
 
-	// check if running as root
-	checkRoot();
-
-	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-    		"you are running it on an unrecognized platform. "
-			"You may need to modify the MRAA/UPM initialization code to "
-			"ensure it works properly on your platform.\n\n";
-
-	int dInPin, dOutPin, aPin, i2cPort;
-
-	// check which board we are running on
-	Platform platform = getPlatformType();
-	switch (platform) {
-		case INTEL_UP2:
-			i2cPort = 0; 	// I2C
 #ifdef USING_GROVE_PI_SHIELD
-			dInPin = 4 + 512; 	// D4
-			dOutPin = 3 + 512; 	// D3
-			aPin = 0 + 512; 	// A0
-			break;
-#else
-			cerr << "Not using Grove, provide your pinout here" << endl;
-			return -1;
-#endif
-		default:
-	        cerr << unknownPlatformMessage;
-	}
-#ifdef USING_GROVE_PI_SHIELD
-	addSubplatform(GROVEPI, "0");
+    addSubplatform(GROVEPI, "0");
 #endif
 
-	// button connected to (digital in)
-	upm::GroveButton* button = new upm::GroveButton(dInPin);
+    // button connected to (digital in)
+    upm::GroveButton* button = new upm::GroveButton(dInPin);
 
-	// led connected to (digital out)
-	upm::GroveLed* led = new upm::GroveLed(dOutPin);
+    // led connected to (digital out)
+    upm::GroveLed* led = new upm::GroveLed(dOutPin);
 
-	// temperature sensor connected to (analog in)
-	upm::GroveTemp* temp_sensor = new upm::GroveTemp(aPin);
+    // temperature sensor connected to (analog in)
+    upm::GroveTemp* temp_sensor = new upm::GroveTemp(aPin);
 
-	// LCD connected to the I2C bus
-	upm::Jhd1313m1* lcd = new upm::Jhd1313m1(i2cPort);
+    // LCD connected to the I2C bus
+    upm::Jhd1313m1* lcd = new upm::Jhd1313m1(i2cPort);
 
-	// simple error checking
-	if ((button == NULL) || (led == NULL) || (temp_sensor == NULL) || (lcd == NULL)) {
-		cerr << "Can't create all objects, exiting" << endl;
-		return ERROR_UNSPECIFIED;
-	}
+    // simple error checking
+    if ((button == NULL) || (led == NULL) || (temp_sensor == NULL) || (lcd == NULL)) {
+        cerr << "Can't create all objects, exiting" << endl;
+        return ERROR_UNSPECIFIED;
+    }
 
-	// loop forever updating the temperature values every second
-	for (;;) {
-		temperature_update(temp_sensor, button, led, lcd);
-		sleep(1);
-	}
+    // loop forever updating the temperature values every second
+    for (;;) {
+        temperature_update(temp_sensor, button, led, lcd);
+        sleep(1);
+    }
 
-	return SUCCESS;
+    return SUCCESS;
 }

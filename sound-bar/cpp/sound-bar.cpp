@@ -60,13 +60,37 @@ using namespace std;
 // check if running as root
 void checkRoot(void)
 {
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
+    int euid = geteuid();
+    if (euid) {
+        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+                "The IO operations below might fail.\n"
+                "See the project's Readme for more info.\n\n";
+    }
+    return;
+}
+
+int initPlatform(int& microphonePin, int& ledBarDataPin, int& ledBarClockPin)
+{
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
+    case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
+        microphonePin = 0 + 512; // A0
+        ledBarDataPin = 2 + 512;  // D2
+        ledBarClockPin = 3 + 512; ///D3
+        break;
+#else
+        return -1;
+#endif
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n\n";
+        cerr << unknownPlatformMessage;
+    }
+    return 0;
 }
 
 /*
@@ -79,34 +103,16 @@ int main(int argc, char **argv) {
   // check if running as root
   checkRoot();
 
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-      "you are running it on an unrecognized platform. "
-    "You may need to modify the MRAA/UPM initialization code to "
-    "ensure it works properly on your platform.\n\n";
-
   // Threshold context for the sound sensor
   thresholdContext ctx;
 
   uint16_t buffer[50];  // sound samples buffer
   uint8_t barLevel = 0;
-  int microphonePin, ledBarDataPin, ledBarClockPin;
 
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
-    case INTEL_UP2:
-#ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
-      microphonePin = 0 + 512; // A0
-      ledBarDataPin = 2 + 512;  // D2
-      ledBarClockPin = 3 + 512; ///D3
-      break;
-#else
+  int microphonePin, ledBarDataPin, ledBarClockPin;
+  if (initPlatform(microphonePin, ledBarDataPin, ledBarClockPin) == -1)
       cerr << "Not using Grove, provide your pinout" << endl;
-      return -1;
-#endif
-    default:
-          cerr << unknownPlatformMessage;
-  }
+
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif

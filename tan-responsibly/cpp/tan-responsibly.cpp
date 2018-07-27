@@ -31,6 +31,7 @@
 #include <guvas12d.hpp>
 #include <buzzer.hpp>
 #include <buzzer_tones.h>
+#include <string>
 
 using namespace mraa;
 using namespace std;
@@ -137,35 +138,39 @@ void checkRoot(void)
 	return;
 }
 
-int main() {
+int initPlatform(int& aPinIn1, int& aPinIn2, int& dPinOut, int& i2cPort)
+{
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+	case INTEL_UP2:
+		i2cPort = 0; // I2C
+#ifdef USING_GROVE_PI_SHIELD //Offset port number by 512
+		aPinIn1 = 1 + 512; // A1
+		aPinIn2 = 2 + 512; // A2
+		dPinOut = 3 + 512; // D3
+		break;
+#else
+		return -1;
+#endif
+	default:
+		string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+			"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+		cerr << unknownPlatformMessage;
+	}
+	return 0;
+}
 
+int main() {
   // check if running as root
   checkRoot();
 
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-        "you are running it on an unrecognized platform. "
-      "You may need to modify the MRAA/UPM initialization code to "
-      "ensure it works properly on your platform.\n\n";
-
   int aPinIn1, aPinIn2, dPinOut, i2cPort;
-
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
-    case INTEL_UP2:
-      i2cPort = 0; // I2C
-#ifdef USING_GROVE_PI_SHIELD //Offset port number by 512
-      aPinIn1 = 1 + 512; // A1
-      aPinIn2 = 2 + 512; // A2
-      dPinOut = 3 + 512; // D3
-      break;
-#else
+  if (initPlatform(aPinIn1, aPinIn2, dPinOut, i2cPort) == -1)
       cerr << "Not using Grove provide your pinout" << endl;
-      return -1;
-#endif
-    default:
-          cerr << unknownPlatformMessage;
-  }
+  
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
