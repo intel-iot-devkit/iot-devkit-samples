@@ -46,7 +46,7 @@ import mraa.mraa;
 public class DigitalIn {
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-    static int pinNumber = 4;
+    static int pinNumber = 13;
 
 	public static void checkRoot(){
 		String username = System.getProperty("user.name");
@@ -65,7 +65,7 @@ public class DigitalIn {
 		if(platform.equals(Platform.INTEL_UP2)) {
 			if(USING_GROVE_PI_SHIELD) {
 				mraa.addSubplatform(Platform.GROVEPI, "0");
-				pinNumber = pinNumber + 512; // D4 Connector (512 offset needed for the shield)
+				pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
 			}
 		} else {
 			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +

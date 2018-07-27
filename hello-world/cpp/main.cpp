@@ -26,8 +26,8 @@
 
 int main()
 {
-	std::cout<< "Hello, Internet of Things!" << std::endl;
-	sleep(1);
-	std::cout<< "Bye!" << std::endl;
-	return 0;
+    std::cout<< "Hello, Internet of Things!" << std::endl;
+    sleep(1);
+    std::cout<< "Bye!" << std::endl;
+    return 0;
 }

@@ -44,7 +44,7 @@ public class PWM {
   // Set true if using a Grove Pi Shield, else false
   static final boolean USING_GROVE_PI_SHIELD = true;
   
-  static int pinNumber = 5;
+  static int pinNumber = 33;
   
     public static void checkRoot(){
       String username = System.getProperty("user.name");

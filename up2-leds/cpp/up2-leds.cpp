@@ -51,13 +51,13 @@ sig_handler(int signum)
 // check if running as root
 void checkRoot(void)
 {
-	int euid = geteuid();
-	if (euid) {
-		std::cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
+    int euid = geteuid();
+    if (euid) {
+        std::cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+                "The IO operations below might fail.\n"
+                "See the project's Readme for more info.\n\n";
+    }
+    return;
 }
 
 // Main function
@@ -82,7 +82,7 @@ int main()
     signal(SIGINT, sig_handler);
 
     // Define our LEDs
-	std::string led_names[] = {"red", "green", "yellow", "blue"};
+    std::string led_names[] = {"red", "green", "yellow", "blue"};
     int led_no = sizeof(led_names)/sizeof(led_names[0]);
     mraa::Led **leds = new mraa::Led*[led_no];
 

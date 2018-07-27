@@ -131,10 +131,10 @@ public class DisplayTemperatureOnLCD {
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
 	
-	static int dInPin = 4;
-	static int dOutPin = 3;
-	static int aPin = 0;
-	static int i2cPort = 0;
+    static int dInPin = 4;
+    static int dOutPin = 3;
+    static int aPin = 0;
+    static int i2cPort = 0;
 
     public static void checkRoot(){
       String username = System.getProperty("user.name");

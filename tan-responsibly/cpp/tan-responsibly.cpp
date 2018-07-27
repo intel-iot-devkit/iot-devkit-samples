@@ -151,7 +151,6 @@ int initPlatform(int& aPinIn1, int& aPinIn2, int& dPinOut, int& i2cPort)
 		dPinOut = 3 + 512; // D3
 		break;
 #else
-		cerr << "Not using Grove provide your pinout" << endl;
 		return -1;
 #endif
 	default:
@@ -165,14 +164,12 @@ int initPlatform(int& aPinIn1, int& aPinIn2, int& dPinOut, int& i2cPort)
 }
 
 int main() {
-
   // check if running as root
   checkRoot();
 
   int aPinIn1, aPinIn2, dPinOut, i2cPort;
-
   if (initPlatform(aPinIn1, aPinIn2, dPinOut, i2cPort) == -1)
-	  return -1;
+      cerr << "Not using Grove provide your pinout" << endl;
   
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");

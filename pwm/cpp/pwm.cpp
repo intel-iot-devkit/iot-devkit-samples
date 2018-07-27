@@ -37,80 +37,78 @@ using namespace mraa;
 // check if running as root
 void checkRoot(void)
 {
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
+    int euid = geteuid();
+    if (euid) {
+        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+                "The IO operations below might fail.\n"
+                "See the project's Readme for more info.\n\n";
+    }
+    return;
 }
 
 void initPlatform(int& pwmPin)
 {
-	// check which board we are running on
-	Platform platform = getPlatformType();
-	switch (platform) {
-	case INTEL_UP2:
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
+    case INTEL_UP2:
 #ifdef USING_GROVE_PI_SHIELD
-		pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
-		break;
+        pwmPin = 5 + 512; // D5 works as PWM on Grove PI Shield 
+        break;
 #endif			
-		break;
-	default:
-		string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-			"you are running it on an unrecognized platform. "
-			"You may need to modify the MRAA/UPM initialization code to "
-			"ensure it works properly on your platform.\n\n";
-		cerr << unknownPlatformMessage;
-	}
-	return;
+        break;
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n\n";
+        cerr << unknownPlatformMessage;
+    }
+    return;
 }
 
 int main()
 {
-
-	// check if running as root
-	checkRoot();
-
-	int pwmPin = 33;
-	initPlatform(pwmPin);
+    // check if running as root
+    checkRoot();
+    int pwmPin = 33;
+    initPlatform(pwmPin);
 
 #ifdef USING_GROVE_PI_SHIELD
-	addSubplatform(GROVEPI, "0");
+    addSubplatform(GROVEPI, "0");
 #endif
 
-	// note that not all digital pins can be used for PWM, the available ones
-	// are usually marked with a ~ on the board's silk screen
-	Pwm* pwm_pin = new Pwm(pwmPin);
-	if (pwm_pin == NULL) {
-		cerr << "Can't create mraa::Pwm object, exiting" << endl;
-		return MRAA_ERROR_UNSPECIFIED;
-	}
+    // note that not all digital pins can be used for PWM, the available ones
+    // are usually marked with a ~ on the board's silk screen
+    Pwm* pwm_pin = new Pwm(pwmPin);
+    if (pwm_pin == NULL) {
+        cerr << "Can't create mraa::Pwm object, exiting" << endl;
+        return MRAA_ERROR_UNSPECIFIED;
+    }
 
-	// enable PWM on the selected pin
-	if (pwm_pin->enable(true) != SUCCESS) {
-		cerr << "Cannot enable PWM on mraa::PWM object, exiting" << endl;
-		return MRAA_ERROR_UNSPECIFIED;
-	}
+    // enable PWM on the selected pin
+    if (pwm_pin->enable(true) != SUCCESS) {
+        cerr << "Cannot enable PWM on mraa::PWM object, exiting" << endl;
+        return MRAA_ERROR_UNSPECIFIED;
+    }
 
-	// PWM duty_cycle value, 0.0 == 0%, 1.0 == 100%
-	float duty_cycle = 0.0;
+    // PWM duty_cycle value, 0.0 == 0%, 1.0 == 100%
+    float duty_cycle = 0.0;
 
-	// select a pulse width period of 1ms
-	int period = 1;
+    // select a pulse width period of 1ms
+    int period = 1;
 
-	// loop forever increasing the PWM duty cycle from 0% to 100%,
-	// a full cycle will take ~5 seconds
-	for (;;) {
-		pwm_pin->pulsewidth_ms(period);
-		pwm_pin->write(duty_cycle);
-		usleep(50000);
-		duty_cycle += 0.01;
-		if(duty_cycle > 1.0) {
-			duty_cycle = 0.0;
-		}
-	}
+    // loop forever increasing the PWM duty cycle from 0% to 100%,
+    // a full cycle will take ~5 seconds
+    for (;;) {
+        pwm_pin->pulsewidth_ms(period);
+        pwm_pin->write(duty_cycle);
+        usleep(50000);
+        duty_cycle += 0.01;
+        if(duty_cycle > 1.0) {
+            duty_cycle = 0.0;
+        }
+    }
 
-	return SUCCESS;
+    return SUCCESS;
 }
