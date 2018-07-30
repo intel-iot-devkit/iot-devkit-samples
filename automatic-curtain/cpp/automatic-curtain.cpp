@@ -44,13 +44,42 @@ using namespace mraa;
 // check if running as root
 void checkRoot(void)
 {
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
-	return;
+    int euid = geteuid();
+    if (euid) {
+        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+                "The IO operations below might fail.\n"
+                "See the project's Readme for more info.\n\n";
+    }
+    return;
+}
+
+int initPlatform(int& aPinRotary, int& aPinLight, int& dPinButton, int& i2cPort)
+{
+    //Update these values as per the hardware board being used.
+    aPinRotary = 1,
+    aPinLight = 2,
+    dPinButton = 4,
+    i2cPort = 0;
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
+    case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
+        aPinRotary += 512;     // A1 Connector
+        aPinLight += 512;      // A2 Connector
+        dPinButton += 512;     // D4 Connector
+        break;
+#else
+        return -1;
+#endif
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n\n";
+        cerr << unknownPlatformMessage;
+    }
+    return 0;
 }
 
 
@@ -250,30 +279,9 @@ int main() {
 
 #ifndef SIMULATE_DEVICES
 
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-      "you are running it on an unrecognized platform. "
-      "You may need to modify the MRAA/UPM initialization code to "
-      "ensure it works properly on your platform.\n\n";
-  //Update these values as per the hardware board being used.
-  int aPinRotary = 1,
-      aPinLight = 2,
-      dPinButton = 4,
-      i2cPort = 0;
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
-    case INTEL_UP2:
-#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPinRotary += 512;     // A1 Connector
-      aPinLight += 512;      // A2 Connector
-      dPinButton += 512;     // D4 Connector
-      break;
-#else
+  int aPinRotary, aPinLight, dPinButton, i2cPort;
+  if (initPlatform(aPinRotary, aPinLight, dPinButton, i2cPort) == -1) {
       cerr << "Not using Grove provide your pinout here" << endl;
-      return -1;
-#endif
-      default:
-          cerr << unknownPlatformMessage;
   }
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");

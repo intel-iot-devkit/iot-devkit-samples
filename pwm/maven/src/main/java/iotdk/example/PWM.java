@@ -35,19 +35,17 @@
  */
 package iotdk.example;
 
-import mraa.Platform;
 import mraa.Pwm;
-import mraa.Result;
 import mraa.mraa;
+import mraa.Platform;
+import mraa.Result;
 
 public class PWM {
   // Set true if using a Grove Pi Shield, else false
   static final boolean USING_GROVE_PI_SHIELD = true;
-  static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-      "you are running it on an unrecognized platform. " +
-      "You may need to modify the MRAA/UPM initialization code to " +
-      "ensure it works properly on your platform.\n\n";
-
+  
+  static int pinNumber = 33;
+  
     public static void checkRoot(){
       String username = System.getProperty("user.name");
 
@@ -58,26 +56,32 @@ public class PWM {
         System.out.println(message);
       }
     }
+	
+    public static void initPlatform(){
+      Platform platform = mraa.getPlatformType();
+      if(platform.equals(Platform.INTEL_UP2)) {
+        if(USING_GROVE_PI_SHIELD) {
+          mraa.addSubplatform(Platform.GROVEPI, "0");
+		  pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
+		}
+      } else {
+        String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+          "you are running it on an unrecognized platform. " +
+          "You may need to modify the MRAA/UPM initialization code to " +
+          "ensure it works properly on your platform.\n\n";
+	    System.err.println(unknownPlatformMessage);
+	  }
+	}
 
 
   public static void main(String[] args) {
-
     checkRoot();
+    initPlatform();
 
-    Platform platform = mraa.getPlatformType();
-    int pinNumber = 5;
-    if(platform.equals(Platform.INTEL_UP2)) {
-      if(USING_GROVE_PI_SHIELD) {
-    		mraa.addSubplatform(Platform.GROVEPI, "0");
-        pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
-      }
-    } else {
-        System.err.println(unknownPlatformMessage);
-    }
     // create a PWM object from MRAA using pin 5
     // note that not all digital pins can be used for PWM, the available ones
     // are usually marked with a ~ on the board's silk screen
-    Pwm pwm_pin = null;
+	  Pwm pwm_pin = null;
     pwm_pin = new Pwm(pinNumber);
     // select PWM period of 1ms
     if (pwm_pin.period_ms(1) != Result.SUCCESS) {
