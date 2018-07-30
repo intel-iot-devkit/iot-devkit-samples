@@ -44,6 +44,9 @@ import mraa.Result;
 import mraa.mraa;
 
 public class DigitalIn {
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
+    
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
     static int pinNumber = 13;
@@ -91,6 +94,8 @@ public class DigitalIn {
         // loop forever printing the digital input value every second
         while (true) {
             int value = pin.read();
+            if (value != SUCCESS)
+                System.err.println("MRAA cannot read pin value!");
             System.out.println(String.format("Pin value: %d", value));
             try {
                 Thread.sleep(1000);

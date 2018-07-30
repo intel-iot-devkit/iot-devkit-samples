@@ -51,6 +51,9 @@ import upm_guvas12d.GUVAS12D;
 import upm_i2clcd.Jhd1313m1;
 
 public class TanResponsibly {
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
+    
     static final boolean USING_GROVE_PI_SHIELD = true;
     static int aPinIn1 = 1; // A1
     static int aPinIn2 = 2; // A2
@@ -106,7 +109,8 @@ public class TanResponsibly {
     // Display UV intensity and temperature values on LCD
     row1 = "Temp: " + temperature + "    ";
     lcd.setCursor(0, 0);
-    lcd.write(row1);
+    if (lcd.write(row1) != SUCCESS)
+        System.err.println("MRAA cannot write temperature!");
 
     // Remind possible risk (time to sunburn)
     lcd.setCursor(1, 0);
@@ -157,9 +161,9 @@ public class TanResponsibly {
         if(platform.equals(Platform.INTEL_UP2)){
             if(USING_GROVE_PI_SHIELD) {
 				mraa.addSubplatform(Platform.GROVEPI, "0");
-			    aPin1 = aPin1 + 512; 
-                aPin2 = aPin2 + 512; 
-                aPin4 = aPin4 + 512;
+			    aPinIn1 = aPinIn1 + 512; 
+                aPinIn2 = aPinIn2 + 512; 
+                dPinOut = dPinOut + 512;
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
@@ -176,13 +180,13 @@ public class TanResponsibly {
 	initPlatform();
 	
 	// UV sensor connected to A0 (analog in)
-    GUVAS12D UvSensor = new GUVAS12D(dInPin);
+    GUVAS12D UvSensor = new GUVAS12D(aPinIn1);
 
     // Temperature sensor connected to A1 (analog in)
-    GroveTemp temp_sensor = new GroveTemp(aPin);
+    GroveTemp temp_sensor = new GroveTemp(aPinIn2);
 
     // Buzzer connected to D2 (digital out)
-    Buzzer buzzer = new Buzzer(dOutPin);
+    Buzzer buzzer = new Buzzer(dPinOut);
 
     // LCD connected to the default I2C bus
     Jhd1313m1 lcd = new Jhd1313m1(i2cPort);

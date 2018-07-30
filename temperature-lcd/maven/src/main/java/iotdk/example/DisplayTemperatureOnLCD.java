@@ -50,12 +50,13 @@ import mraa.mraa;
 import mraa.Platform;
 
 public class DisplayTemperatureOnLCD {
-
     // minimum and maximum temperatures registered, the initial values will be
     // replaced after the first read
     static int min_temperature = Integer.MAX_VALUE;
     static int max_temperature = Integer.MIN_VALUE;
-
+    
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
 
     /*
      * Update the temperature values and reflect the changes on the LCD
@@ -96,10 +97,12 @@ public class DisplayTemperatureOnLCD {
 
         // display the temperature values on the LCD
         lcd.setCursor(0,0);
-        lcd.write(String.format("Temp %d    ", temperature));
+        if (lcd.write(String.format("Temp %d    ", temperature)) != SUCCESS)
+            System.err.println("MRAA cannot display min temperature!");
         lcd.setCursor(1,0);
-        lcd.write(String.format("Min %d Max %d    ", min_temperature,
-                max_temperature));
+        if (lcd.write(String.format("Min %d Max %d    ", min_temperature,
+                max_temperature))!= SUCCESS)
+                System.err.println("MRAA cannot display max temperature!");
 
         // set the fade value depending on where we are in the temperature range
         if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {

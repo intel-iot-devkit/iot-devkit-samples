@@ -175,9 +175,11 @@ void show_on_lcd(upm::Jhd1313m1 *lcd, int lux_target, int lux_current) {
   row_2 << "Lux Target:  " << lux_target;
   lcd->clear();
   lcd->setCursor(0, 0);
-  lcd->write(row_1.str());
+  if (lcd->write(row_1.str()) != UPM_SUCCESS)
+      cerr << "MRAA cannot write current lux value!" << endl;
   lcd->setCursor(1, 0);
-  lcd->write(row_2.str());
+  if (lcd->write(row_2.str()) != UPM_SUCCESS)
+      cerr << "MRAA cannot write target lux value!" << endl;
 }
 
 /**

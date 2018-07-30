@@ -63,10 +63,13 @@ import upm_uln200xa.ULN200XA;
 import upm_uln200xa.ULN200XA_DIRECTION_T;
 
 public class SmartPhotovoltaicPanels {
+  // Status of the correct r/w operation
+  static final int SUCCESS = 0;
+  
   static final boolean USING_GROVE_PI_SHIELD = true;
   
-  static int aPinIn1 = 1;
-  static int aPinIn2 = 2;
+  static int aPin1 = 1;
+  static int aPin2 = 2;
   static int i2cPort = 0;
   
   // Threshold of light
@@ -94,9 +97,11 @@ public class SmartPhotovoltaicPanels {
     lcd.setCursor(1, 0);
     lcd.write("Right:          ");
     lcd.setCursor(0, 6);
-    lcd.write(lightLST.toString());
+    if (lcd.write(lightLST.toString()) != SUCCESS)
+        System.err.println("MRAA cannot display left value!");
     lcd.setCursor(1, 7);
-    lcd.write(lightRST.toString());
+    if (lcd.write(lightRST.toString())!= SUCCESS)
+        System.err.println("MRAA cannot display right value!");
 
     /* To move the motor correctly, we have to choose the right direction.
      * To obtain it, we have three condition:

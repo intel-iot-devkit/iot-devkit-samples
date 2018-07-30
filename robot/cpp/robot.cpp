@@ -97,7 +97,8 @@ void displayHeading(Jhd1313m1 *lcd, Hmc5883l *compass){
             // we write the entire line
             crit.lock();
             lcd->setCursor(0, 0);
-            lcd->write("HDG: " + heading.substr(hdg_index, 11));
+            if (lcd->write("HDG: " + heading.substr(hdg_index, 11)))
+                cerr << "MRAA cannot display heading!" << endl;
             crit.unlock();
         }
 
