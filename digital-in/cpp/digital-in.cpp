@@ -103,7 +103,10 @@ int main()
     // loop forever printing the digital input value every second
     for (;;) {
         int pin_value = d_pin->read();
-        cout << "value " << pin_value << endl;
+        if (pin_value != SUCCESS)
+            cerr << "MRAA cannot read pin value!" << endl;
+        else
+            cout << "value " << pin_value << endl;
         sleep(1);
     }
 

@@ -140,10 +140,12 @@ int setup_lux_target(upm::GroveRotary *rotary_sensor,
         << lux_target))->str();
     lcd->clear();
     lcd->setCursor(0, 0);
-    lcd->write("Btn to confirm");
+    if (lcd->write("Btn to confirm") != UPM_SUCCESS)
+        cerr << "MRAA cannot write the first string!" << endl;
     lcd->setCursor(1, 0);
     lcd->cursorBlinkOn();
-    lcd->write("Lux Target: " + lux_target_str);
+    if (lcd->write("Lux Target: " + lux_target_str) != UPM_SUCCESS)
+        cerr << "MRAA cannot write the second string!" << endl;
 
 #ifdef SIMULATE_DEVICES
     button_value = 1;

@@ -123,7 +123,8 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
         // Write the battery voltage on the second line of the display
         crit.lock();
         lcd->setCursor(1, 0);
-        lcd->write("Batt: " + displayStr + " V    ");
+        if (lcd->write("Batt: " + displayStr + " V    ") != UPM_SUCCESS)
+            cerr << "MRAA cannot display voltage!" << endl;
         crit.unlock();
 
         // Battery low, flash LCD and refresh more often

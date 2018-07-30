@@ -88,7 +88,10 @@ int main()
     // loop forever printing the input value every second
     for (;;) {
         uint16_t pin_value = a_pin->read();
-        cout << "analog input value " << pin_value << endl;
+        if (pin_value != SUCCESS)
+            cerr << "MRAA cannot read pin value!" << endl;
+        else
+            cout << "analog input value " << pin_value << endl;
         sleep(1);
     }
 

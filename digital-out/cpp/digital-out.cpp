@@ -103,9 +103,9 @@ int main()
 
     // loop forever toggling the digital output every second
     for(;;) {
-        d_pin->write(0);
+        if (d_pin->write(0) != SUCCESS) cerr << "MRAA cannot write pin value!" << endl;
         sleep(1);
-        d_pin->write(1);
+        if (d_pin->write(1) != SUCCESS) cerr << "MRAA cannot write pin value!" << endl;
         sleep(1);
     }
 
