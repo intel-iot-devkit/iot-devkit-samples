@@ -102,8 +102,10 @@ int main()
     // a full cycle will take ~5 seconds
     for (;;) {
         pwm_pin->pulsewidth_ms(period);
-        if (pwm_pin->write(duty_cycle) != SUCCESS)
+        if (pwm_pin->write(duty_cycle) != SUCCESS) {
             cerr << "MRAA cannot write duty cycle!" << endl;
+            return ERROR_UNSPECIFIED;
+        }
         usleep(50000);
         duty_cycle += 0.01;
         if(duty_cycle > 1.0) {
