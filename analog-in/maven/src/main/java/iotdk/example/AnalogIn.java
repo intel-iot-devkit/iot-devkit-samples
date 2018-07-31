@@ -78,9 +78,14 @@ public class AnalogIn {
 
         // loop forever printing the input value every second
         while (true) {
-            long value = pin.read();
-            if (value != SUCCESS)
+            long value = 0;
+            try {
+                value = pin.read();
+            } catch (Exception ex) {
+                System.err.println("Invalid argument, exception thrown: " + ex.toString());
                 System.err.println("MRAA cannot read pin value!");
+                return;
+            }
             System.out.println(String.format("Pin value: %d", value));
             try {
                 Thread.sleep(1000);
