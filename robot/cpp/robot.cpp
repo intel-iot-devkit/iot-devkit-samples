@@ -97,7 +97,8 @@ void displayHeading(Jhd1313m1 *lcd, Hmc5883l *compass){
             // we write the entire line
             crit.lock();
             lcd->setCursor(0, 0);
-            lcd->write("HDG: " + heading.substr(hdg_index, 11));
+            if (lcd->write("HDG: " + heading.substr(hdg_index, 11)) != UPM_SUCCESS)
+                cerr << "MRAA cannot display heading!" << endl;
             crit.unlock();
         }
 
@@ -112,7 +113,7 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
     // Variable used for flashing LCD red when battery is low
     uint8_t red = 0x3F;
 
-    while(running){
+    while (running) {
         // Read 50 samples each with 2 ms in between (100 ms total)
         int avgValue = divider->value(50);
         // Convert the value to voltage at 3x gain and 5V reference
@@ -123,7 +124,8 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
         // Write the battery voltage on the second line of the display
         crit.lock();
         lcd->setCursor(1, 0);
-        lcd->write("Batt: " + displayStr + " V    ");
+        if (lcd->write("Batt: " + displayStr + " V    ") != UPM_SUCCESS)
+            cerr << "MRAA cannot display battery voltage!" << endl;
         crit.unlock();
 
         // Battery low, flash LCD and refresh more often

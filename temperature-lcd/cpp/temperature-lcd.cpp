@@ -96,10 +96,12 @@ void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* bu
     // display the temperature values on the LCD
     row_1 << "Temp " << temperature << "    ";
     row_2 << "Min " << min_temperature << " Max " << max_temperature << "    ";
-    lcd->setCursor(0,0);
-    lcd->write(row_1.str());
-    lcd->setCursor(1,0);
-    lcd->write(row_2.str());
+    lcd->setCursor(0, 0);
+    if (lcd->write(row_1.str()) != UPM_SUCCESS)
+        cerr << "MRAA cannot display min temperature!" << endl;
+    lcd->setCursor(1, 0);
+    if (lcd->write(row_2.str()) != UPM_SUCCESS)
+        cerr << "MRAA cannot display max temperature!" << endl;
 
     // set the fade value depending on where we are in the temperature range
     if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {

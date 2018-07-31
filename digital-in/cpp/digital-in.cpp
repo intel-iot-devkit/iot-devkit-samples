@@ -102,7 +102,17 @@ int main()
 
     // loop forever printing the digital input value every second
     for (;;) {
-        int pin_value = d_pin->read();
+        uint16_t pin_value;
+        try {
+            // read the current input value
+            pin_value = d_pin->read();
+        }
+        catch (const invalid_argument& readExc) {
+            // if incorrect value input
+            cerr << "Invalid argument, exception thrown: " << readExc.what() << endl;
+            cerr << "MRAA cannot read pin value!" << endl;
+            return MRAA_ERROR_INVALID_PARAMETER; // Maybe has to be replaced with: return MRAA_ERROR_UNSPECIFIED;
+        }
         cout << "value " << pin_value << endl;
         sleep(1);
     }

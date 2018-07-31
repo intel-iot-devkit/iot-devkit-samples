@@ -35,12 +35,15 @@ import mraa.Platform;
 import mraa.mraa;
 
 public class AnalogIn {
-
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
+    
 	// Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
 	
+    // Default pin 
 	static int pinNumber = 2;
-
+    
     public static void checkRoot(){
 		String username = System.getProperty("user.name");
      
@@ -75,7 +78,14 @@ public class AnalogIn {
 
         // loop forever printing the input value every second
         while (true) {
-            long value = pin.read();
+            long value = 0;
+            try {
+                value = pin.read();
+            } catch (Exception ex) {
+                System.err.println("Invalid argument, exception thrown: " + ex.toString());
+                System.err.println("MRAA cannot read pin value!");
+                return;
+            }
             System.out.println(String.format("Pin value: %d", value));
             try {
                 Thread.sleep(1000);

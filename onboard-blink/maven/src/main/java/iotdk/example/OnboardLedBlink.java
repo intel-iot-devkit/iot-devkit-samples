@@ -38,7 +38,7 @@ import mraa.Platform;
 import mraa.Result;
 import mraa.mraa;
 
-public class OnboardLedBlink {
+public class OnboardLedBlink {    
 	// Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
 	static int pinNumber = 13;
@@ -87,13 +87,15 @@ public class OnboardLedBlink {
 
         // loop forever toggling the on board LED every second
         while (true) {
-            pin.write(0);
+            if (pin.write(0) != Result.SUCCESS)
+                System.err.println("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.err.println("Sleep interrupted: " + e.toString());
             }
-            pin.write(1);
+            if (pin.write(1) != Result.SUCCESS)
+                System.err.println("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

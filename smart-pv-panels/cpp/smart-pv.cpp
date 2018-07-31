@@ -92,9 +92,11 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   lcd->setCursor(1, 0);
   lcd->write("Right:          ");
   lcd->setCursor(0, 6);
-  lcd->write(tdataL);
+  if (lcd->write(tdataL) != UPM_SUCCESS)
+      cerr << "MRAA cannot display left value!" << endl;
   lcd->setCursor(1, 7);
-  lcd->write(tdataR);
+  if (lcd->write(tdataR) != UPM_SUCCESS)
+      cerr << "MRAA cannot display right value!" << endl;
 
   /* To move the motor correctly, we have to choose the right direction.
    * To obtain it, we have three condition:

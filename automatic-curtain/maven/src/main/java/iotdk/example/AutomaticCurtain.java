@@ -78,6 +78,9 @@ import upm_grove.GroveRotary;
 import upm_i2clcd.Jhd1313m1;
 import upm_uln200xa.ULN200XA;
 import upm_uln200xa.ULN200XA_DIRECTION_T;
+import mraa.mraa;
+import mraa.Platform;
+
 
 public class AutomaticCurtain {
   static final boolean USING_GROVE_PI_SHIELD = true;
@@ -100,13 +103,16 @@ public class AutomaticCurtain {
    * integrated.
    */
   static final int THRESHOLD = 5;
+  
+  // Status of the correct r/w operation
+  static final int SUCCESS = 0;
 
   // Position of stepper motor.
   static int stepper_motor_current_step = 0;
   
   static int aPin1 = 1; 
   static int aPin2 = 2; 
-  static int aPin4 = 4;
+  static int dPin4 = 4;
   static int  i2cPort = 0;
 
   /*
@@ -174,9 +180,11 @@ public class AutomaticCurtain {
     row2 = "Lux Target:  " + luxTarget;
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.write(row1);
+    if (lcd.write(row1) != SUCCESS)
+        System.err.println("MRAA cannot write current lux value!");
     lcd.setCursor(1, 0);
-    lcd.write(row2);
+    if (lcd.write(row2) != SUCCESS)
+        System.err.println("MRAA cannot write target lux value!");
   }
 
   /**
@@ -272,7 +280,7 @@ public class AutomaticCurtain {
 				mraa.addSubplatform(Platform.GROVEPI, "0");
 			    aPin1 = aPin1 + 512; 
                 aPin2 = aPin2 + 512; 
-                aPin4 = aPin4 + 512;
+                dPin4 = dPin4 + 512;
             }
         } else {
 			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
