@@ -84,17 +84,18 @@ public class Interrupt {
         Platform platform = mraa.getPlatformType();
         int pinNumber = 13;
 
-        switch (platform) {
-            case Platform.INTEL_MINNOWBOARD_MAX:
-            case Platform.INTEL_JOULE_EXPANSION:
-                pinNumber = 26;
-                break;
-            case Platform.UNKNOWN_PLATFORM:
-                System.err.println(unknownPlatformMessage);
-                break;
-            default:
-                break;
-        }
+		if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
+            pinNumber = 26;
+        if(platform.equals(Platform.INTEL_JOULE_EXPANSION))
+            pinNumber = 26;
+        if(platform.equals(Platform.UNKNOWN_PLATFORM))
+		{
+		    String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+                "you are running it on an unrecognized platform. " +
+                "You may need to modify the MRAA/UPM initialization code to " +
+                "ensure it works properly on your platform.\n\n";
+            System.err.println(unknownPlatformMessage);
+		}
         // create a gpio object from MRAA
         Gpio pin = new Gpio(pinNumber);
 
