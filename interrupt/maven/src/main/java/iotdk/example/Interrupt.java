@@ -84,7 +84,7 @@ public class Interrupt {
         Platform platform = mraa.getPlatformType();
         int pinNumber = 13;
 
-		if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
+        if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
             pinNumber = 26;
         if(platform.equals(Platform.INTEL_JOULE_EXPANSION))
             pinNumber = 26;
