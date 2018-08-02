@@ -96,7 +96,7 @@ int main()
             // if incorrect voltage value input
             cerr << "Invalid argument, exception thrown: " << readExc.what() << endl;
             cerr << "MRAA cannot read pin value!" << endl;
-            return MRAA_ERROR_INVALID_PARAMETER; // Maybe has to be replaced with: return MRAA_ERROR_UNSPECIFIED;
+            return MRAA_ERROR_INVALID_PARAMETER;
         }
         cout << "analog input value " << pin_value << endl;
         sleep(1);

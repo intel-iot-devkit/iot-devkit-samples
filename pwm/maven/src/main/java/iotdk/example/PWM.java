@@ -41,83 +41,83 @@ import mraa.Platform;
 import mraa.Result;
 
 public class PWM {
-  // Set true if using a Grove Pi Shield, else false
-  static final boolean USING_GROVE_PI_SHIELD = true;
-  
-  static int pinNumber = 33;
-  
+    // Set true if using a Grove Pi Shield, else false
+    static final boolean USING_GROVE_PI_SHIELD = true;
+
+    static int pinNumber = 33;
+
     public static void checkRoot(){
-      String username = System.getProperty("user.name");
+        String username = System.getProperty("user.name");
 
-      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
-      if(!username.equals("root"))
-      {
-        System.out.println(message);
-      }
+        String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+        if(!username.equals("root"))
+        {
+            System.out.println(message);
+        }
     }
-	
+
     public static void initPlatform(){
-      Platform platform = mraa.getPlatformType();
-      if(platform.equals(Platform.INTEL_UP2)) {
-        if(USING_GROVE_PI_SHIELD) {
-          mraa.addSubplatform(Platform.GROVEPI, "0");
-		  pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
-		}
-      } else {
-        String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-          "you are running it on an unrecognized platform. " +
-          "You may need to modify the MRAA/UPM initialization code to " +
-          "ensure it works properly on your platform.\n\n";
-	    System.err.println(unknownPlatformMessage);
-	  }
-	}
-
-
-  public static void main(String[] args) {
-    checkRoot();
-    initPlatform();
-
-    // create a PWM object from MRAA using pin 5
-    // note that not all digital pins can be used for PWM, the available ones
-    // are usually marked with a ~ on the board's silk screen
-	  Pwm pwm_pin = null;
-    pwm_pin = new Pwm(pinNumber);
-    // select PWM period of 1ms
-    if (pwm_pin.period_ms(1) != Result.SUCCESS) {
-      System.err.println("Could not initalize the PMW period, exiting");
-      return;
+        Platform platform = mraa.getPlatformType();
+        if(platform.equals(Platform.INTEL_UP2)) {
+            if(USING_GROVE_PI_SHIELD) {
+                mraa.addSubplatform(Platform.GROVEPI, "0");
+                pinNumber = pinNumber + 512; // A5 Connector (512 offset needed for the shield)
+            }
+        } else {
+            String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+                    "you are running it on an unrecognized platform. " +
+                    "You may need to modify the MRAA/UPM initialization code to " +
+                    "ensure it works properly on your platform.\n\n";
+            System.err.println(unknownPlatformMessage);
+        }
     }
 
-    // enable the pin for ouput
-    if (pwm_pin.enable(true) != Result.SUCCESS) {
-      System.err.println("Could not enable the pin for output, exiting");
-      return;
-    };
 
-    // PWM duty-cycle value,  0 == 0%, 1 == 100%
-    float duty_cycle = 0;
+    public static void main(String[] args) {
+        checkRoot();
+        initPlatform();
 
-    // loop forever increasing the PWM duty-cycle from 0% to 100%
-    while (true) {
-      // increase the duty-cycle by 1%
-      duty_cycle += 0.01;
-      // set the output duty-cycle percentage
-      if (pwm_pin.write(duty_cycle) != Result.SUCCESS) {
-        System.err.println("Could not set the duty-cycle percentage, exiting");
-        return;
-      };
+        // create a PWM object from MRAA using pin 5
+        // note that not all digital pins can be used for PWM, the available ones
+        // are usually marked with a ~ on the board's silk screen
+        Pwm pwm_pin = null;
+        pwm_pin = new Pwm(pinNumber);
+        // select PWM period of 1ms
+        if (pwm_pin.period_ms(1) != Result.SUCCESS) {
+            System.err.println("Could not initalize the PMW period, exiting");
+            return;
+        }
 
-      try {
-        Thread.sleep(50);
-      } catch (InterruptedException e) {
-        System.err.println("Sleep interrupted: " + e.toString());
-      }
-      // if the duty-cycle reaches 100% start from 0% again
-      // a full cycle will take ~5 seconds
-      if (duty_cycle >= 1) {
-        duty_cycle = 0;
-      }
+        // enable the pin for ouput
+        if (pwm_pin.enable(true) != Result.SUCCESS) {
+            System.err.println("Could not enable the pin for output, exiting");
+            return;
+        };
+
+        // PWM duty-cycle value,  0 == 0%, 1 == 100%
+        float duty_cycle = 0;
+
+        // loop forever increasing the PWM duty-cycle from 0% to 100%
+        while (true) {
+            // increase the duty-cycle by 1%
+            duty_cycle += 0.01;
+            // set the output duty-cycle percentage
+            if (pwm_pin.write(duty_cycle) != Result.SUCCESS) {
+                System.err.println("Could not set the duty-cycle percentage, exiting");
+                return;
+            };
+
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                System.err.println("Sleep interrupted: " + e.toString());
+            }
+            // if the duty-cycle reaches 100% start from 0% again
+            // a full cycle will take ~5 seconds
+            if (duty_cycle >= 1) {
+                duty_cycle = 0;
+            }
+        }
     }
-  }
 }
