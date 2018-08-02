@@ -87,7 +87,17 @@ int main()
 
     // loop forever printing the input value every second
     for (;;) {
-        uint16_t pin_value = a_pin->read();
+        uint16_t pin_value;
+        try {
+            // read the current input voltage
+            pin_value = a_pin->read();
+        }
+        catch (const invalid_argument& readExc) {
+            // if incorrect voltage value input
+            cerr << "Invalid argument, exception thrown: " << readExc.what() << endl;
+            cerr << "MRAA cannot read pin value!" << endl;
+            return MRAA_ERROR_INVALID_PARAMETER;
+        }
         cout << "analog input value " << pin_value << endl;
         sleep(1);
     }

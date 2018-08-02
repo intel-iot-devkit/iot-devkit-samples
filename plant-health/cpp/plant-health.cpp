@@ -128,9 +128,11 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
   row_1 << "Temperature: " << temperature << "  ";
   row_2 << "Light: " << intensity << "   ";
   lcd->setCursor(0, 0);
-  lcd->write(row_1.str());
+  if (lcd->write(row_1.str()) != UPM_SUCCESS)
+      cerr << "MRAA cannot display row 1!" << endl;
   lcd->setCursor(1, 0);
-  lcd->write(row_2.str());
+  if (lcd->write(row_2.str()) != UPM_SUCCESS)
+      cerr << "MRAA cannot display row 2!" << endl;
 }
 
 // check if running as root

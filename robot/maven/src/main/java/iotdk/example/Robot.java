@@ -80,6 +80,9 @@ public class Robot {
     static RFR359F frontRightIR;
     static RFR359F rearLeftIR;
     static RFR359F rearRightIR;
+    
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
 
     static Runnable shutdown = new Runnable() {
 
@@ -109,7 +112,8 @@ public class Robot {
                 // we write the entire line
                 synchronized (lcd) {
                     lcd.setCursor(0, 0);
-                    lcd.write("HDG: " + heading.substring(hdg_index, hdg_index + 11));
+                    if (lcd.write("HDG: " + heading.substring(hdg_index, hdg_index + 11)) != SUCCESS)
+                        System.err.println("MRAA cannot display heading!");
                 }
 
                 // Update readings and display every 250 ms
@@ -143,7 +147,8 @@ public class Robot {
                 // Write the battery voltage on the second line of the display
                 synchronized (lcd) {
                     lcd.setCursor(1, 0);
-                    lcd.write("Batt: " + displayStr + " V    ");
+                    if (lcd.write("Batt: " + displayStr + " V    ") != SUCCESS)
+                        System.err.println("MRAA cannot display voltage!");    
                 }
 
                 // Battery low, flash LCD and refresh more often

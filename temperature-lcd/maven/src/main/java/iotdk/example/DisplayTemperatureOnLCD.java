@@ -50,12 +50,13 @@ import mraa.mraa;
 import mraa.Platform;
 
 public class DisplayTemperatureOnLCD {
-
     // minimum and maximum temperatures registered, the initial values will be
     // replaced after the first read
     static int min_temperature = Integer.MAX_VALUE;
     static int max_temperature = Integer.MIN_VALUE;
 
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
 
     /*
      * Update the temperature values and reflect the changes on the LCD
@@ -96,10 +97,12 @@ public class DisplayTemperatureOnLCD {
 
         // display the temperature values on the LCD
         lcd.setCursor(0,0);
-        lcd.write(String.format("Temp %d    ", temperature));
+        if (lcd.write(String.format("Temp %d    ", temperature)) != SUCCESS)
+            System.err.println("MRAA cannot display min temperature!");
         lcd.setCursor(1,0);
-        lcd.write(String.format("Min %d Max %d    ", min_temperature,
-                max_temperature));
+        if (lcd.write(String.format("Min %d Max %d    ", min_temperature,
+                max_temperature))!= SUCCESS)
+            System.err.println("MRAA cannot display max temperature!");
 
         // set the fade value depending on where we are in the temperature range
         if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {
@@ -130,26 +133,26 @@ public class DisplayTemperatureOnLCD {
     }
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-	
+
     static int dInPin = 4;
     static int dOutPin = 3;
     static int aPin = 0;
     static int i2cPort = 0;
 
     public static void checkRoot(){
-      String username = System.getProperty("user.name");
-      System.out.println(username);
-      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
-      if(!username.equals("root"))
-      {
-        System.out.println(message);
-      }
+        String username = System.getProperty("user.name");
+        System.out.println(username);
+        String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+        if(!username.equals("root"))
+        {
+            System.out.println(message);
+        }
     }
-	
-	public static void initPlatform(){
-		Platform platform = mraa.getPlatformType();
-        
+
+    public static void initPlatform(){
+        Platform platform = mraa.getPlatformType();
+
         if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
                 mraa.addSubplatform(Platform.GROVEPI, "0");
@@ -158,17 +161,17 @@ public class DisplayTemperatureOnLCD {
                 aPin = aPin + 512;     // A0
             }
         } else {
-			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-				"you are running it on an unrecognized platform. " +
-				"You may need to modify the MRAA/UPM initialization code to " +
-				"ensure it works properly on your platform.\n\n";
+            String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+                    "you are running it on an unrecognized platform. " +
+                    "You may need to modify the MRAA/UPM initialization code to " +
+                    "ensure it works properly on your platform.\n\n";
             System.err.println(unknownPlatformMessage);
         }
-	}
+    }
 
     public static void main(String[] args) {
         checkRoot();
-		initPlatform();
+        initPlatform();
 
         // button connected to D4 (digital in)
         GroveButton button = new GroveButton(dInPin);

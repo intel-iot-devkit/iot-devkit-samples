@@ -1,4 +1,4 @@
-/*
+    /*
  * Authors:
  * - Bufalino Andrea <andrea.bufalino@outlook.com>
  * - Carocci Eugenio <carocci.eugenio@gmail.com>
@@ -140,10 +140,16 @@ int setup_lux_target(upm::GroveRotary *rotary_sensor,
         << lux_target))->str();
     lcd->clear();
     lcd->setCursor(0, 0);
-    lcd->write("Btn to confirm");
+    if (lcd->write("Btn to confirm") != UPM_SUCCESS) {
+        cerr << "MRAA cannot write the first string!" << endl;
+        return MRAA_ERROR_UNSPECIFIED;
+    }
     lcd->setCursor(1, 0);
     lcd->cursorBlinkOn();
-    lcd->write("Lux Target: " + lux_target_str);
+    if (lcd->write("Lux Target: " + lux_target_str) != UPM_SUCCESS) {
+        cerr << "MRAA cannot write the second string!" << endl;
+        return MRAA_ERROR_UNSPECIFIED;
+    }
 
 #ifdef SIMULATE_DEVICES
     button_value = 1;
@@ -173,9 +179,13 @@ void show_on_lcd(upm::Jhd1313m1 *lcd, int lux_target, int lux_current) {
   row_2 << "Lux Target:  " << lux_target;
   lcd->clear();
   lcd->setCursor(0, 0);
-  lcd->write(row_1.str());
+  if (lcd->write(row_1.str()) != UPM_SUCCESS) {
+      cerr << "MRAA cannot write current lux value!" << endl;
+  }
   lcd->setCursor(1, 0);
-  lcd->write(row_2.str());
+  if (lcd->write(row_2.str()) != UPM_SUCCESS) {
+      cerr << "MRAA cannot write target lux value!" << endl;
+  }
 }
 
 /**

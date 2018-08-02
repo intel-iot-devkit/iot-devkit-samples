@@ -38,22 +38,22 @@ import mraa.Platform;
 import mraa.Result;
 import mraa.mraa;
 
-public class OnboardLedBlink {
-	// Set true if using a Grove Pi Shield, else false
+public class OnboardLedBlink {    
+    // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-	static int pinNumber = 13;
+    static int pinNumber = 13;
 
     public static void checkRoot(){
-      String username = System.getProperty("user.name");
-      System.out.println(username);
-      String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
-      if(!username.equals("root"))
-      {
-        System.out.println(message);
-      }
+        String username = System.getProperty("user.name");
+        System.out.println(username);
+        String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+        if(!username.equals("root"))
+        {
+            System.out.println(message);
+        }
     }
-	
+
     public static void initPlatform(){
         Platform platform = mraa.getPlatformType();
         if(platform.equals(Platform.INTEL_UP2)) {
@@ -63,16 +63,16 @@ public class OnboardLedBlink {
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                "you are running it on an unrecognized platform. " +
-                "You may need to modify the MRAA/UPM initialization code to " +
-                "ensure it works properly on your platform.\n\n";
+                    "you are running it on an unrecognized platform. " +
+                    "You may need to modify the MRAA/UPM initialization code to " +
+                    "ensure it works properly on your platform.\n\n";
             System.err.println(unknownPlatformMessage);
         }
     }
 
     public static void main(String[] args) {
-		checkRoot();
-		initPlatform();
+        checkRoot();
+        initPlatform();
         Gpio pin = new Gpio(pinNumber);
 
         if (pin == null) {
@@ -87,13 +87,15 @@ public class OnboardLedBlink {
 
         // loop forever toggling the on board LED every second
         while (true) {
-            pin.write(0);
+            if (pin.write(0) != Result.SUCCESS)
+                System.err.println("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.err.println("Sleep interrupted: " + e.toString());
             }
-            pin.write(1);
+            if (pin.write(1) != Result.SUCCESS)
+                System.err.println("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

@@ -44,37 +44,40 @@ import mraa.Result;
 import mraa.mraa;
 
 public class DigitalIn {
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
+
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
     static int pinNumber = 13;
 
-	public static void checkRoot(){
-		String username = System.getProperty("user.name");
- 
-		String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-		"The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
-		if(!username.equals("root"))
-		{
-			System.out.println(message);
-		}
+    public static void checkRoot(){
+        String username = System.getProperty("user.name");
+
+        String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+        if(!username.equals("root"))
+        {
+            System.out.println(message);
+        }
     }
-	
+
     public static void initPlatform()
     {
         Platform platform = mraa.getPlatformType();
-		if(platform.equals(Platform.INTEL_UP2)) {
-			if(USING_GROVE_PI_SHIELD) {
-				mraa.addSubplatform(Platform.GROVEPI, "0");
-				pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
-			}
-		} else {
-			String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-				"you are running it on an unrecognized platform. " +
-				"You may need to modify the MRAA/UPM initialization code to " +
-				"ensure it works properly on your platform.\n\n";
-			System.err.println(unknownPlatformMessage);
-		}
-	}
+        if(platform.equals(Platform.INTEL_UP2)) {
+            if(USING_GROVE_PI_SHIELD) {
+                mraa.addSubplatform(Platform.GROVEPI, "0");
+                pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
+            }
+        } else {
+            String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+                    "you are running it on an unrecognized platform. " +
+                    "You may need to modify the MRAA/UPM initialization code to " +
+                    "ensure it works properly on your platform.\n\n";
+            System.err.println(unknownPlatformMessage);
+        }
+    }
 
     public static void main(String[] args) {
         checkRoot();
@@ -91,6 +94,10 @@ public class DigitalIn {
         // loop forever printing the digital input value every second
         while (true) {
             int value = pin.read();
+            if (value == -1) {
+                System.err.println("MRAA cannot read pin value!");
+                return;
+            }
             System.out.println(String.format("Pin value: %d", value));
             try {
                 Thread.sleep(1000);

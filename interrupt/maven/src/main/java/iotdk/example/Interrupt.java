@@ -59,40 +59,40 @@ class IsrCounterCallback implements Runnable {
 }
 
 public class Interrupt {
-	
-	static int pinNumber = 13;
+
+    static int pinNumber = 13;
 
     public static void checkRoot(){
         String username = System.getProperty("user.name");
         System.out.println(username);
         String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-        "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
         if(!username.equals("root"))
         {
             System.out.println(message);
         }
     }
-    
-	public static void initPlatform(){
-		Platform platform = mraa.getPlatformType();
-		if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
+
+    public static void initPlatform(){
+        Platform platform = mraa.getPlatformType();
+        if(platform.equals(Platform.INTEL_MINNOWBOARD_MAX))
             pinNumber = 26;
         if(platform.equals(Platform.INTEL_JOULE_EXPANSION))
             pinNumber = 26;
         if(platform.equals(Platform.UNKNOWN_PLATFORM))
-		{
-		    String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                "you are running it on an unrecognized platform. " +
-                "You may need to modify the MRAA/UPM initialization code to " +
-                "ensure it works properly on your platform.\n\n";
+        {
+            String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+                    "you are running it on an unrecognized platform. " +
+                    "You may need to modify the MRAA/UPM initialization code to " +
+                    "ensure it works properly on your platform.\n\n";
             System.err.println(unknownPlatformMessage);
-		}
-	}
+        }
+    }
 
     public static void main(String[] args) {
         checkRoot();
-		initPlatform();
-        
+        initPlatform();
+
         // create a gpio object from MRAA
         Gpio pin = new Gpio(pinNumber);
 

@@ -90,7 +90,8 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
   // Display UV intensity and temperature values on LCD
   row_1 << "Temp: " << temperature << "    ";
   lcd->setCursor(0, 0);
-  lcd->write(row_1.str());
+  if (lcd->write(row_1.str()) != UPM_SUCCESS)
+      cerr << "MRAA cannot write temperature!" << endl;
 
   // Remind possible risk (time to sunburn)
   lcd->setCursor(1, 0);
