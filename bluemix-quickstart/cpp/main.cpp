@@ -71,6 +71,14 @@ const char * host = "tcp://quickstart.messaging.internetofthings.ibmcloud.com:18
 MQTTClient client;
 MQTTClient_deliveryToken dt = 0;
 
+
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 /*
  * Update the temperature values and send the values to IBM Bluemix
  * - blink the led to show the temperature was measured and data updated
@@ -157,13 +165,14 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 void initPlatform(int& dPin, int& aPin)
 {
     // check which board we are running on
@@ -182,7 +191,7 @@ void initPlatform(int& dPin, int& aPin)
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n\n";
-        cerr << unknownPlatformMessage;
+        inputEnter(unknownPlatformMessage);
     }
     return;
 }
@@ -200,14 +209,14 @@ int main() {
 
 #endif
 
-    cerr << "Connecting to MQTT client ..." << endl;
+    cout << "Connecting to MQTT client ..." << endl;
 
     // create the MQTT client
     int rc = 0;
     rc = MQTTClient_create(&client, const_cast<char *>(host),
             const_cast<char *>(clientID), MQTTCLIENT_PERSISTENCE_NONE, NULL);
     if (rc != MQTTCLIENT_SUCCESS) {
-        std::cerr << "Failed to create MQTT client, exiting" << std::endl;
+        inputEnter("Failed to create MQTT client, exiting");
         exit(rc);
     }
 
@@ -221,7 +230,7 @@ int main() {
     // connect the client to the server
     rc = MQTTClient_connect(client, &data);
     if (rc != MQTTCLIENT_SUCCESS) {
-        std::cerr << "Failed to connect MQTT client, exiting" << std::endl;
+        inputEnter("Failed to connect MQTT client, exiting");
         exit(rc);
     }
 
@@ -236,7 +245,7 @@ int main() {
 
     // simple error checking
     if ((led == NULL) || (temp_sensor == NULL)) {
-        std::cerr << "Can't create all objects, exiting" << std::endl;
+        inputEnter("Can't create all objects, exiting");
         return mraa::ERROR_UNSPECIFIED;
     }
 #endif

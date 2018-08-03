@@ -35,18 +35,26 @@
 using namespace std;
 using namespace mraa;
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    std::cerr << str << std::endl << "Press Enter to continue..." << std::endl;
+    cin.get();
+}
+
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 void initPlatform(int& gpioPin)
 {
     // check which board we are running on
@@ -71,8 +79,8 @@ void initPlatform(int& gpioPin)
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
-            "ensure it works properly on your platform.\n\n";
-        cerr << unknownPlatformMessage;
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
     }
     return;
 }
@@ -92,24 +100,24 @@ int main()
     // create a GPIO object from MRAA for the pin
     Gpio* d_pin = new Gpio(gpioPin);
     if (d_pin == NULL) {
-        cerr << "MRAA couldn't initialize GPIO, exiting." << endl;
+        inputEnter("MRAA couldn't initialize GPIO, exiting.");
         return MRAA_ERROR_UNSPECIFIED;
     }
     // set the pin as output
     if (d_pin->dir(DIR_OUT) != SUCCESS) {
-        cerr << "Can't set digital pin as output, exiting" << endl;
+        inputEnter("Can't set digital pin as output, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
     // loop forever toggling the digital output every second
     for(;;) {
         if (d_pin->write(0) != SUCCESS) {
-            cerr << "MRAA cannot write pin value!" << endl;
+            inputEnter("MRAA cannot write pin value!");
             return MRAA_ERROR_UNSPECIFIED;
         }
         sleep(1);     
         if (d_pin->write(1) != SUCCESS) {
-            cerr << "MRAA cannot write pin value!" << endl;
+            inputEnter("MRAA cannot write pin value!");
             return MRAA_ERROR_UNSPECIFIED;
         }
         sleep(1);

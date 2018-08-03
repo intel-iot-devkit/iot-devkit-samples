@@ -128,17 +128,26 @@ int fire_alert() {
     return SUCCESS;
 }
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
+
+// set pin values depending on the current board (platform)
 void initPlatform(int& dPin, int& pwmPin)
 {
     // check which board we are running on
@@ -156,8 +165,8 @@ void initPlatform(int& dPin, int& pwmPin)
             string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
                 "you are running it on an unrecognized platform. "
                 "You may need to modify the MRAA/UPM initialization code to "
-                "ensure it works properly on your platform.\n\n";
-            cerr << unknownPlatformMessage;
+                "ensure it works properly on your platform.\n";
+            inputEnter(unknownPlatformMessage);
     }
     return;
 }
@@ -181,7 +190,7 @@ int main()
     }
 #endif
     // initialize the device client
-    cerr << "Connecting to MQTT client ..." << endl;
+    cout << "Connecting to MQTT client ..." << endl;
 
     Device_client device_client = Device_client(fire_alert);
     int rc = device_client.connect();

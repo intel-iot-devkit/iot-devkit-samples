@@ -72,6 +72,13 @@ using namespace mraa;
 // Left and right light average static variables
 static int lightLAVG, lightRAVG;
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
     upm::GroveLight* lightR, upm::ULN200XA* uln200xa) {
 
@@ -93,10 +100,10 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   lcd->write("Right:          ");
   lcd->setCursor(0, 6);
   if (lcd->write(tdataL) != UPM_SUCCESS)
-      cerr << "MRAA cannot display left value!" << endl;
+      inputEnter("MRAA cannot display left value!");
   lcd->setCursor(1, 7);
   if (lcd->write(tdataR) != UPM_SUCCESS)
-      cerr << "MRAA cannot display right value!" << endl;
+      inputEnter("MRAA cannot display right value!");
 
   /* To move the motor correctly, we have to choose the right direction.
    * To obtain it, we have three condition:
@@ -152,19 +159,19 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   sleep(1);
 }
 
-
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 int initPlatform(int& i2cPort, int& aPin1, int& aPin2)
 {
     // check which board we are running on
@@ -182,8 +189,8 @@ int initPlatform(int& i2cPort, int& aPin1, int& aPin2)
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
-            "ensure it works properly on your platform.\n\n";
-        cerr << unknownPlatformMessage;
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
     }
     return 0;
 }
@@ -197,7 +204,7 @@ int main() {
       aPin1 = 1,         // A1 Connector
       aPin2 = 2;         // A2 Connector
   if (initPlatform(i2cPort, aPin1, aPin2) == -1)
-      cerr << "Not using Grove provide your pinout here" << endl;
+      inputEnter("Not using Grove provide your pinout here");
 
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
@@ -219,7 +226,7 @@ int main() {
   // Simple error checking
   if ((lcd == NULL) || (lightL == NULL) || (lightR == NULL)
       || (uln200xa == NULL)) {
-    std::cerr << "Can't create all objects, exiting" << std::endl;
+      inputEnter("Can't create all objects, exiting");
     return mraa::ERROR_UNSPECIFIED;
   }
 

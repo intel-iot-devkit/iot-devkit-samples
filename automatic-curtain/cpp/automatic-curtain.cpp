@@ -41,18 +41,27 @@
 using namespace std;
 using namespace mraa;
 
+
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 int initPlatform(int& aPinRotary, int& aPinLight, int& dPinButton, int& i2cPort)
 {
     //Update these values as per the hardware board being used.
@@ -74,10 +83,10 @@ int initPlatform(int& aPinRotary, int& aPinLight, int& dPinButton, int& i2cPort)
 #endif
     default:
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-            "you are running it on an unrecognized platform. "
+            "you are running it on an unrecognized platform.\n "
             "You may need to modify the MRAA/UPM initialization code to "
-            "ensure it works properly on your platform.\n\n";
-        cerr << unknownPlatformMessage;
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
     }
     return 0;
 }

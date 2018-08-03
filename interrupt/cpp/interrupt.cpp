@@ -51,24 +51,29 @@ void interrupt(void * args) {
     ++counter;
 }
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 void initPlatform(int& gpioPin)
 {
-    string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-        "you are running it on an unrecognized platform. "
-        "You may need to modify the MRAA/UPM initialization code to "
-        "ensure it works properly on your platform.\n\n";
+    
     // check which board we are running on
     Platform platform = getPlatformType();
     switch (platform) {
@@ -77,8 +82,14 @@ void initPlatform(int& gpioPin)
         gpioPin = 26;
         break;
     case UNKNOWN_PLATFORM:
-        cerr << unknownPlatformMessage;
+    {
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
         break;
+    }
     default:
         break;
     }
@@ -98,19 +109,19 @@ int main()
     // create a GPIO object from MRAA for the pin
     Gpio* d_pin = new Gpio(gpioPin);
     if (d_pin == NULL) {
-        cerr << "Can't create mraa::Gpio object, exiting" << endl;
+        inputEnter("Can't create mraa::Gpio object, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
     // set the pin as input
     if (d_pin->dir(DIR_IN) != SUCCESS) {
-        cerr << "Can't set digital pin as input, exiting" << endl;
+        inputEnter("Can't set digital pin as input, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
     // set the ISR, it will be executed on both edges
     if (d_pin->isr(EDGE_BOTH, interrupt, NULL) != SUCCESS) {
-        cerr << "Can't assign ISR to pin, exiting" << endl;
+        inputEnter("Can't assign ISR to pin, exiting");
         return ERROR_UNSPECIFIED;
     }
 
