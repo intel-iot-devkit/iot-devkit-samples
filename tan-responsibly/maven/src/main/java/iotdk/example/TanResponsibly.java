@@ -43,6 +43,8 @@
  */
 package iotdk.example;
 
+import java.io.IOException;
+
 import mraa.Platform;
 import mraa.mraa;
 import upm_buzzer.Buzzer;
@@ -84,6 +86,17 @@ public class TanResponsibly {
     static final int UV_INTENSITY_TO_INDEX_COEFF = 200;
     static final int UV_INDEX_THRESHOLD          = 8;
     static final int TEMPERATURE_THRESHOLD       = 30;
+    
+    public static void inputEnter(String str){
+        System.err.println(str);
+        System.out.println("Press Enter to continue...");
+        try{
+            System.in.read();
+        } catch (IOException e)
+        {
+            System.out.println("Invalid input");
+        }
+    }
 
     /*
      * Check dangerous conditions and kindly remind the user about risk of sunburn.
@@ -110,7 +123,7 @@ public class TanResponsibly {
         row1 = "Temp: " + temperature + "    ";
         lcd.setCursor(0, 0);
         if (lcd.write(row1) != SUCCESS)
-            System.err.println("MRAA cannot write temperature!");
+            inputEnter("MRAA cannot write temperature!");
 
         // Remind possible risk (time to sunburn)
         lcd.setCursor(1, 0);
@@ -149,10 +162,10 @@ public class TanResponsibly {
         String username = System.getProperty("user.name");
         System.out.println(username);
         String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            System.out.println(message);
+            inputEnter(message);
         }
     }
 
@@ -167,10 +180,10 @@ public class TanResponsibly {
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                    "you are running it on an unrecognized platform. " +
+                    "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
-                    "ensure it works properly on your platform.\n\n";
-            System.err.println(unknownPlatformMessage);
+                    "ensure it works properly on your platform.\n";
+            inputEnter(unknownPlatformMessage);
         }
     }
 
@@ -194,7 +207,7 @@ public class TanResponsibly {
         // Simple error checking
         if ((UvSensor == null) || (temp_sensor == null) || (buzzer == null)
                 || (lcd == null)) {
-            System.err.println("Could not create all objects, exiting");
+            inputEnter("Could not create all objects, exiting");
             return;
         }
 

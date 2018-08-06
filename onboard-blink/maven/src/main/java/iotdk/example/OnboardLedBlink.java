@@ -32,6 +32,8 @@
  */
 package iotdk.example;
 
+import java.io.IOException;
+
 import mraa.Dir;
 import mraa.Gpio;
 import mraa.Platform;
@@ -42,12 +44,23 @@ public class OnboardLedBlink {
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
     static int pinNumber = 13;
+    
+    public static void inputEnter(String str){
+        System.err.println(str);
+        System.out.println("Press Enter to continue...");
+        try{
+            System.in.read();
+        } catch (IOException e)
+        {
+            System.out.println("Invalid input");
+        }
+    }
 
     public static void checkRoot(){
         String username = System.getProperty("user.name");
         System.out.println(username);
         String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
             System.out.println(message);
@@ -63,10 +76,10 @@ public class OnboardLedBlink {
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                    "you are running it on an unrecognized platform. " +
+                    "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
-                    "ensure it works properly on your platform.\n\n";
-            System.err.println(unknownPlatformMessage);
+                    "ensure it works properly on your platform.\n";
+            inputEnter(unknownPlatformMessage);
         }
     }
 
@@ -88,14 +101,14 @@ public class OnboardLedBlink {
         // loop forever toggling the on board LED every second
         while (true) {
             if (pin.write(0) != Result.SUCCESS)
-                System.err.println("MRAA cannot write pin value!");
+                inputEnter("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.err.println("Sleep interrupted: " + e.toString());
             }
             if (pin.write(1) != Result.SUCCESS)
-                System.err.println("MRAA cannot write pin value!");
+                inputEnter("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
