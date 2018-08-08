@@ -68,10 +68,10 @@ using namespace std;
 #define USING_GROVE_PI_SHIELD
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
-    cerr << str << endl << "Press Enter to continue..." << endl;
-    cin.get();
+    cerr << str << endl;
+    sleep(10);
 }
 
 /*
@@ -99,7 +99,7 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
   row_1 << "Temp: " << temperature << "    ";
   lcd->setCursor(0, 0);
   if (lcd->write(row_1.str()) != UPM_SUCCESS)
-      inputEnter("MRAA cannot write temperature!");
+      consoleMessage("MRAA cannot write temperature!");
 
   // Remind possible risk (time to sunburn)
   lcd->setCursor(1, 0);
@@ -115,7 +115,7 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
   }
 
   if (lcd->write(row_2.str()) != UPM_SUCCESS)
-      inputEnter("MRAA cannot write time to sunburn!");
+      consoleMessage("MRAA cannot write time to sunburn!");
 
   // Color the display according UV index safety
 
@@ -141,7 +141,7 @@ void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
 				"The IO operations below might fail.\n"
 				"See the project's Readme for more info.\n");
 	}
@@ -169,7 +169,7 @@ int initPlatform(int& aPinIn1, int& aPinIn2, int& dPinOut, int& i2cPort)
 			"you are running it on an unrecognized platform. "
 			"You may need to modify the MRAA/UPM initialization code to "
 			"ensure it works properly on your platform.\n\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
 	}
 	return 0;
 }
@@ -180,7 +180,7 @@ int main() {
 
   int aPinIn1, aPinIn2, dPinOut, i2cPort;
   if (initPlatform(aPinIn1, aPinIn2, dPinOut, i2cPort) == -1)
-      inputEnter("Not using Grove provide your pinout");
+      consoleMessage("Not using Grove provide your pinout");
   
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
@@ -201,7 +201,7 @@ int main() {
   // Simple error checking
   if ((UV_sensor == NULL) || (temp_sensor == NULL) || (buzzer == NULL)
       || (lcd == NULL)) {
-    inputEnter("Can't create all objects, exiting");
+    consoleMessage("Can't create all objects, exiting");
     return mraa::ERROR_UNSPECIFIED;
   }
 

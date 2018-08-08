@@ -73,10 +73,10 @@ MQTTClient_deliveryToken dt = 0;
 
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
-    cerr << str << endl << "Press Enter to continue..." << endl;
-    cin.get();
+    cerr << str << endl;
+    sleep(10);
 }
 
 /*
@@ -165,7 +165,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
                 "See the project's Readme for more info.\n\n");
     }
@@ -191,7 +191,7 @@ void initPlatform(int& dPin, int& aPin)
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
     }
     return;
 }
@@ -216,7 +216,7 @@ int main() {
     rc = MQTTClient_create(&client, const_cast<char *>(host),
             const_cast<char *>(clientID), MQTTCLIENT_PERSISTENCE_NONE, NULL);
     if (rc != MQTTCLIENT_SUCCESS) {
-        inputEnter("Failed to create MQTT client, exiting");
+        consoleMessage("Failed to create MQTT client, exiting");
         exit(rc);
     }
 
@@ -230,7 +230,7 @@ int main() {
     // connect the client to the server
     rc = MQTTClient_connect(client, &data);
     if (rc != MQTTCLIENT_SUCCESS) {
-        inputEnter("Failed to connect MQTT client, exiting");
+        consoleMessage("Failed to connect MQTT client, exiting");
         exit(rc);
     }
 
@@ -245,7 +245,7 @@ int main() {
 
     // simple error checking
     if ((led == NULL) || (temp_sensor == NULL)) {
-        inputEnter("Can't create all objects, exiting");
+        consoleMessage("Can't create all objects, exiting");
         return mraa::ERROR_UNSPECIFIED;
     }
 #endif

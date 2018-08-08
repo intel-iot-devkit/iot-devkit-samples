@@ -36,10 +36,10 @@ using namespace std;
 using namespace mraa;
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
     std::cerr << str << std::endl << "Press Enter to continue..." << std::endl;
-    cin.get();
+    sleep(10);
 }
 
 // check if running as root
@@ -47,7 +47,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
                 "See the project's Readme for more info.\n");
     }
@@ -80,7 +80,7 @@ void initPlatform(int& gpioPin)
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
     }
     return;
 }
@@ -100,24 +100,24 @@ int main()
     // create a GPIO object from MRAA for the pin
     Gpio* d_pin = new Gpio(gpioPin);
     if (d_pin == NULL) {
-        inputEnter("MRAA couldn't initialize GPIO, exiting.");
+        consoleMessage("MRAA couldn't initialize GPIO, exiting.");
         return MRAA_ERROR_UNSPECIFIED;
     }
     // set the pin as output
     if (d_pin->dir(DIR_OUT) != SUCCESS) {
-        inputEnter("Can't set digital pin as output, exiting");
+        consoleMessage("Can't set digital pin as output, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
     // loop forever toggling the digital output every second
     for(;;) {
         if (d_pin->write(0) != SUCCESS) {
-            inputEnter("MRAA cannot write pin value!");
+            consoleMessage("MRAA cannot write pin value!");
             return MRAA_ERROR_UNSPECIFIED;
         }
         sleep(1);     
         if (d_pin->write(1) != SUCCESS) {
-            inputEnter("MRAA cannot write pin value!");
+            consoleMessage("MRAA cannot write pin value!");
             return MRAA_ERROR_UNSPECIFIED;
         }
         sleep(1);

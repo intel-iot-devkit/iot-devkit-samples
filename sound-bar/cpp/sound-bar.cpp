@@ -58,10 +58,10 @@ using namespace mraa;
 using namespace std;
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
-    cerr << str << endl << "Press Enter to continue..." << endl;
-    cin.get();
+    cerr << str << endl;
+    sleep(10);
 }
 
 // check if running as root
@@ -69,7 +69,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
                 "See the project's Readme for more info.\n");
     }
@@ -96,7 +96,7 @@ int initPlatform(int& microphonePin, int& ledBarDataPin, int& ledBarClockPin)
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
     }
     return 0;
 }
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
 
   int microphonePin, ledBarDataPin, ledBarClockPin;
   if (initPlatform(microphonePin, ledBarDataPin, ledBarClockPin) == -1)
-      inputEnter("Not using Grove, provide your pinout");
+      consoleMessage("Not using Grove, provide your pinout");
 
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
@@ -133,7 +133,7 @@ int main(int argc, char **argv) {
 
   // Simple error checking
   if ((mic == NULL) || (bar == NULL)) {
-      inputEnter("Can't create all objects, exiting");
+      consoleMessage("Can't create all objects, exiting");
     return ERROR_UNSPECIFIED;
   }
 

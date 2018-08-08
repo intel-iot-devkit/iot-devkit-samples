@@ -35,10 +35,10 @@ using namespace std;
 using namespace mraa;
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
-    cerr << str << endl << "Press Enter to continue..." << endl;
-    cin.get();
+    cerr << str << endl;
+    sleep(10);
 }
 
 // check if running as root
@@ -46,7 +46,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
                 "See the project's Readme for more info.\n");
     }
@@ -70,7 +70,7 @@ void initPlatform(int& pwmPin)
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
     }
     return;
 }
@@ -90,13 +90,13 @@ int main()
     // are usually marked with a ~ on the board's silk screen
     Pwm* pwm_pin = new Pwm(pwmPin);
     if (pwm_pin == NULL) {
-        inputEnter("Can't create mraa::Pwm object, exiting");
+        consoleMessage("Can't create mraa::Pwm object, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
     // enable PWM on the selected pin
     if (pwm_pin->enable(true) != SUCCESS) {
-        inputEnter("Cannot enable PWM on mraa::PWM object, exiting");
+        consoleMessage("Cannot enable PWM on mraa::PWM object, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
@@ -111,7 +111,7 @@ int main()
     for (;;) {
         pwm_pin->pulsewidth_ms(period);
         if (pwm_pin->write(duty_cycle) != SUCCESS) {
-            inputEnter("MRAA cannot write duty cycle!");
+            consoleMessage("MRAA cannot write duty cycle!");
             return ERROR_UNSPECIFIED;
         }
         usleep(50000);

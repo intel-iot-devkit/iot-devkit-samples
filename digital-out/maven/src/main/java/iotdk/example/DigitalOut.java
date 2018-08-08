@@ -35,8 +35,6 @@
  */
 package iotdk.example;
 
-import java.io.IOException;
-
 import mraa.Dir;
 import mraa.Gpio;
 import mraa.mraa;
@@ -49,14 +47,13 @@ public class DigitalOut {
     static final boolean USING_GROVE_PI_SHIELD = true;
     static int pinNumber = 13;
     
-    public static void inputEnter(String str){
+    public static void consoleMessage(String str){
         System.err.println(str);
-        System.out.println("Press Enter to continue...");
         try{
-            System.in.read();
-        } catch (IOException e)
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
         {
-            System.out.println("Invalid input");
+            System.err.println("Sleep interrupted: " + e.toString());
         }
     }
 
@@ -67,7 +64,7 @@ public class DigitalOut {
                 "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            inputEnter(message);
+            consoleMessage(message);
         }
     }
 
@@ -83,7 +80,7 @@ public class DigitalOut {
                     "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
                     "ensure it works properly on your platform.\n";
-            inputEnter(unknownPlatformMessage);
+            consoleMessage(unknownPlatformMessage);
         }
     }
 
@@ -105,14 +102,14 @@ public class DigitalOut {
         // loop forever toggling the digital output every second
         while (true) {
             if (pin.write(0) != Result.SUCCESS)
-                inputEnter("MRAA cannot write pin value!");
+                consoleMessage("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.err.println("Sleep interrupted: " + e.toString());
             }
             if (pin.write(1) != Result.SUCCESS)
-                inputEnter("MRAA cannot write pin value!");
+                consoleMessage("MRAA cannot write pin value!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

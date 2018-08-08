@@ -47,7 +47,6 @@
  */
 package iotdk.example;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import upm_grovemd.GroveMD;
@@ -85,14 +84,13 @@ public class Robot {
     // Status of the correct r/w operation
     static final int SUCCESS = 0;
     
-    public static void inputEnter(String str){
-        System.err.println(str);
-        System.out.println("Press Enter to continue...");
+    public static void consoleMessage(String str){
+        System.err.println(str);       
         try{
-            System.in.read();
-        } catch (IOException e)
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
         {
-            System.out.println("Invalid input");
+            System.err.println("Sleep interrupted: " + e.toString());
         }
     }
 
@@ -125,7 +123,7 @@ public class Robot {
                 synchronized (lcd) {
                     lcd.setCursor(0, 0);
                     if (lcd.write("HDG: " + heading.substring(hdg_index, hdg_index + 11)) != SUCCESS)
-                        inputEnter("MRAA cannot display heading!");
+                        consoleMessage("MRAA cannot display heading!");
                 }
 
                 // Update readings and display every 250 ms
@@ -160,7 +158,7 @@ public class Robot {
                 synchronized (lcd) {
                     lcd.setCursor(1, 0);
                     if (lcd.write("Batt: " + displayStr + " V    ") != SUCCESS)
-                        inputEnter("MRAA cannot display voltage!");    
+                        consoleMessage("MRAA cannot display voltage!");    
                 }
 
                 // Battery low, flash LCD and refresh more often

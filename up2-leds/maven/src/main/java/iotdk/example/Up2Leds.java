@@ -23,8 +23,6 @@
  */
 package iotdk.example;
 
-import java.io.IOException;
-
 import mraa.Led;
 import mraa.Platform;
 import mraa.mraa;
@@ -45,14 +43,13 @@ public class Up2Leds {
     final static int minBrightness = 0;
     final static int maxBrightness = 255;
     
-    public static void inputEnter(String str){
+    public static void consoleMessage(String str){
         System.err.println(str);
-        System.out.println("Press Enter to continue...");
         try{
-            System.in.read();
-        } catch (IOException e)
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
         {
-            System.out.println("Invalid input");
+            System.err.println("Sleep interrupted: " + e.toString());
         }
     }
 
@@ -63,7 +60,7 @@ public class Up2Leds {
               "The IO operations below might fail.\nSee the project's Readme for more info.\n";
       if(!username.equals("root"))
       {
-          inputEnter(message);
+          consoleMessage(message);
       }
     }
 
@@ -73,12 +70,12 @@ public class Up2Leds {
 
         // Perform a basic platform and version check
         if (mraa.getPlatformType() != Platform.INTEL_UP2) {
-            inputEnter("This example is meant for the UP Squared board.\n"+
+            consoleMessage("This example is meant for the UP Squared board.\n"+
                         "Running it on different platforms will likely require code changes!");
         }
 
         if (mraa.getVersion().compareTo("v1.9.0") < 0) {
-            inputEnter("You need MRAA version 1.9.0 or newer to run this sample!");
+            consoleMessage("You need MRAA version 1.9.0 or newer to run this sample!");
             System.exit(1);
         }
 

@@ -36,10 +36,10 @@ using namespace std;
 using namespace mraa;
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
-    cerr << str << endl << "Press Enter to continue..." << endl;
-    cin.get();
+    cerr << str << endl;
+    sleep(10);
 }
 
 // check if running as root
@@ -47,7 +47,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
                 "See the project's Readme for more info.\n");
     }
@@ -70,7 +70,7 @@ void initPlatform(int& gpioPin)
             "you are running it on an unrecognized platform.\n"
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
 
     }
     return;
@@ -90,7 +90,7 @@ int main()
     // create an analog input object from MRAA using the pin
     Aio* a_pin = new Aio(gpioPin);
     if (a_pin == NULL) {
-        inputEnter("Can't create mraa::Aio object, exiting");
+        consoleMessage("Can't create mraa::Aio object, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
@@ -103,7 +103,7 @@ int main()
         } catch (const invalid_argument& readExc) {
             // if incorrect voltage value input
             cerr << "Invalid argument, exception thrown: " << readExc.what() << endl;
-            inputEnter("MRAA cannot read pin value!");
+            consoleMessage("MRAA cannot read pin value!");
             return MRAA_ERROR_INVALID_PARAMETER;
         }
         cout << "analog input value " << pin_value << endl;
