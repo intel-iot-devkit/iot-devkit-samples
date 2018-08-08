@@ -35,6 +35,8 @@
  */
 package iotdk.example;
 
+import java.io.IOException;
+
 import mraa.Pwm;
 import mraa.mraa;
 import mraa.Platform;
@@ -45,15 +47,26 @@ public class PWM {
     static final boolean USING_GROVE_PI_SHIELD = true;
 
     static int pinNumber = 33;
+    
+    public static void inputEnter(String str){
+        System.err.println(str);
+        System.out.println("Press Enter to continue...");
+        try{
+            System.in.read();
+        } catch (IOException e)
+        {
+            System.out.println("Invalid input");
+        }
+    }
 
     public static void checkRoot(){
         String username = System.getProperty("user.name");
 
         String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            System.out.println(message);
+            inputEnter(message);
         }
     }
 
@@ -66,10 +79,10 @@ public class PWM {
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                    "you are running it on an unrecognized platform. " +
+                    "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
-                    "ensure it works properly on your platform.\n\n";
-            System.err.println(unknownPlatformMessage);
+                    "ensure it works properly on your platform.\n";
+            inputEnter(unknownPlatformMessage);
         }
     }
 
@@ -85,13 +98,13 @@ public class PWM {
         pwm_pin = new Pwm(pinNumber);
         // select PWM period of 1ms
         if (pwm_pin.period_ms(1) != Result.SUCCESS) {
-            System.err.println("Could not initalize the PMW period, exiting");
+            inputEnter("Could not initalize the PMW period, exiting");
             return;
         }
 
         // enable the pin for ouput
         if (pwm_pin.enable(true) != Result.SUCCESS) {
-            System.err.println("Could not enable the pin for output, exiting");
+            inputEnter("Could not enable the pin for output, exiting");
             return;
         };
 
@@ -104,7 +117,7 @@ public class PWM {
             duty_cycle += 0.01;
             // set the output duty-cycle percentage
             if (pwm_pin.write(duty_cycle) != Result.SUCCESS) {
-                System.err.println("Could not set the duty-cycle percentage, exiting");
+                inputEnter("Could not set the duty-cycle percentage, exiting");
                 return;
             };
 

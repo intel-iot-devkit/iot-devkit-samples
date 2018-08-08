@@ -23,6 +23,8 @@
  */
 package iotdk.example;
 
+import java.io.IOException;
+
 import mraa.Led;
 import mraa.Platform;
 import mraa.mraa;
@@ -42,15 +44,26 @@ public class Up2Leds {
     final static String[] ledNames = {"red", "green", "yellow", "blue"};
     final static int minBrightness = 0;
     final static int maxBrightness = 255;
+    
+    public static void inputEnter(String str){
+        System.err.println(str);
+        System.out.println("Press Enter to continue...");
+        try{
+            System.in.read();
+        } catch (IOException e)
+        {
+            System.out.println("Invalid input");
+        }
+    }
 
     public static void checkRoot(){
       String username = System.getProperty("user.name");
       System.out.println(username);
       String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-      "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+              "The IO operations below might fail.\nSee the project's Readme for more info.\n";
       if(!username.equals("root"))
       {
-        System.out.println(message);
+          inputEnter(message);
       }
     }
 
@@ -60,12 +73,12 @@ public class Up2Leds {
 
         // Perform a basic platform and version check
         if (mraa.getPlatformType() != Platform.INTEL_UP2) {
-            System.out.println("This example is meant for the UP Squared board.");
-            System.out.println("Running it on different platforms will likely require code changes!");
+            inputEnter("This example is meant for the UP Squared board.\n"+
+                        "Running it on different platforms will likely require code changes!");
         }
 
         if (mraa.getVersion().compareTo("v1.9.0") < 0) {
-            System.out.println("You need MRAA version 1.9.0 or newer to run this sample!");
+            inputEnter("You need MRAA version 1.9.0 or newer to run this sample!");
             System.exit(1);
         }
 

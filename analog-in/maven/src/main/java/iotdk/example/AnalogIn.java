@@ -30,6 +30,8 @@
 
 package iotdk.example;
 
+import java.io.IOException;
+
 import mraa.Aio;
 import mraa.Platform;
 import mraa.mraa;
@@ -43,15 +45,26 @@ public class AnalogIn {
 
     // Default pin 
     static int pinNumber = 2;
+    
+    public static void inputEnter(String str){
+        System.err.println(str);
+        System.out.println("Press Enter to continue...");
+        try{
+            System.in.read();
+        } catch (IOException e)
+        {
+            System.out.println("Invalid input");
+        }
+    }
 
     public static void checkRoot(){
         String username = System.getProperty("user.name");
 
         String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            System.out.println(message);
+            inputEnter(message);
         }
     }
 
@@ -64,10 +77,10 @@ public class AnalogIn {
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                    "you are running it on unrecognized platform. " +
+                    "you are running it on unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
-                    "ensure it works properly on your platform.\n\n";
-            System.err.println(unknownPlatformMessage);
+                    "ensure it works properly on your platform.\n";
+            inputEnter(unknownPlatformMessage);
         }
     }
     public static void main(String[] args) {
@@ -83,7 +96,7 @@ public class AnalogIn {
                 value = pin.read();
             } catch (IllegalArgumentException ex) {
                 System.err.println("Invalid argument, exception thrown: " + ex.toString() + "\n");
-                System.err.println("MRAA cannot read pin value!");
+                inputEnter("MRAA cannot read pin value!");
                 return;
             }
             System.out.println(String.format("Pin value: %d", value));

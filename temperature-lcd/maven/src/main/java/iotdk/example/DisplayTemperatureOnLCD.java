@@ -42,6 +42,8 @@
  */
 package iotdk.example;
 
+import java.io.IOException;
+
 import upm_grove.GroveButton;
 import upm_grove.GroveLed;
 import upm_grove.GroveTemp;
@@ -56,7 +58,18 @@ public class DisplayTemperatureOnLCD {
     static int max_temperature = Integer.MIN_VALUE;
 
     // Status of the correct r/w operation
-    static final int SUCCESS = 0;
+    static final int SUCCESS = 0; 
+    
+    public static void inputEnter(String str){
+        System.err.println(str);
+        System.out.println("Press Enter to continue...");
+        try{
+            System.in.read();
+        } catch (IOException e)
+        {
+            System.out.println("Invalid input");
+        }
+    }
 
     /*
      * Update the temperature values and reflect the changes on the LCD
@@ -98,11 +111,11 @@ public class DisplayTemperatureOnLCD {
         // display the temperature values on the LCD
         lcd.setCursor(0,0);
         if (lcd.write(String.format("Temp %d    ", temperature)) != SUCCESS)
-            System.err.println("MRAA cannot display min temperature!");
+            inputEnter("MRAA cannot display min temperature!");
         lcd.setCursor(1,0);
         if (lcd.write(String.format("Min %d Max %d    ", min_temperature,
                 max_temperature))!= SUCCESS)
-            System.err.println("MRAA cannot display max temperature!");
+            inputEnter("MRAA cannot display max temperature!");
 
         // set the fade value depending on where we are in the temperature range
         if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {
@@ -143,10 +156,10 @@ public class DisplayTemperatureOnLCD {
         String username = System.getProperty("user.name");
         System.out.println(username);
         String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            System.out.println(message);
+            inputEnter(message);
         }
     }
 
@@ -162,10 +175,10 @@ public class DisplayTemperatureOnLCD {
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                    "you are running it on an unrecognized platform. " +
+                    "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
-                    "ensure it works properly on your platform.\n\n";
-            System.err.println(unknownPlatformMessage);
+                    "ensure it works properly on your platform.\n";
+            inputEnter(unknownPlatformMessage);
         }
     }
 

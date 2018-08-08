@@ -39,8 +39,7 @@
 volatile bool should_run = true;
 
 // Interrupt signal handler function
-void
-sig_handler(int signum)
+void sig_handler(int signum)
 {
     if (signum == SIGINT) {
         std::cout << "Exiting..." << std::endl;
@@ -48,14 +47,21 @@ sig_handler(int signum)
     }
 }
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const std::string& str)
+{
+    std::cerr << str << std::endl << "Press Enter to continue..." << std::endl;
+    std::cin.get();
+}
+
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        std::cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
@@ -69,12 +75,12 @@ int main()
 
     // Perform a basic platform and version check
     if (mraa::getPlatformType() != mraa::INTEL_UP2) {
-        std::cout << "This example is meant for the UP Squared board." << std::endl;
-        std::cout << "Running it on different platforms will likely require code changes!" << std::endl;
+        inputEnter("This example is meant for the UP Squared board.\n"
+            "Running it on different platforms will likely require code changes!");
     }
 
     if (mraa::getVersion().compare("v1.9.0") < 0) {
-        std::cout << "You need MRAA version 1.9.0 or newer to run this sample!" << std::endl;
+        inputEnter("You need MRAA version 1.9.0 or newer to run this sample!");
         return 1;
     }
 

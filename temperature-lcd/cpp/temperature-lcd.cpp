@@ -59,6 +59,13 @@ using namespace mraa;
 // Define the following if using a Grove Pi Shield for UP2 board
 #define USING_GROVE_PI_SHIELD
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* button,
         upm::GroveLed* led, upm::Jhd1313m1 *lcd)
 {
@@ -98,10 +105,10 @@ void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* bu
     row_2 << "Min " << min_temperature << " Max " << max_temperature << "    ";
     lcd->setCursor(0, 0);
     if (lcd->write(row_1.str()) != UPM_SUCCESS)
-        cerr << "MRAA cannot display min temperature!" << endl;
+        inputEnter("MRAA cannot display min temperature!");
     lcd->setCursor(1, 0);
     if (lcd->write(row_2.str()) != UPM_SUCCESS)
-        cerr << "MRAA cannot display max temperature!" << endl;
+        inputEnter("MRAA cannot display max temperature!");
 
     // set the fade value depending on where we are in the temperature range
     if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {
@@ -132,13 +139,14 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 int initPlatform(int& dInPin, int& dOutPin, int& aPin, int& i2cPort)
 {
     // check which board we are running on
@@ -158,8 +166,8 @@ int initPlatform(int& dInPin, int& dOutPin, int& aPin, int& i2cPort)
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
-            "ensure it works properly on your platform.\n\n";
-        cerr << unknownPlatformMessage;
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
     }
     return 0;
 }
@@ -170,7 +178,7 @@ int main()
     checkRoot();
     int dInPin, dOutPin, aPin, i2cPort;
     if (initPlatform(dInPin, dOutPin, aPin, i2cPort) == -1)
-        cerr << "Not using Grove, provide your pinout here" << endl;
+        inputEnter("Not using Grove, provide your pinout here");
 
 #ifdef USING_GROVE_PI_SHIELD
     addSubplatform(GROVEPI, "0");
@@ -190,7 +198,7 @@ int main()
 
     // simple error checking
     if ((button == NULL) || (led == NULL) || (temp_sensor == NULL) || (lcd == NULL)) {
-        cerr << "Can't create all objects, exiting" << endl;
+        inputEnter("Can't create all objects, exiting");
         return ERROR_UNSPECIFIED;
     }
 

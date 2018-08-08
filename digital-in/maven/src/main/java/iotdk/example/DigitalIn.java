@@ -37,6 +37,8 @@
  */
 package iotdk.example;
 
+import java.io.IOException;
+
 import mraa.Dir;
 import mraa.Gpio;
 import mraa.Platform;
@@ -50,15 +52,26 @@ public class DigitalIn {
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
     static int pinNumber = 13;
+    
+    public static void inputEnter(String str){
+        System.err.println(str);
+        System.out.println("Press Enter to continue...");
+        try{
+            System.in.read();
+        } catch (IOException e)
+        {
+            System.out.println("Invalid input");
+        }
+    }
 
     public static void checkRoot(){
         String username = System.getProperty("user.name");
 
         String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-                "The IO operations below might fail.\nSee the project's Readme for more info.\n\n";
+                "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            System.out.println(message);
+            inputEnter(message);
         }
     }
 
@@ -72,10 +85,10 @@ public class DigitalIn {
             }
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-                    "you are running it on an unrecognized platform. " +
+                    "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
-                    "ensure it works properly on your platform.\n\n";
-            System.err.println(unknownPlatformMessage);
+                    "ensure it works properly on your platform.\n";
+            inputEnter(unknownPlatformMessage);
         }
     }
 
@@ -87,7 +100,7 @@ public class DigitalIn {
 
         // set the pin as input
         if (pin.dir(Dir.DIR_IN) != Result.SUCCESS) {
-            System.err.println("Can't set digital pin as input, exiting");
+            inputEnter("Can't set digital pin as input, exiting");
             return;
         }
 
@@ -95,7 +108,7 @@ public class DigitalIn {
         while (true) {
             int value = pin.read();
             if (value == -1) {
-                System.err.println("MRAA cannot read pin value!");
+                inputEnter("MRAA cannot read pin value!");
                 return;
             }
             System.out.println(String.format("Pin value: %d", value));

@@ -35,18 +35,26 @@
 using namespace std;
 using namespace mraa;
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 void initPlatform(int& gpioPin)
 {
     // check which board we are running on
@@ -59,10 +67,11 @@ void initPlatform(int& gpioPin)
 #endif
     default:
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-            "you are running it on an unrecognized platform. "
+            "you are running it on an unrecognized platform.\n"
             "You may need to modify the MRAA/UPM initialization code to "
-            "ensure it works properly on your platform.\n\n";
-        cerr << unknownPlatformMessage;
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
+
     }
     return;
 }
@@ -81,7 +90,7 @@ int main()
     // create an analog input object from MRAA using the pin
     Aio* a_pin = new Aio(gpioPin);
     if (a_pin == NULL) {
-        cerr << "Can't create mraa::Aio object, exiting" << endl;
+        inputEnter("Can't create mraa::Aio object, exiting");
         return MRAA_ERROR_UNSPECIFIED;
     }
 
@@ -91,11 +100,10 @@ int main()
         try {
             // read the current input voltage
             pin_value = a_pin->read();
-        }
-        catch (const invalid_argument& readExc) {
+        } catch (const invalid_argument& readExc) {
             // if incorrect voltage value input
             cerr << "Invalid argument, exception thrown: " << readExc.what() << endl;
-            cerr << "MRAA cannot read pin value!" << endl;
+            inputEnter("MRAA cannot read pin value!");
             return MRAA_ERROR_INVALID_PARAMETER;
         }
         cout << "analog input value " << pin_value << endl;

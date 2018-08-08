@@ -67,6 +67,13 @@ const float batteryThreshold = 7.2f;
 const string heading = "--|--N--|--|--E--|--|--S--|--|--W--|--|--N--|--";
 
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 // Handler for POSIX signals
 void signalHandler(int signo)
 {
@@ -98,7 +105,7 @@ void displayHeading(Jhd1313m1 *lcd, Hmc5883l *compass){
             crit.lock();
             lcd->setCursor(0, 0);
             if (lcd->write("HDG: " + heading.substr(hdg_index, 11)) != UPM_SUCCESS)
-                cerr << "MRAA cannot display heading!" << endl;
+                inputEnter("MRAA cannot display heading!");
             crit.unlock();
         }
 
@@ -125,7 +132,7 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
         crit.lock();
         lcd->setCursor(1, 0);
         if (lcd->write("Batt: " + displayStr + " V    ") != UPM_SUCCESS)
-            cerr << "MRAA cannot display battery voltage!" << endl;
+            inputEnter("MRAA cannot display battery voltage!");
         crit.unlock();
 
         // Battery low, flash LCD and refresh more often
@@ -192,9 +199,9 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
@@ -214,7 +221,7 @@ int main(int argc, char **argv)
   // Default address of 0x0f is used (all 4 switches in up position)
   GroveMD *motors = new GroveMD(GROVEMD_I2C_BUS, GROVEMD_DEFAULT_I2C_ADDR);
   if(motors == NULL){
-      cerr << "Failed to initialize the motor driver." << endl;
+      inputEnter("Failed to initialize the motor driver.");
       exit(EXIT_FAILURE);
   }
 
@@ -222,7 +229,7 @@ int main(int argc, char **argv)
   // 0x62 for RGB_ADDRESS and 0x3E for LCD_ADDRESS
   Jhd1313m1 *lcd = new upm::Jhd1313m1(0);
   if(lcd == NULL){
-      cerr << "Failed to initialize the LCD." << endl;
+      inputEnter("Failed to initialize the LCD.");
       exit(EXIT_FAILURE);
   }
 
@@ -230,14 +237,14 @@ int main(int argc, char **argv)
   // The compass requires an I2C level translator to 3.3V if used
   Hmc5883l *compass = new Hmc5883l(0);
   if(compass == NULL){
-      cerr << "Failed to initialize the HMC5883 compass." << endl;
+      inputEnter("Failed to initialize the HMC5883 compass.");
       exit(EXIT_FAILURE);
   }
 
   // Instantiate the Grove Voltage Divider on pin A0
   GroveVDiv *divider = new GroveVDiv(0);
   if(divider == NULL){
-      cerr << "Failed to initialize the voltage divider." << endl;
+      inputEnter("Failed to initialize the voltage divider.");
       exit(EXIT_FAILURE);
   }
 
@@ -248,7 +255,7 @@ int main(int argc, char **argv)
   RFR359F *rearRightIR = new RFR359F(8);
 
   if(frontLeftIR == NULL || frontRightIR == NULL || rearLeftIR == NULL || rearRightIR == NULL){
-      cerr << "Failed to initialize one of the IR sensors." << endl;
+      inputEnter("Failed to initialize one of the IR sensors.");
       exit(EXIT_FAILURE);
   }
 

@@ -57,18 +57,26 @@
 using namespace mraa;
 using namespace std;
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 // check if running as root
 void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n";
+                "See the project's Readme for more info.\n");
     }
     return;
 }
 
+// set pin values depending on the current board (platform)
 int initPlatform(int& microphonePin, int& ledBarDataPin, int& ledBarClockPin)
 {
     // check which board we are running on
@@ -87,8 +95,8 @@ int initPlatform(int& microphonePin, int& ledBarDataPin, int& ledBarClockPin)
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
-            "ensure it works properly on your platform.\n\n";
-        cerr << unknownPlatformMessage;
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
     }
     return 0;
 }
@@ -111,7 +119,7 @@ int main(int argc, char **argv) {
 
   int microphonePin, ledBarDataPin, ledBarClockPin;
   if (initPlatform(microphonePin, ledBarDataPin, ledBarClockPin) == -1)
-      cerr << "Not using Grove, provide your pinout" << endl;
+      inputEnter("Not using Grove, provide your pinout");
 
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
@@ -125,7 +133,7 @@ int main(int argc, char **argv) {
 
   // Simple error checking
   if ((mic == NULL) || (bar == NULL)) {
-    std::cerr << "Can't create all objects, exiting" << std::endl;
+      inputEnter("Can't create all objects, exiting");
     return ERROR_UNSPECIFIED;
   }
 
