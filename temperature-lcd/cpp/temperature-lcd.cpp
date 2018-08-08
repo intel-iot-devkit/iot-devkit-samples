@@ -60,10 +60,10 @@ using namespace mraa;
 #define USING_GROVE_PI_SHIELD
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
-    cerr << str << endl << "Press Enter to continue..." << endl;
-    cin.get();
+    cerr << str << endl;
+    sleep(10);
 }
 
 void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* button,
@@ -105,10 +105,10 @@ void temperature_update(upm::GroveTemp* temperature_sensor, upm::GroveButton* bu
     row_2 << "Min " << min_temperature << " Max " << max_temperature << "    ";
     lcd->setCursor(0, 0);
     if (lcd->write(row_1.str()) != UPM_SUCCESS)
-        inputEnter("MRAA cannot display min temperature!");
+        consoleMessage("MRAA cannot display min temperature!");
     lcd->setCursor(1, 0);
     if (lcd->write(row_2.str()) != UPM_SUCCESS)
-        inputEnter("MRAA cannot display max temperature!");
+        consoleMessage("MRAA cannot display max temperature!");
 
     // set the fade value depending on where we are in the temperature range
     if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {
@@ -139,7 +139,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
                 "See the project's Readme for more info.\n");
     }
@@ -167,7 +167,7 @@ int initPlatform(int& dInPin, int& dOutPin, int& aPin, int& i2cPort)
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
     }
     return 0;
 }
@@ -178,7 +178,7 @@ int main()
     checkRoot();
     int dInPin, dOutPin, aPin, i2cPort;
     if (initPlatform(dInPin, dOutPin, aPin, i2cPort) == -1)
-        inputEnter("Not using Grove, provide your pinout here");
+        consoleMessage("Not using Grove, provide your pinout here");
 
 #ifdef USING_GROVE_PI_SHIELD
     addSubplatform(GROVEPI, "0");
@@ -198,7 +198,7 @@ int main()
 
     // simple error checking
     if ((button == NULL) || (led == NULL) || (temp_sensor == NULL) || (lcd == NULL)) {
-        inputEnter("Can't create all objects, exiting");
+        consoleMessage("Can't create all objects, exiting");
         return ERROR_UNSPECIFIED;
     }
 

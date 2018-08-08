@@ -55,8 +55,6 @@
  */
 package iotdk.example;
 
-import java.io.IOException;
-
 import mraa.Platform;
 import mraa.mraa;
 import upm_grove.GroveLight;
@@ -83,14 +81,13 @@ public class SmartPhotovoltaicPanels {
     // Left and right light average static variables
     static int lightLAVG, lightRAVG;
     
-    public static void inputEnter(String str){
+    public static void consoleMessage(String str){
         System.err.println(str);
-        System.out.println("Press Enter to continue...");
         try{
-            System.in.read();
-        } catch (IOException e)
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
         {
-            System.out.println("Invalid input");
+            System.err.println("Sleep interrupted: " + e.toString());
         }
     }
 
@@ -111,10 +108,10 @@ public class SmartPhotovoltaicPanels {
         lcd.write("Right:          ");
         lcd.setCursor(0, 6);
         if (lcd.write(lightLST.toString()) != SUCCESS)
-            inputEnter("MRAA cannot display left value!");
+            consoleMessage("MRAA cannot display left value!");
         lcd.setCursor(1, 7);
         if (lcd.write(lightRST.toString())!= SUCCESS)
-            inputEnter("MRAA cannot display right value!");
+            consoleMessage("MRAA cannot display right value!");
 
         /* To move the motor correctly, we have to choose the right direction.
          * To obtain it, we have three condition:
@@ -175,7 +172,7 @@ public class SmartPhotovoltaicPanels {
                 "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            inputEnter(message);
+            consoleMessage(message);
         }
     }
 
@@ -193,7 +190,7 @@ public class SmartPhotovoltaicPanels {
                     "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
                     "ensure it works properly on your platform.\n";
-            inputEnter(unknownPlatformMessage);
+            consoleMessage(unknownPlatformMessage);
         }
     }
 
@@ -219,7 +216,7 @@ public class SmartPhotovoltaicPanels {
         // Simple error checking
         if ((lcd == null) || (lightL == null) || (lightR == null)
                 || (stepperMotor == null)) {
-            inputEnter("Could not create all objects, exiting");
+            consoleMessage("Could not create all objects, exiting");
             return;
         }
 

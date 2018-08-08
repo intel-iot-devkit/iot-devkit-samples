@@ -72,8 +72,6 @@
  */
 package iotdk.example;
 
-import java.io.IOException;
-
 import upm_grove.GroveButton;
 import upm_grove.GroveLight;
 import upm_grove.GroveRotary;
@@ -117,14 +115,13 @@ public class AutomaticCurtain {
     static int dPin4 = 4;
     static int i2cPort = 0;
     
-    public static void inputEnter(String str){
+    public static void consoleMessage(String str){
         System.err.println(str);
-        System.out.println("Press Enter to continue...");
         try{
-            System.in.read();
-        } catch (IOException e)
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
         {
-            System.out.println("Invalid input");
+            System.err.println("Sleep interrupted: " + e.toString());
         }
     }
 
@@ -194,10 +191,10 @@ public class AutomaticCurtain {
         lcd.clear();
         lcd.setCursor(0, 0);
         if (lcd.write(row1) != SUCCESS)
-            inputEnter("MRAA cannot write current lux value!");
+            consoleMessage("MRAA cannot write current lux value!");
         lcd.setCursor(1, 0);
         if (lcd.write(row2) != SUCCESS)
-            inputEnter("MRAA cannot write target lux value!");
+            consoleMessage("MRAA cannot write target lux value!");
     }
 
     /**
@@ -261,15 +258,15 @@ public class AutomaticCurtain {
 
         if (luxCurrent > luxTarget + THRESHOLD) {
             // Too much light, so draw the curtain.
-            inputEnter("Too much light, so draw the curtain.");
+            consoleMessage("Too much light, so draw the curtain.");
             if (!drawCurtain(stepperMotor)) {
-                inputEnter("Curtain already completely closed");
+                consoleMessage("Curtain already completely closed");
             }
         } else if (luxCurrent < luxTarget - THRESHOLD) {
             // Too few light, so open the curtain.
-            inputEnter("Too few light, so open the curtain");
+            consoleMessage("Too few light, so open the curtain");
             if (!openCurtain(stepperMotor)) {
-                inputEnter("Curtain already completely open");
+                consoleMessage("Curtain already completely open");
             }
         }
     }
@@ -281,7 +278,7 @@ public class AutomaticCurtain {
                 "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            inputEnter(message);
+            consoleMessage(message);
         }
     }
 
@@ -300,7 +297,7 @@ public class AutomaticCurtain {
                     "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
                     "ensure it works properly on your platform.\n";
-            inputEnter(unknownPlatformMessage);
+            consoleMessage(unknownPlatformMessage);
         }
     }
 
@@ -337,7 +334,7 @@ public class AutomaticCurtain {
         // Simple error checking
         if ((rotarySensor == null) || (lightSensor == null) || (button == null)
                 || (stepperMotor == null) || (lcd == null)) {
-            inputEnter("Could not create all objects, exiting");
+            consoleMessage("Could not create all objects, exiting");
             return;
         }
 

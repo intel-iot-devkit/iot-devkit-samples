@@ -37,8 +37,6 @@
  */
 package iotdk.example;
 
-import java.io.IOException;
-
 import mraa.Dir;
 import mraa.Gpio;
 import mraa.Platform;
@@ -53,14 +51,13 @@ public class DigitalIn {
     static final boolean USING_GROVE_PI_SHIELD = true;
     static int pinNumber = 13;
     
-    public static void inputEnter(String str){
+    public static void consoleMessage(String str){
         System.err.println(str);
-        System.out.println("Press Enter to continue...");
         try{
-            System.in.read();
-        } catch (IOException e)
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
         {
-            System.out.println("Invalid input");
+            System.err.println("Sleep interrupted: " + e.toString());
         }
     }
 
@@ -71,7 +68,7 @@ public class DigitalIn {
                 "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            inputEnter(message);
+            consoleMessage(message);
         }
     }
 
@@ -88,7 +85,7 @@ public class DigitalIn {
                     "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
                     "ensure it works properly on your platform.\n";
-            inputEnter(unknownPlatformMessage);
+            consoleMessage(unknownPlatformMessage);
         }
     }
 
@@ -100,7 +97,7 @@ public class DigitalIn {
 
         // set the pin as input
         if (pin.dir(Dir.DIR_IN) != Result.SUCCESS) {
-            inputEnter("Can't set digital pin as input, exiting");
+            consoleMessage("Can't set digital pin as input, exiting");
             return;
         }
 
@@ -108,7 +105,7 @@ public class DigitalIn {
         while (true) {
             int value = pin.read();
             if (value == -1) {
-                inputEnter("MRAA cannot read pin value!");
+                consoleMessage("MRAA cannot read pin value!");
                 return;
             }
             System.out.println(String.format("Pin value: %d", value));

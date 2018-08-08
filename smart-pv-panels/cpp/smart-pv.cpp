@@ -73,10 +73,10 @@ using namespace mraa;
 static int lightLAVG, lightRAVG;
 
 // leave warning/error message in console and wait for user to press Enter
-void inputEnter(const string& str)
+void consoleMessage(const string& str)
 {
-    cerr << str << endl << "Press Enter to continue..." << endl;
-    cin.get();
+    cerr << str << endl;
+    sleep(10);
 }
 
 void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
@@ -100,10 +100,10 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   lcd->write("Right:          ");
   lcd->setCursor(0, 6);
   if (lcd->write(tdataL) != UPM_SUCCESS)
-      inputEnter("MRAA cannot display left value!");
+      consoleMessage("MRAA cannot display left value!");
   lcd->setCursor(1, 7);
   if (lcd->write(tdataR) != UPM_SUCCESS)
-      inputEnter("MRAA cannot display right value!");
+      consoleMessage("MRAA cannot display right value!");
 
   /* To move the motor correctly, we have to choose the right direction.
    * To obtain it, we have three condition:
@@ -164,7 +164,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
+        consoleMessage("This project uses Mraa I/O operations, but you're not running as 'root'.\n"
                 "The IO operations below might fail.\n"
                 "See the project's Readme for more info.\n");
     }
@@ -190,7 +190,7 @@ int initPlatform(int& i2cPort, int& aPin1, int& aPin2)
             "you are running it on an unrecognized platform. "
             "You may need to modify the MRAA/UPM initialization code to "
             "ensure it works properly on your platform.\n";
-        inputEnter(unknownPlatformMessage);
+        consoleMessage(unknownPlatformMessage);
     }
     return 0;
 }
@@ -204,7 +204,7 @@ int main() {
       aPin1 = 1,         // A1 Connector
       aPin2 = 2;         // A2 Connector
   if (initPlatform(i2cPort, aPin1, aPin2) == -1)
-      inputEnter("Not using Grove provide your pinout here");
+      consoleMessage("Not using Grove provide your pinout here");
 
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
@@ -226,7 +226,7 @@ int main() {
   // Simple error checking
   if ((lcd == NULL) || (lightL == NULL) || (lightR == NULL)
       || (uln200xa == NULL)) {
-      inputEnter("Can't create all objects, exiting");
+      consoleMessage("Can't create all objects, exiting");
     return mraa::ERROR_UNSPECIFIED;
   }
 

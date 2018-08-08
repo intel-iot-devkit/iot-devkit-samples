@@ -60,14 +60,13 @@ public class DisplayTemperatureOnLCD {
     // Status of the correct r/w operation
     static final int SUCCESS = 0; 
     
-    public static void inputEnter(String str){
+    public static void consoleMessage(String str){
         System.err.println(str);
-        System.out.println("Press Enter to continue...");
         try{
-            System.in.read();
-        } catch (IOException e)
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
         {
-            System.out.println("Invalid input");
+            System.err.println("Sleep interrupted: " + e.toString());
         }
     }
 
@@ -111,11 +110,11 @@ public class DisplayTemperatureOnLCD {
         // display the temperature values on the LCD
         lcd.setCursor(0,0);
         if (lcd.write(String.format("Temp %d    ", temperature)) != SUCCESS)
-            inputEnter("MRAA cannot display min temperature!");
+            consoleMessage("MRAA cannot display min temperature!");
         lcd.setCursor(1,0);
         if (lcd.write(String.format("Min %d Max %d    ", min_temperature,
                 max_temperature))!= SUCCESS)
-            inputEnter("MRAA cannot display max temperature!");
+            consoleMessage("MRAA cannot display max temperature!");
 
         // set the fade value depending on where we are in the temperature range
         if (temperature <= TEMPERATURE_RANGE_MIN_VAL) {
@@ -159,7 +158,7 @@ public class DisplayTemperatureOnLCD {
                 "The IO operations below might fail.\nSee the project's Readme for more info.\n";
         if(!username.equals("root"))
         {
-            inputEnter(message);
+            consoleMessage(message);
         }
     }
 
@@ -178,7 +177,7 @@ public class DisplayTemperatureOnLCD {
                     "you are running it on an unrecognized platform.\n" +
                     "You may need to modify the MRAA/UPM initialization code to " +
                     "ensure it works properly on your platform.\n";
-            inputEnter(unknownPlatformMessage);
+            consoleMessage(unknownPlatformMessage);
         }
     }
 
