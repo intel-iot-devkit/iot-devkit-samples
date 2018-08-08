@@ -42,8 +42,8 @@
  */
 package iotdk.example;
 
-import mraa.Platform;
-import mraa.mraa;
+//import mraa.Platform;
+//import mraa.mraa;
 import upm_buzzer.Buzzer;
 import upm_grove.GroveTemp;
 import upm_guvas12d.GUVAS12D;
