@@ -18,5 +18,6 @@
          "mraa",
          "upm"
       ]
-   }
+   },
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/robot/README.md"
 }

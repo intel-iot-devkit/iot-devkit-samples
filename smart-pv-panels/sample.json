@@ -15,5 +15,6 @@
          "mraa",
          "upm"
       ]
-   }
+   },
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/smart-pv-panels/README.md"
 }
