@@ -18,7 +18,7 @@
    "service_provider": "IBM Cloud (Bluemix)",
    "service_provider_uri": "https://www.ibm.com/cloud",
    "service_provider_description": "IBM Bluemix is a cloud platform as as service. It supports several programming languages and services as well as integated DevOps to build, run deploy, and manage applications on the cloud.",
-   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/bluemix-quickstart/README.md",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/bluemix-quickstart/README.md",
    "additional_fields":[
       {
          "id":"DEVICE_ID",

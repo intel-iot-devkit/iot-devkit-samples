@@ -10,7 +10,7 @@
     "service_provider": "Amazon Web Services (AWS)",
     "service_provider_uri": "https://aws.amazon.com",
     "service_provider_description": "Amazon's On-demand cloud computing platform that offers a paid subscription with a 12-month free-tier option.",
-    "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/aws-pub-sub/cpp/README.md",
+    "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/aws-pub-sub/cpp/README.md",
     "additional_fields":[
         {
 	    "id":"endpoint_iss",

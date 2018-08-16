@@ -18,7 +18,7 @@
    "service_provider": "Microsoft Azure",
    "service_provider_uri": "https://azure.microsoft.com",
    "service_provider_description": "Microsoft's On-demand cloud computing platform for building, testing, deploying, and managing applications and services through a global network of Microsoft-managed data centers.",
-   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/iss2018-update1/azure-amqp/README.md",
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/azure-amqp/README.md",
    "additional_fields":[
       {
          "id":"connectionString",
