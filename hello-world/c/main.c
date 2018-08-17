@@ -26,9 +26,10 @@
 
 int main()
 {
-	printf("Hello, Internet of Things!\n");
-	fflush(stdout);
-	sleep(1);
-	printf("Bye!\n");
-	return 0;
+    printf("Hello, Internet of Things!\n");
+    fflush(stdout);
+    sleep(1);
+    printf("Bye!\n");
+    fflush(stdout);
+    return 0;
 }
