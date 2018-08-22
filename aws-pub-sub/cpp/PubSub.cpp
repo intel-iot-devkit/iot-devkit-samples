@@ -280,9 +280,11 @@ void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
-		std::cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
+		std::cerr << "This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n";
 	}
 	return;
 }
