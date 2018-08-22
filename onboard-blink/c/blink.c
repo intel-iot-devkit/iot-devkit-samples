@@ -68,9 +68,11 @@ int main()
     // check if running as root
     int euid = geteuid();
     if (euid) {
-        fprintf(stderr, "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-                "The IO operations below might fail.\n"
-                "See the project's Readme for more info.\n\n");
+        fprintf(stderr, "This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
     }
     // create the pin object
     mraa_gpio_context d_pin = mraa_gpio_init(gpioPin);

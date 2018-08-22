@@ -154,8 +154,11 @@ public class DisplayTemperatureOnLCD {
     public static void checkRoot(){
         String username = System.getProperty("user.name");
         System.out.println(username);
-        String message = "This project uses Mraa I/O operations, but you're not running as 'root'.\n"+
-                "The IO operations below might fail.\nSee the project's Readme for more info.\n";
+        String message = "This project uses Mraa I/O operations that require\n" +
+                "'root' privileges, but you are running as non - root user.\n" +
+                "Passwordless keys(RSA key pairs) are recommended \n" +
+                "to securely connect to your target with root privileges. \n" +
+                "See the project's Readme for more info.\n\n";
         if(!username.equals("root"))
         {
             consoleMessage(message);
