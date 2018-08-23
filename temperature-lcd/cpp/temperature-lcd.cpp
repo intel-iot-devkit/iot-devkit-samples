@@ -56,7 +56,7 @@
 using namespace std;
 using namespace mraa;
 
-// Define the following if using a Grove Pi Shield for UP2 board
+// Define the following if using a Grove Pi Shield for Up Squared board
 #define USING_GROVE_PI_SHIELD
 
 // leave warning/error message in console and wait for user to press Enter

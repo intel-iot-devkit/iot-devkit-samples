@@ -7,7 +7,7 @@ This sample demonstrates using IBM® Bluemix™ to stream information gathered b
 
 ## Hardware requirements
 
-[Grove LED](http://wiki.seeed.cc/Grove-LED_Socket_Kit/)*, [Grove Temperature Sensor](http://wiki.seeed.cc/Grove-Temperature_Sensor/)*
+[Grove* LED](http://wiki.seeed.cc/Grove-LED_Socket_Kit/)*, [Grove Temperature Sensor](http://wiki.seeed.cc/Grove-Temperature_Sensor/)*
 Target device should be connected to the internet.
 
 * See the note below if you don't have access to these devices.
@@ -15,7 +15,7 @@ Target device should be connected to the internet.
 ## Supported boards
 
 This sample has been tested on
-- Up2 board
+- Up Squared* board
 
 The sample might need minor modifications depending on the board and shield you are using.
 
@@ -43,16 +43,16 @@ Bluemix clould service. In main.cpp, remove the comment to define SIMULATE_DEVIC
 
 Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid permission issues:
 
-1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available here (https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
+1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available [here](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
 
 2. Connect to the target using passwordless (recommended) or with password-based SSH.
 
 Passwordless Public Key-based Method (recommended):
-First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+First, generate the public keys. For instructions, see [Set up a new connection for your target](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection). 
+Second, use the generated keys to connect to the target. For instructions, see [Login using public key](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target).
 
 Password-based Method: 
-Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.
+Log in as the root user to connect to the target. For instructions, see [Authentication using password](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target). Because of security concerns, this method is not recommended.
 
 
 ## Disclaimer

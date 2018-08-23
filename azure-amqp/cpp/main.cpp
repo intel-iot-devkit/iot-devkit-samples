@@ -42,7 +42,7 @@
 // define the following if not using a board with sensors
 //#define SIMULATE_DEVICES
 
-// Define the following if using a Grove Pi Shield for UP2 board
+// Define the following if using a Grove Pi Shield for Up Squared board
 #define USING_GROVE_PI_SHIELD
 
 #include <iostream>

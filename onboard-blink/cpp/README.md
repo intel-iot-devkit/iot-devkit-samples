@@ -13,7 +13,7 @@ A board with an accessible GPIO pin (connected to a LED).
 ## Supported boards
 
 This sample has been tested on
-- MinnowBoard Turbot 2.0
+- MinnowBoard Turbot* 2.0
 - [UP Squared\* board](http://www.up-board.org/upsquared/) 
 
 The sample might need minor modifications depending on the board and shield you are using.
@@ -28,16 +28,16 @@ Create a new project on Intel(R) System Studio using this sample. Make sure the 
 ## Note
 Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid permission issues:
 
-1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available here (https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
+1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available [here](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
 
 2. Connect to the target using passwordless (recommended) or with password-based SSH.
 
 Passwordless Public Key-based Method (recommended):
-First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+First, generate the public keys. For instructions, see [Set up a new connection for your target](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection). 
+Second, use the generated keys to connect to the target. For instructions, see [Login using public key](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target).
 
 Password-based Method: 
-Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.
+Log in as the root user to connect to the target. For instructions, see [Authentication using password](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target). Because of security concerns, this method is not recommended.
 
 
 ## Disclaimer
