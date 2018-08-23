@@ -13,7 +13,7 @@ A board with an accessible GPIO pin (connected to a LED).
 ## Supported boards
 
 This sample has been tested on
-- MinnowBoard Turbot 2.0
+- MinnowBoard Turbot* 2.0
 - [UP Squared\* board](http://www.up-board.org/upsquared/) 
 
 The sample might need minor modifications depending on the board and shield you are using.
@@ -34,7 +34,7 @@ Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid
 
 Passwordless Public Key-based Method (recommended):
 First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target.
 
 Password-based Method: 
 Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.

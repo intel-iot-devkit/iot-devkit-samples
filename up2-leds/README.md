@@ -1,4 +1,4 @@
-# UP Squared Built-in LEDs
+# UP Squared* Built-in LEDs
 
 ## Introduction
 This is a simple sample that can be used to blink the built-in LEDs on the UP Squared board.
@@ -35,7 +35,7 @@ Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid
 
 Passwordless Public Key-based Method (recommended):
 First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target.
 
 Password-based Method: 
 Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.

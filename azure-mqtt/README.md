@@ -1,4 +1,4 @@
-# Microsoft Azure MQTT Sample
+# Microsoft Azure* MQTT Sample
 
 
 ## Introduction
@@ -7,7 +7,7 @@ This sample demonstrates using Microsoft Azure IoT Hub to stream information gat
 
 ## Hardware requirements
 
-[Grove Temperature Sensor](http://wiki.seeed.cc/Grove-Temperature_Sensor/)*
+[Grove* Temperature Sensor](http://wiki.seeed.cc/Grove-Temperature_Sensor/)*
 
 Target device should be connected to the internet.
 
@@ -16,7 +16,7 @@ Target device should be connected to the internet.
 ## Supported boards
 
 This sample has been tested on
-- Up Squared board
+- Up Squared* board
 
 The sample might need minor modifications depending on the board and shield you are using.
 
@@ -24,7 +24,7 @@ The sample might need minor modifications depending on the board and shield you 
 
 The following libraries need to be installed on your target platfrom for this sample to work
 
-[UPM](https://github.com/intel-iot-devkit/upm) & [MRAA](https://github.com/intel-iot-devkit/mraa) libraries.
+[UPM](https://github.com/intel-iot-devkit/upm) & [MRAA](https://github.com/intel-iot-devkit/mraa) libraries
 
 libcurl: On your target Ubuntu system do: `apt install libcurl3`
 
@@ -33,11 +33,11 @@ libcurl: On your target Ubuntu system do: `apt install libcurl3`
 
 * Sign in to your Microsoft Azure account or open a new account if you don't already have one. You will need a personal email address, and a credit card (to verify identity).
 * In Azure dashboard search for IoT, select IoT Hub, create a new hub, name it, select FREE Tier, fill in other info, continue to create a Hub.
-    Wait for the hub to be deployed
+    Wait for the hub to be deployed.
 
-* Use one of the methods listed in ‘Create new device in the IoT Hub device identity registry’ in [this page](https://github.com/Azure/azure-iot-device-ecosystem/blob/master/setup_iothub.md#manage-an-azure-iot-hub)
+* Use one of the methods listed in ‘Create new device in the IoT Hub device identity registry’ in [this page](https://github.com/Azure/azure-iot-device-ecosystem/blob/master/setup_iothub.md#manage-an-azure-iot-hub).
 
-    For example to use the cli on mac, first install Azure cli, see [this page](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest)
+    For example to use the cli on mac, first install Azure cli, see [this page](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest).
 
 * Add a device to your hub, e.g.
 `az iot device create --hub-name MyIotHub --device-id MyDevice`

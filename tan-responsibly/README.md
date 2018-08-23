@@ -7,15 +7,15 @@ This example helps you to avoid sunburn by using a UV and temperature sensor to 
 
 ## Hardware requirements
 
-[Grove UV Sensor](https://www.seeedstudio.com/Grove-UV-Sensor-p-1540.html) connected to an analog in port.
+[Grove* UV Sensor](https://www.seeedstudio.com/Grove-UV-Sensor-p-1540.html) connected to an analog in port.
 [Grove Temperature Sensor](http://wiki.seeed.cc/Grove-Temperature_Sensor_V1.2/)connected to an analog in port.
 [Grove Buzzer](http://wiki.seeed.cc/Grove-Buzzer/) connected to a digital out port.
-[Jhd1313m1 LCD](https://iotdk.intel.com/docs/master/upm/classupm_1_1_jhd1313m1.html) connected to any I2C
+[Jhd1313m1 LCD](https://iotdk.intel.com/docs/master/upm/classupm_1_1_jhd1313m1.html) connected to any I2C.
 
 ## Supported boards
 
 This sample has been tested on
-- Up Squared board
+- Up Squared* board
 
 The sample might need minor modifications depending on the board and shield you are using.
 
@@ -38,7 +38,7 @@ Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid
 
 Passwordless Public Key-based Method (recommended):
 First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target.
 
 Password-based Method: 
 Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.

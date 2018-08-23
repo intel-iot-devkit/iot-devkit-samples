@@ -13,13 +13,13 @@ If the output is connected to a led, its intensity, as perceived by the human ey
 ## Hardware requirements
 
 A board with an accesible PWM pin. 
-Some output device such as an LED 'Seeed Grove Starter Kit', or just use a multimeter connected to the pin.
+Some output device such as an LED 'Seeed Grove* Starter Kit', or just use a multimeter connected to the pin.
 
 ## Supported boards
 
 This sample has been tested on
-- MinnowBoard Turbot 2.0
-- Up Squared board
+- MinnowBoard Turbot* 2.0
+- Up Squared* board
 
 The sample might need minor modifications depending on the board and shield you are using.
 
@@ -40,7 +40,7 @@ Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid
 
 Passwordless Public Key-based Method (recommended):
 First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target.
 
 Password-based Method: 
 Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.

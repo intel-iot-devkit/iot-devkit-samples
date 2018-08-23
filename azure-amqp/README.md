@@ -1,4 +1,4 @@
-# Microsoft Azure AMQP Sample
+# Microsoft Azure* AMQP Sample
 
 
 ## Introduction
@@ -7,7 +7,7 @@ This sample demonstrates using Microsoft Azure IoT Hub to stream information gat
 
 ## Hardware requirements
 
-[Grove Temperature Sensor](http://wiki.seeed.cc/Grove-Temperature_Sensor/)*
+[Grove* Temperature Sensor](http://wiki.seeed.cc/Grove-Temperature_Sensor/)
 
 Target device should be connected to the internet.
 
@@ -16,7 +16,7 @@ Target device should be connected to the internet.
 ## Supported boards
 
 This sample has been tested on
-- Up Squared board
+- Up Squared* board
 
 The sample might need minor modifications depending on the board and shield you are using.
 
@@ -24,7 +24,7 @@ The sample might need minor modifications depending on the board and shield you 
 
 The following libraries need to be installed on your target platfrom for this sample to work
 
-[UPM](https://github.com/intel-iot-devkit/upm) & [MRAA](https://github.com/intel-iot-devkit/mraa) libraries.
+[UPM](https://github.com/intel-iot-devkit/upm) & [MRAA](https://github.com/intel-iot-devkit/mraa) libraries
 
 libcurl: On your target Ubuntu system do: `apt install libcurl3`
 
@@ -35,9 +35,9 @@ libcurl: On your target Ubuntu system do: `apt install libcurl3`
 * In Azure dashboard search for IoT, select IoT Hub, create a new hub, name it, select FREE Tier, fill in other info, continue to create a Hub.
     Wait for the hub to be deployed
 
-* Use one of the methods listed in ‘Create new device in the IoT Hub device identity registry’ in [this page](https://github.com/Azure/azure-iot-device-ecosystem/blob/master/setup_iothub.md#manage-an-azure-iot-hub)
+* Use one of the methods listed in ‘Create new device in the IoT Hub device identity registry’ in [this page](https://github.com/Azure/azure-iot-device-ecosystem/blob/master/setup_iothub.md#manage-an-azure-iot-hub).
 
-    For example to use the cli on mac, first install Azure cli, see [this page](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest)
+    For example to use the cli on mac, first install Azure cli, see [this page](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest).
 
 * Add a device to your hub, e.g.
 `az iot device create --hub-name MyIotHub --device-id MyDevice`
@@ -74,7 +74,7 @@ Azure IoT Hub. In `main.cpp` remove the comment to define `SIMULATE_DEVICES`.
 
 Passwordless Public Key-based Method (recommended):
 First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target.
 
 Password-based Method: 
 Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.

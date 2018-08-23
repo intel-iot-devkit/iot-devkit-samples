@@ -1,7 +1,7 @@
 # Display Temperature on LCD Sample
 
 ## Introduction
-This sample demonstrates use of a temperature sensor and LCD in SEED Grove Starter Kit.
+This sample demonstrates use of a temperature sensor and LCD in SEED Grove* Starter Kit.
 
 ## What it is
 This project template includes the starting code needed to use the various sensors that come with the Grove Starter Kit.
@@ -17,7 +17,7 @@ Grove LCD (Jhd1313m1)
 ## Supported boards
 
 This sample has been tested on
-- Up Squared board
+- Up Squared* board
 
 The sample might need minor modifications depending on the board and shield you are using.
 
@@ -26,7 +26,7 @@ The sample might need minor modifications depending on the board and shield you 
 This version of the sample has been tested on Ubuntu Linux.
 
 The following libraries need to be installed on your target platfrom for this sample to work:
-[UPM](https://github.com/intel-iot-devkit/upm) & [MRAA](https://github.com/intel-iot-devkit/mraa) libraries
+[UPM](https://github.com/intel-iot-devkit/upm) & [MRAA](https://github.com/intel-iot-devkit/mraa) libraries.
 
 ## Setup
 
@@ -43,7 +43,7 @@ Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid
 
 Passwordless Public Key-based Method (recommended):
 First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target
+Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target.
 
 Password-based Method: 
 Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.
