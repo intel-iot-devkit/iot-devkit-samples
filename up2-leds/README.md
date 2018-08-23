@@ -34,11 +34,11 @@ Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid
 2. Connect to the target using passwordless (recommended) or with password-based SSH.
 
 Passwordless Public Key-based Method (recommended):
-First, generate the public keys. For instructions, see the [Set up a new connection for your target](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection). 
-Second, use the generated keys to connect to the target. For instructions, see the [Login using public key](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target).
+First, generate the public keys. For instructions, see [Set up a new connection for your target](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection). 
+Second, use the generated keys to connect to the target. For instructions, see [Login using public key](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target).
 
 Password-based Method: 
-Log in as the root user to connect to the target. For instructions, see the [Authentication using password](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target). Because of security concerns, this method is not recommended.
+Log in as the root user to connect to the target. For instructions, see [Authentication using password](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target). Because of security concerns, this method is not recommended.
 
 
 ## Disclaimer
