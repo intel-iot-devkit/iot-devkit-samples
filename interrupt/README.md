@@ -16,7 +16,7 @@ Suitable ones in the Grove Starter Kit are the Button and Touch Sensor, connecte
 ## Supported boards
 
 This sample has been tested on
-- Up2 board
+- Up Squared board
 
 The sample might need minor modifications depending on the board and shield you are using.
 Note: This sample does not work for the GPIO pins on the GrovePi shield.

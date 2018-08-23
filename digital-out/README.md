@@ -17,7 +17,7 @@ Some output device such as an LED 'Seeed Grove Starter Kit', or just use a multi
 
 This sample has been tested on
 - MinnowBoard Turbot 2.0
-- Up2 board
+- Up Squared board
 
 The sample might need minor modifications depending on the board and shield you are using.
 

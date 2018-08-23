@@ -64,7 +64,7 @@ using namespace std;
 #define UV_INDEX_THRESHOLD          8
 #define TEMPERATURE_THRESHOLD       30
 
-// Define the following if using a Grove Pi Shield for UP2 board
+// Define the following if using a Grove Pi Shield for Up Squared board
 #define USING_GROVE_PI_SHIELD
 
 // leave warning/error message in console and wait for user to press Enter

@@ -19,7 +19,7 @@ This sample opens and closes a curtain automatically according to the luminosity
      -- GND ->  GND\n
      -- Vcc ->  5V (Vcc)\n
      -- Vm  ->  NC (Not Connected)
-Connect directly to the Up2 board pin or to the extended heads on the Grove Pi+ shield for this.
+Connect directly to the Up Squared board pin or to the extended heads on the Grove Pi+ shield for this.
 A 5V power supply is required in order to run this example
 
 * See the note below if you don't have access to these devices.
@@ -33,7 +33,7 @@ This sample assumes that the :
 ## Supported boards
 
 This sample has been tested on
-- Up2 board
+- Up Squared board
 
 The sample might need minor modifications depending on the board and shield you are using.
 

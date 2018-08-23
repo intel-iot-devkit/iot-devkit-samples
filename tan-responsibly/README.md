@@ -15,7 +15,7 @@ This example helps you to avoid sunburn by using a UV and temperature sensor to 
 ## Supported boards
 
 This sample has been tested on
-- Up2 board
+- Up Squared board
 
 The sample might need minor modifications depending on the board and shield you are using.
 

@@ -50,7 +50,7 @@ using namespace mraa;
 // define the following if not using a board with temp sensor and LED
 //#define SIMULATE_DEVICES
 
-// Define the following if using a Grove Pi Shield for UP2 board
+// Define the following if using a Grove Pi Shield for Up Squared board
 #define USING_GROVE_PI_SHIELD
     
 const char * topic = "iot-2/evt/status/fmt/json";

@@ -13,7 +13,7 @@ This example show how to use a Led Bar to show ambient sound level.
 ## Supported boards
 
 This sample has been tested on
-- Up2 board
+- Up Squared board
 
 The sample might need minor modifications depending on the board and shield you are using.
 

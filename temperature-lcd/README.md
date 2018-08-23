@@ -17,7 +17,7 @@ Grove LCD (Jhd1313m1)
 ## Supported boards
 
 This sample has been tested on
-- Up2 board
+- Up Squared board
 
 The sample might need minor modifications depending on the board and shield you are using.
 

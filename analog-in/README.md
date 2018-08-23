@@ -17,7 +17,7 @@ Some input device or sensor such as the Rotary Angle Sensor, Light Sensor, Sound
 
 This sample has been tested on
 - MinnowBoard Turbot 2.0
-- Up2 board
+- Up Squared board
 
 The sample might need minor modifications depending on the board and shield you are using.
 

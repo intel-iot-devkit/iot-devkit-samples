@@ -19,7 +19,7 @@ It computes the sensors average light in a calibration step and use this number 
      -- Vcc ->  5V (Vcc)\n
     -- Vm  ->  NC (Not Connected)
 
-Connect the stepper motor and stepper motor driver directly to the Up2 board pin set or to the extended heads on the Grove Pi+ shield.
+Connect the stepper motor and stepper motor driver directly to the Up Squared board pin set or to the extended heads on the Grove Pi+ shield.
 
 ## Supported boards
 
