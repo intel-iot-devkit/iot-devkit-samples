@@ -82,7 +82,7 @@ After you have successfully built the sample, you are almost ready to run the sa
         --ecpath <e.g. ./ec_private.pem>\
         --rootpath <e.g. ./roots.pem>
 
-Provide the deviceid, registryid, and projectid parameters which you created earlier. The ecpath parameter should point to your private EC key created when you registered your device. The rootpath parameter specifies the roots.pem file that can be downloaded from https://pki.google.com/roots.pem. For example:
+Provide the deviceid, registryid, and projectid parameters which you created earlier. The ecpath parameter should point to your private EC key created when you registered your device. The rootpath parameter specifies the roots.pem file that can be downloaded from [Google](https://pki.google.com/roots.pem). For example:
 
     wget https://pki.google.com/roots.pem
 

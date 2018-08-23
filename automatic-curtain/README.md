@@ -7,7 +7,7 @@ This sample opens and closes a curtain automatically according to the luminosity
 
 ## Hardware requirements
 
-[Grove Rotary Angle Sensor](http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/)connected to an analog port.
+[Grove Rotary Angle Sensor](http://wiki.seeed.cc/Grove-Rotary_Angle_Sensor/) connected to an analog port.
 [Grove Light Sensor](http://wiki.seeed.cc/Grove-Light_Sensor/) connected to an analog port.
 [Grove Button](http://wiki.seeed.cc/Grove-Button/) connected to a digital port.
 [Jhd1313m1 LCD](https://iotdk.intel.com/docs/master/upm/classupm_1_1_jhd1313m1.html) connected to any I2C.
@@ -52,16 +52,16 @@ If you don't have the sensors needed, you can still run the sample by uncommenti
 
 Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid permission issues:
 
-1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available here (https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
+1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available [here](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
 
 2. Connect to the target using passwordless (recommended) or with password-based SSH.
 
 Passwordless Public Key-based Method (recommended):
-First, generate the public keys. For instructions, see the "Set up a new connection for your target" section here <link to https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection>. 
-Second, use the generated keys to connect to the target. For instructions, see the "Login using public key" section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target.
+First, generate the public keys. For instructions, see the [Set up a new connection for your target](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-creating-an-ssh-connection). 
+Second, use the generated keys to connect to the target. For instructions, see the [Login using public key](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target).
 
 Password-based Method: 
-Log in as the root user to connect to the target. For instructions, see the "Authentication using password: section here: https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target. Because of security concerns, this method is not recommended.
+Log in as the root user to connect to the target. For instructions, see the [Authentication using password] (https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-2019-beta-connecting-to-target). Because of security concerns, this method is not recommended.
 
 
 ## Disclaimer
