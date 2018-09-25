@@ -42,17 +42,43 @@ public class Up2Leds {
     final static String[] ledNames = {"red", "green", "yellow", "blue"};
     final static int minBrightness = 0;
     final static int maxBrightness = 255;
+    
+    public static void consoleMessage(String str){
+        System.err.println(str);
+        try{
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
+        {
+            System.err.println("Sleep interrupted: " + e.toString());
+        }
+    }
+
+    public static void checkRoot(){
+      String username = System.getProperty("user.name");
+      System.out.println(username);
+      String message = "This project uses Mraa I/O operations that require\n" +
+              "'root' privileges, but you are running as non - root user.\n" +
+              "Passwordless keys(RSA key pairs) are recommended \n" +
+              "to securely connect to your target with root privileges. \n" +
+              "See the project's Readme for more info.\n\n";
+      if(!username.equals("root"))
+      {
+          consoleMessage(message);
+      }
+    }
 
     public static void main(String argv[]) throws InterruptedException {
 
+        checkRoot();
+
         // Perform a basic platform and version check
         if (mraa.getPlatformType() != Platform.INTEL_UP2) {
-            System.out.println("This example is meant for the UP Squared board.");
-            System.out.println("Running it on different platforms will likely require code changes!");
+            consoleMessage("This example is meant for the UP Squared board.\n"+
+                        "Running it on different platforms will likely require code changes!");
         }
 
         if (mraa.getVersion().compareTo("v1.9.0") < 0) {
-            System.out.println("You need MRAA version 1.9.0 or newer to run this sample!");
+            consoleMessage("You need MRAA version 1.9.0 or newer to run this sample!");
             System.exit(1);
         }
 

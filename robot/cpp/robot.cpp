@@ -67,6 +67,13 @@ const float batteryThreshold = 7.2f;
 const string heading = "--|--N--|--|--E--|--|--S--|--|--W--|--|--N--|--";
 
 
+// leave warning/error message in console and wait for user to press Enter
+void consoleMessage(const string& str)
+{
+    cerr << str << endl;
+    sleep(10);
+}
+
 // Handler for POSIX signals
 void signalHandler(int signo)
 {
@@ -97,7 +104,8 @@ void displayHeading(Jhd1313m1 *lcd, Hmc5883l *compass){
             // we write the entire line
             crit.lock();
             lcd->setCursor(0, 0);
-            lcd->write("HDG: " + heading.substr(hdg_index, 11));
+            if (lcd->write("HDG: " + heading.substr(hdg_index, 11)) != UPM_SUCCESS)
+                consoleMessage("MRAA cannot display heading!");
             crit.unlock();
         }
 
@@ -112,7 +120,7 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
     // Variable used for flashing LCD red when battery is low
     uint8_t red = 0x3F;
 
-    while(running){
+    while (running) {
         // Read 50 samples each with 2 ms in between (100 ms total)
         int avgValue = divider->value(50);
         // Convert the value to voltage at 3x gain and 5V reference
@@ -123,7 +131,8 @@ void displayBattery(Jhd1313m1 *lcd, GroveVDiv *divider){
         // Write the battery voltage on the second line of the display
         crit.lock();
         lcd->setCursor(1, 0);
-        lcd->write("Batt: " + displayStr + " V    ");
+        if (lcd->write("Batt: " + displayStr + " V    ") != UPM_SUCCESS)
+            consoleMessage("MRAA cannot display battery voltage!");
         crit.unlock();
 
         // Battery low, flash LCD and refresh more often
@@ -185,8 +194,27 @@ void distanceIR(GroveMD *motors, RFR359F *fl, RFR359F *fr, RFR359F *rl, RFR359F 
     }
 }
 
+// check if running as root
+void checkRoot(void)
+{
+    int euid = geteuid();
+    if (euid) {
+        consoleMessage("This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
+    }
+    return;
+}
+
+
 int main(int argc, char **argv)
 {
+
+  // check if running as root
+  checkRoot();
+
   // Register signal handler
   signal(SIGINT, signalHandler);
 
@@ -195,7 +223,7 @@ int main(int argc, char **argv)
   // Default address of 0x0f is used (all 4 switches in up position)
   GroveMD *motors = new GroveMD(GROVEMD_I2C_BUS, GROVEMD_DEFAULT_I2C_ADDR);
   if(motors == NULL){
-      cerr << "Failed to initialize the motor driver." << endl;
+      consoleMessage("Failed to initialize the motor driver.");
       exit(EXIT_FAILURE);
   }
 
@@ -203,7 +231,7 @@ int main(int argc, char **argv)
   // 0x62 for RGB_ADDRESS and 0x3E for LCD_ADDRESS
   Jhd1313m1 *lcd = new upm::Jhd1313m1(0);
   if(lcd == NULL){
-      cerr << "Failed to initialize the LCD." << endl;
+      consoleMessage("Failed to initialize the LCD.");
       exit(EXIT_FAILURE);
   }
 
@@ -211,14 +239,14 @@ int main(int argc, char **argv)
   // The compass requires an I2C level translator to 3.3V if used
   Hmc5883l *compass = new Hmc5883l(0);
   if(compass == NULL){
-      cerr << "Failed to initialize the HMC5883 compass." << endl;
+      consoleMessage("Failed to initialize the HMC5883 compass.");
       exit(EXIT_FAILURE);
   }
 
   // Instantiate the Grove Voltage Divider on pin A0
   GroveVDiv *divider = new GroveVDiv(0);
   if(divider == NULL){
-      cerr << "Failed to initialize the voltage divider." << endl;
+      consoleMessage("Failed to initialize the voltage divider.");
       exit(EXIT_FAILURE);
   }
 
@@ -229,7 +257,7 @@ int main(int argc, char **argv)
   RFR359F *rearRightIR = new RFR359F(8);
 
   if(frontLeftIR == NULL || frontRightIR == NULL || rearLeftIR == NULL || rearRightIR == NULL){
-      cerr << "Failed to initialize one of the IR sensors." << endl;
+      consoleMessage("Failed to initialize one of the IR sensors.");
       exit(EXIT_FAILURE);
   }
 

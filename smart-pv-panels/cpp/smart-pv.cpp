@@ -32,6 +32,7 @@
 #include <grove.hpp>
 #include <jhd1313m1.hpp>
 #include <uln200xa.hpp>
+#include <string>
 
 /**
  * Move photovoltaic panel following the maximum brightness of the sun.\n\n
@@ -71,6 +72,13 @@ using namespace mraa;
 // Left and right light average static variables
 static int lightLAVG, lightRAVG;
 
+// leave warning/error message in console and wait for user to press Enter
+void consoleMessage(const string& str)
+{
+    cerr << str << endl;
+    sleep(10);
+}
+
 void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
     upm::GroveLight* lightR, upm::ULN200XA* uln200xa) {
 
@@ -91,9 +99,11 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   lcd->setCursor(1, 0);
   lcd->write("Right:          ");
   lcd->setCursor(0, 6);
-  lcd->write(tdataL);
+  if (lcd->write(tdataL) != UPM_SUCCESS)
+      consoleMessage("MRAA cannot display left value!");
   lcd->setCursor(1, 7);
-  lcd->write(tdataR);
+  if (lcd->write(tdataR) != UPM_SUCCESS)
+      consoleMessage("MRAA cannot display right value!");
 
   /* To move the motor correctly, we have to choose the right direction.
    * To obtain it, we have three condition:
@@ -149,40 +159,58 @@ void solarTracker(upm::Jhd1313m1* lcd, upm::GroveLight* lightL,
   sleep(1);
 }
 
-int main() {
-  int i2cPort, aPin1, aPin2;
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-      "you are running it on an unrecognized platform. "
-      "You may need to modify the MRAA/UPM initialization code to "
-      "ensure it works properly on your platform.\n\n";
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
+// check if running as root
+void checkRoot(void)
+{
+    int euid = geteuid();
+    if (euid) {
+        consoleMessage("This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
+    }
+    return;
+}
+
+// set pin values depending on the current board (platform)
+int initPlatform(int& i2cPort, int& aPin1, int& aPin2)
+{
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
     case INTEL_UP2:
-      i2cPort = 0;        // I2C Connector
 #ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPin1 = 1 + 512;     // A1 Connector
-      aPin2 = 2 + 512;      // A2 Connector
-      break;
+        aPin1 += 512;
+        aPin2 += 512;
+        break;
 #else
-      cerr << "Not using Grove provide your pinout here" << endl;
-      return -1;
+        return -1;
 #endif
-      default:
-          cerr << unknownPlatformMessage;
-  }
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n";
+        consoleMessage(unknownPlatformMessage);
+    }
+    return 0;
+}
+
+
+int main() {
+
+  // check if running as root
+  checkRoot();
+  int i2cPort = 0,       // I2C Connector
+      aPin1 = 1,         // A1 Connector
+      aPin2 = 2;         // A2 Connector
+  if (initPlatform(i2cPort, aPin1, aPin2) == -1)
+      consoleMessage("Not using Grove provide your pinout here");
+
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
-
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
-
 
   // LCD screen object (the lcd is connected to I2C port, bus 0)
   upm::Jhd1313m1 *lcd = new upm::Jhd1313m1(i2cPort);
@@ -200,7 +228,7 @@ int main() {
   // Simple error checking
   if ((lcd == NULL) || (lightL == NULL) || (lightR == NULL)
       || (uln200xa == NULL)) {
-    std::cerr << "Can't create all objects, exiting" << std::endl;
+      consoleMessage("Can't create all objects, exiting");
     return mraa::ERROR_UNSPECIFIED;
   }
 

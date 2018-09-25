@@ -80,6 +80,19 @@ public class Robot {
     static RFR359F frontRightIR;
     static RFR359F rearLeftIR;
     static RFR359F rearRightIR;
+    
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
+    
+    public static void consoleMessage(String str){
+        System.err.println(str);       
+        try{
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
+        {
+            System.err.println("Sleep interrupted: " + e.toString());
+        }
+    }
 
     static Runnable shutdown = new Runnable() {
 
@@ -109,7 +122,8 @@ public class Robot {
                 // we write the entire line
                 synchronized (lcd) {
                     lcd.setCursor(0, 0);
-                    lcd.write("HDG: " + heading.substring(hdg_index, hdg_index + 11));
+                    if (lcd.write("HDG: " + heading.substring(hdg_index, hdg_index + 11)) != SUCCESS)
+                        consoleMessage("MRAA cannot display heading!");
                 }
 
                 // Update readings and display every 250 ms
@@ -143,7 +157,8 @@ public class Robot {
                 // Write the battery voltage on the second line of the display
                 synchronized (lcd) {
                     lcd.setCursor(1, 0);
-                    lcd.write("Batt: " + displayStr + " V    ");
+                    if (lcd.write("Batt: " + displayStr + " V    ") != SUCCESS)
+                        consoleMessage("MRAA cannot display voltage!");    
                 }
 
                 // Battery low, flash LCD and refresh more often
@@ -204,8 +219,24 @@ public class Robot {
         }
     };
 
+    public static void checkRoot(){
+      String username = System.getProperty("user.name");
+      System.out.println(username);
+      String message = "This project uses Mraa I/O operations that require\n" +
+              "'root' privileges, but you are running as non - root user.\n" +
+              "Passwordless keys(RSA key pairs) are recommended \n" +
+              "to securely connect to your target with root privileges. \n" +
+              "See the project's Readme for more info.\n\n";
+      if(!username.equals("root"))
+      {
+        System.out.println(message);
+      }
+    }
 
     public static void main(String[] args) {
+
+        checkRoot();
+
         // Register signal handler
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(new Thread(shutdown));

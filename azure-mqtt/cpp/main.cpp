@@ -45,7 +45,7 @@
 // define the following if not using a board with sensors
 //#define SIMULATE_DEVICES
 
-// Define the following if using a Grove Pi Shield for UP2 board
+// Define the following if using a Grove Pi Shield for Up Squared board
 #define USING_GROVE_PI_SHIELD
 
 #include <iostream>
@@ -143,37 +143,50 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result,
     IoTHubMessage_Destroy(eventInstance->messageHandle);
 }
 
+// check if running as root
+void checkRoot(void)
+{
+    int euid = geteuid();
+    if (euid) {
+        cerr << "This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n";
+    }
+    return;
+}
+void initPlatform(int& aPin)
+{
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
+    case INTEL_UP2:
+        aPin = 2;  	// A2 Connector
+#ifdef USING_GROVE_PI_SHIELD
+        aPin = 2 + 512; // A2 connector, 512 offset needed for the shield
+        break;
+#endif
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n\n";
+        cerr << unknownPlatformMessage;
+    }
+    return;
+}
+
 int main(void) {
+    // check if running as root
+    checkRoot();
+
 #ifndef SIMULATE_DEVICES
-
-	string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-    		"you are running it on an unrecognized platform. "
-			"You may need to modify the MRAA/UPM initialization code to "
-			"ensure it works properly on your platform.\n\n";
-
-	int aPin;
-	// check which board we are running on
-	Platform platform = getPlatformType();
-	switch (platform) {
-		case INTEL_UP2:
-			aPin = 13;  	// A2 Connector
+    int aPin;
+    initPlatform(aPin);
 #ifdef USING_GROVE_PI_SHIELD
-			aPin = 2 + 512; // A2 connector, 512 offset needed for the shield
-			break;
+    addSubplatform(GROVEPI, "0");
 #endif
-		default:
-	        cerr << unknownPlatformMessage;
-	}
-#ifdef USING_GROVE_PI_SHIELD
-	addSubplatform(GROVEPI, "0");
-#endif
-	// check if running as root
-	int euid = geteuid();
-	if (euid) {
-		cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-				"The IO operations below might fail.\n"
-				"See the project's Readme for more info.\n\n";
-	}
 
 
     // Initialize temperature sensor connected to an analog in pin
@@ -224,7 +237,7 @@ int main(void) {
     size_t iterator = 0;
     do {
         if (iterator < MESSAGE_COUNT) {
-        	float analogValue = 0.0f;
+            float analogValue = 0.0f;
 #ifndef SIMULATE_DEVICES
             analogValue = temp_sensor->raw_value();
 #else

@@ -32,6 +32,9 @@
 #include <jhd1313m1.hpp>
 #include <guvas12d.hpp>
 
+using namespace std;
+using namespace mraa;
+
 /**
  * Example to simulate a Plant Health Monitoring System.
  *
@@ -73,6 +76,13 @@
 #define UV_MIN_THRESHOLD    50  // mW/m2
 #define PUMP_DURATION       10  // seconds
 
+// leave warning/error message in console and wait for user to press Enter
+void inputEnter(const string& str)
+{
+    cerr << str << endl << "Press Enter to continue..." << endl;
+    cin.get();
+}
+
 /*
  * This function checks soil, temperature and light conditions.
  * Measured data are printed to LCD display.
@@ -101,10 +111,11 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
     row_1.str("Dry soil!       ");
     row_2.str("Watering...     ");
     lcd->setCursor(0, 0);
-    lcd->write(row_1.str());
+    if (lcd->write(row_1.str()) != UPM_SUCCESS)
+        inputEnter("MRAA cannot display row 1!");
     lcd->setCursor(1, 0);
-    lcd->write(row_2.str());
-
+    if (lcd->write(row_2.str()) != UPM_SUCCESS)
+        inputEnter("MRAA cannot display row 2!");
     dry_Reed_relay->on();
     sleep(PUMP_DURATION);
     dry_Reed_relay->off();
@@ -125,42 +136,61 @@ void monitor_plant_conditions(upm::GroveMoisture *moisture_sensor,
   row_1 << "Temperature: " << temperature << "  ";
   row_2 << "Light: " << intensity << "   ";
   lcd->setCursor(0, 0);
-  lcd->write(row_1.str());
+  if (lcd->write(row_1.str()) != UPM_SUCCESS)
+      inputEnter("MRAA cannot display row 1!");
   lcd->setCursor(1, 0);
-  lcd->write(row_2.str());
+  if (lcd->write(row_2.str()) != UPM_SUCCESS)
+      inputEnter("MRAA cannot display row 2!");
+}
+
+// check if running as root
+void checkRoot(void)
+{
+    int euid = geteuid();
+    if (euid) {
+        inputEnter("This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
+    }
+    return;
 }
 
 int main() {
 
-  int aPin0, aPin1, aPin2, dPin2, i2cPort;
+  // check if running as root
+  checkRoot();
+
+  int aPin0 = 0,
+      aPin1 = 1,
+      aPin2 = 2,
+      dPin2 = 2,
+      i2cPort = 0;
   // check which board we are running on
   Platform platform = getPlatformType();
   switch (platform) {
     case INTEL_UP2:
-      i2cPort = 0; // I2C
 #ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
-      aPin0 = 0 + 512;  // A0
-      aPin1 = 1 + 512;  // A1
-      aPin2 = 2 + 512;  // A2
-      dPin2 = 2 + 512;  // D2
+      aPin0 += 512;  // A0
+      aPin1 += 512;  // A1
+      aPin2 += 512;  // A2
+      dPin2 += 512;  // D2
       break;
 #else
       cerr << "Not using Grove Pi Shield, provide your pinout here" << endl;
       return -1;
 #endif
     default:
-          cerr << unknownPlatformMessage;
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n";
+        inputEnter(unknownPlatformMessage);
   }
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
   // Moisture sensor connected to A0 (analog in)
   upm::GroveMoisture* moisture_sensor = new upm::GroveMoisture(aPin0);
@@ -180,7 +210,7 @@ int main() {
   // Simple error checking
   if ((moisture_sensor == NULL) || (temp_sensor == NULL) || (UV_sensor == NULL)
       || (dry_Reed_relay == NULL) || (lcd == NULL)) {
-    std::cerr << "Can't create all objects, exiting" << std::endl;
+    inputEnter("Can't create all objects, exiting");
     return mraa::ERROR_UNSPECIFIED;
   }
 

@@ -324,11 +324,30 @@ int Publish(char* payload, int payload_size) {
 }
 // [END iot_mqtt_publish]
 
+// check if running as root
+void checkRoot(void)
+{
+  int euid = geteuid();
+  if (euid) {
+    printf("This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
+  }
+	return;
+}
+
+
 /**
  * Connects MQTT client and transmits payload.
  */
 // [START iot_mqtt_run]
 int main(int argc, char* argv[]) {
+
+  // check if running as root
+  checkRoot();
+
   OpenSSL_add_all_algorithms();
   OpenSSL_add_all_digests();
   OpenSSL_add_all_ciphers();

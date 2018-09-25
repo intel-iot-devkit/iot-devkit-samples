@@ -1,4 +1,4 @@
-/*
+    /*
  * Authors:
  * - Bufalino Andrea <andrea.bufalino@outlook.com>
  * - Carocci Eugenio <carocci.eugenio@gmail.com>
@@ -40,6 +40,59 @@
 
 using namespace std;
 using namespace mraa;
+
+
+// leave warning/error message in console and wait for user to press Enter
+void consoleMessage(const string& str)
+{
+    cerr << str << endl;
+    sleep(10);
+}
+
+// check if running as root
+void checkRoot(void)
+{
+    int euid = geteuid();
+    if (euid) {
+        consoleMessage("This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
+    }
+    return;
+}
+
+// set pin values depending on the current board (platform)
+int initPlatform(int& aPinRotary, int& aPinLight, int& dPinButton, int& i2cPort)
+{
+    //Update these values as per the hardware board being used.
+    aPinRotary = 1,
+    aPinLight = 2,
+    dPinButton = 4,
+    i2cPort = 0;
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
+    case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
+        aPinRotary += 512;     // A1 Connector
+        aPinLight += 512;      // A2 Connector
+        dPinButton += 512;     // D4 Connector
+        break;
+#else
+        return -1;
+#endif
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform.\n "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n";
+        consoleMessage(unknownPlatformMessage);
+    }
+    return 0;
+}
+
 
 // define the following if not using a board with all the required hardware
 //#define SIMULATE_DEVICES
@@ -98,10 +151,16 @@ int setup_lux_target(upm::GroveRotary *rotary_sensor,
         << lux_target))->str();
     lcd->clear();
     lcd->setCursor(0, 0);
-    lcd->write("Btn to confirm");
+    if (lcd->write("Btn to confirm") != UPM_SUCCESS) {
+        cerr << "MRAA cannot write the first string!" << endl;
+        return MRAA_ERROR_UNSPECIFIED;
+    }
     lcd->setCursor(1, 0);
     lcd->cursorBlinkOn();
-    lcd->write("Lux Target: " + lux_target_str);
+    if (lcd->write("Lux Target: " + lux_target_str) != UPM_SUCCESS) {
+        cerr << "MRAA cannot write the second string!" << endl;
+        return MRAA_ERROR_UNSPECIFIED;
+    }
 
 #ifdef SIMULATE_DEVICES
     button_value = 1;
@@ -131,9 +190,13 @@ void show_on_lcd(upm::Jhd1313m1 *lcd, int lux_target, int lux_current) {
   row_2 << "Lux Target:  " << lux_target;
   lcd->clear();
   lcd->setCursor(0, 0);
-  lcd->write(row_1.str());
+  if (lcd->write(row_1.str()) != UPM_SUCCESS) {
+      cerr << "MRAA cannot write current lux value!" << endl;
+  }
   lcd->setCursor(1, 0);
-  lcd->write(row_2.str());
+  if (lcd->write(row_2.str()) != UPM_SUCCESS) {
+      cerr << "MRAA cannot write target lux value!" << endl;
+  }
 }
 
 /**
@@ -213,6 +276,10 @@ void check_lux(upm::GroveLight *light_sensor, upm::Jhd1313m1 *lcd,
 }
 
 int main() {
+
+  // check if running as root
+  checkRoot();
+
   /*
    * System can be in two states:
    * - CONFIG: A lux target can be specified from the user.
@@ -233,39 +300,14 @@ int main() {
 
 #ifndef SIMULATE_DEVICES
 
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-      "you are running it on an unrecognized platform. "
-      "You may need to modify the MRAA/UPM initialization code to "
-      "ensure it works properly on your platform.\n\n";
   int aPinRotary, aPinLight, dPinButton, i2cPort;
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
-    case INTEL_UP2:
-      i2cPort = 0;        // I2C Connector
-#ifdef USING_GROVE_PI_SHIELD //512 offset needed for the shield
-      aPinRotary = 1 + 512;     // A1 Connector
-      aPinLight = 2 + 512;      // A2 Connector
-      dPinButton = 4 + 512;     // D3 Connector
-      break;
-#else
+  if (initPlatform(aPinRotary, aPinLight, dPinButton, i2cPort) == -1) {
       cerr << "Not using Grove provide your pinout here" << endl;
-      return -1;
-#endif
-      default:
-          cerr << unknownPlatformMessage;
   }
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
 
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
   // Instantiate a rotary sensor
   upm::GroveRotary *rotary_sensor = new upm::GroveRotary(aPinRotary);

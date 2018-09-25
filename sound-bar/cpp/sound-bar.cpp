@@ -57,50 +57,75 @@
 using namespace mraa;
 using namespace std;
 
+// leave warning/error message in console and wait for user to press Enter
+void consoleMessage(const string& str)
+{
+    cerr << str << endl;
+    sleep(10);
+}
+
+// check if running as root
+void checkRoot(void)
+{
+    int euid = geteuid();
+    if (euid) {
+        consoleMessage("This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
+    }
+    return;
+}
+
+// set pin values depending on the current board (platform)
+int initPlatform(int& microphonePin, int& ledBarDataPin, int& ledBarClockPin)
+{
+    // check which board we are running on
+    Platform platform = getPlatformType();
+    switch (platform) {
+    case INTEL_UP2:
+#ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
+        microphonePin = 0 + 512; // A0
+        ledBarDataPin = 2 + 512;  // D2
+        ledBarClockPin = 3 + 512; ///D3
+        break;
+#else
+        return -1;
+#endif
+    default:
+        string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+            "you are running it on an unrecognized platform. "
+            "You may need to modify the MRAA/UPM initialization code to "
+            "ensure it works properly on your platform.\n";
+        consoleMessage(unknownPlatformMessage);
+    }
+    return 0;
+}
+
 /*
  * Continuously acquire the average sound level over a predefined interval and map
  * it to the led bar
  */
 
 int main(int argc, char **argv) {
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-      "you are running it on an unrecognized platform. "
-    "You may need to modify the MRAA/UPM initialization code to "
-    "ensure it works properly on your platform.\n\n";
+
+  // check if running as root
+  checkRoot();
 
   // Threshold context for the sound sensor
   thresholdContext ctx;
 
   uint16_t buffer[50];  // sound samples buffer
   uint8_t barLevel = 0;
-  int microphonePin, ledBarDataPin, ledBarClockPin;
 
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
-    case INTEL_UP2:
-#ifdef USING_GROVE_PI_SHIELD //Needs offset by 512
-      microphonePin = 0 + 512; // A0
-      ledBarDataPin = 2 + 512;  // D2
-      ledBarClockPin = 3 + 512; ///D3
-      break;
-#else
-      cerr << "Not using Grove, provide your pinout" << endl;
-      return -1;
-#endif
-    default:
-          cerr << unknownPlatformMessage;
-  }
+  int microphonePin, ledBarDataPin, ledBarClockPin;
+  if (initPlatform(microphonePin, ledBarDataPin, ledBarClockPin) == -1)
+      consoleMessage("Not using Grove, provide your pinout");
+
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
   // Sound sensor connected to analog in
   upm::Microphone* mic = new upm::Microphone(microphonePin);
@@ -110,7 +135,7 @@ int main(int argc, char **argv) {
 
   // Simple error checking
   if ((mic == NULL) || (bar == NULL)) {
-    std::cerr << "Can't create all objects, exiting" << std::endl;
+      consoleMessage("Can't create all objects, exiting");
     return ERROR_UNSPECIFIED;
   }
 

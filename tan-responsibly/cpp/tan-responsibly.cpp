@@ -31,6 +31,7 @@
 #include <guvas12d.hpp>
 #include <buzzer.hpp>
 #include <buzzer_tones.h>
+#include <string>
 
 using namespace mraa;
 using namespace std;
@@ -63,8 +64,16 @@ using namespace std;
 #define UV_INDEX_THRESHOLD          8
 #define TEMPERATURE_THRESHOLD       30
 
-// Define the following if using a Grove Pi Shield for UP2 board
+// Define the following if using a Grove Pi Shield for Up Squared board
 #define USING_GROVE_PI_SHIELD
+
+// leave warning/error message in console and wait for user to press Enter
+void consoleMessage(const string& str)
+{
+    cerr << str << endl;
+    sleep(10);
+}
+
 /*
  * Check dangerous conditions and kindly remind the user about risk of sunburn.
  * Use LCD and buzzer to notify warning conditions.
@@ -89,7 +98,8 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
   // Display UV intensity and temperature values on LCD
   row_1 << "Temp: " << temperature << "    ";
   lcd->setCursor(0, 0);
-  lcd->write(row_1.str());
+  if (lcd->write(row_1.str()) != UPM_SUCCESS)
+      consoleMessage("MRAA cannot write temperature!");
 
   // Remind possible risk (time to sunburn)
   lcd->setCursor(1, 0);
@@ -104,7 +114,8 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
     row_2 << "Sunburn in 10 m";
   }
 
-  lcd->write(row_2.str());
+  if (lcd->write(row_2.str()) != UPM_SUCCESS)
+      consoleMessage("MRAA cannot write time to sunburn!");
 
   // Color the display according UV index safety
 
@@ -125,41 +136,57 @@ void check_warning_conditions(upm::GUVAS12D *UV_sensor,
   }
 }
 
+// check if running as root
+void checkRoot(void)
+{
+	int euid = geteuid();
+	if (euid) {
+        consoleMessage("This project uses Mraa I/O operations that require\n"
+            "'root' privileges, but you are running as non - root user.\n"
+            "Passwordless keys(RSA key pairs) are recommended \n"
+            "to securely connect to your target with root privileges. \n"
+            "See the project's Readme for more info.\n\n");
+	}
+	return;
+}
+
+// set pin values depending on the current board (platform)
+int initPlatform(int& aPinIn1, int& aPinIn2, int& dPinOut, int& i2cPort)
+{
+	// check which board we are running on
+	Platform platform = getPlatformType();
+	switch (platform) {
+	case INTEL_UP2:
+		i2cPort = 0; // I2C
+#ifdef USING_GROVE_PI_SHIELD //Offset port number by 512
+		aPinIn1 = 1 + 512; // A1
+		aPinIn2 = 2 + 512; // A2
+		dPinOut = 3 + 512; // D3
+		break;
+#else
+		return -1;
+#endif
+	default:
+		string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
+			"you are running it on an unrecognized platform. "
+			"You may need to modify the MRAA/UPM initialization code to "
+			"ensure it works properly on your platform.\n\n";
+        consoleMessage(unknownPlatformMessage);
+	}
+	return 0;
+}
+
 int main() {
-  string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
-        "you are running it on an unrecognized platform. "
-      "You may need to modify the MRAA/UPM initialization code to "
-      "ensure it works properly on your platform.\n\n";
+  // check if running as root
+  checkRoot();
 
   int aPinIn1, aPinIn2, dPinOut, i2cPort;
-
-  // check which board we are running on
-  Platform platform = getPlatformType();
-  switch (platform) {
-    case INTEL_UP2:
-      i2cPort = 0; // I2C
-#ifdef USING_GROVE_PI_SHIELD //Offset port number by 512
-      aPinIn1 = 1 + 512; // A1
-      aPinIn2 = 2 + 512; // A2
-      dPinOut = 3 + 512; // D3
-      break;
-#else
-      cerr << "Not using Grove provide your pinout" << endl;
-      return -1;
-#endif
-    default:
-          cerr << unknownPlatformMessage;
-  }
+  if (initPlatform(aPinIn1, aPinIn2, dPinOut, i2cPort) == -1)
+      consoleMessage("Not using Grove provide your pinout");
+  
 #ifdef USING_GROVE_PI_SHIELD
   addSubplatform(GROVEPI, "0");
 #endif
-  // check if running as root
-  int euid = geteuid();
-  if (euid) {
-    cerr << "This project uses Mraa I/O operations, but you're not running as 'root'.\n"
-        "The IO operations below might fail.\n"
-        "See the project's Readme for more info.\n\n";
-  }
 
   // UV sensor connected
   upm::GUVAS12D *UV_sensor = new upm::GUVAS12D(aPinIn1);
@@ -176,7 +203,7 @@ int main() {
   // Simple error checking
   if ((UV_sensor == NULL) || (temp_sensor == NULL) || (buzzer == NULL)
       || (lcd == NULL)) {
-    std::cerr << "Can't create all objects, exiting" << std::endl;
+    consoleMessage("Can't create all objects, exiting");
     return mraa::ERROR_UNSPECIFIED;
   }
 

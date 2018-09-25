@@ -44,35 +44,73 @@ import mraa.Result;
 import mraa.mraa;
 
 public class DigitalIn {
+    // Status of the correct r/w operation
+    static final int SUCCESS = 0;
+
     // Set true if using a Grove Pi Shield, else false
     static final boolean USING_GROVE_PI_SHIELD = true;
-    static String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
-            "you are running it on an unrecognized platform. " +
-            "You may need to modify the MRAA/UPM initialization code to " +
-            "ensure it works properly on your platform.\n\n";
+    static int pinNumber = 13;
+    
+    public static void consoleMessage(String str){
+        System.err.println(str);
+        try{
+            Thread.sleep(10000);
+        } catch (InterruptedException e)
+        {
+            System.err.println("Sleep interrupted: " + e.toString());
+        }
+    }
 
-    public static void main(String[] args) {
+    public static void checkRoot(){
+        String username = System.getProperty("user.name");
+
+        String message = "This project uses Mraa I/O operations that require\n" +
+                "'root' privileges, but you are running as non - root user.\n" +
+                "Passwordless keys(RSA key pairs) are recommended \n" +
+                "to securely connect to your target with root privileges. \n" +
+                "See the project's Readme for more info.\n\n";
+        if(!username.equals("root"))
+        {
+            consoleMessage(message);
+        }
+    }
+
+    public static void initPlatform()
+    {
         Platform platform = mraa.getPlatformType();
-        int pinNumber = 4;
-        if(platform.equals(Platform.INTEL_UP)) {
+        if(platform.equals(Platform.INTEL_UP2)) {
             if(USING_GROVE_PI_SHIELD) {
-                pinNumber = pinNumber + 512; // D4 Connector (512 offset needed for the shield)
+                mraa.addSubplatform(Platform.GROVEPI, "0");
+                pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
             }
         } else {
-                System.err.println(unknownPlatformMessage);
+            String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
+                    "you are running it on an unrecognized platform.\n" +
+                    "You may need to modify the MRAA/UPM initialization code to " +
+                    "ensure it works properly on your platform.\n";
+            consoleMessage(unknownPlatformMessage);
         }
+    }
+
+    public static void main(String[] args) {
+        checkRoot();
+        initPlatform();
         // create a GPIO object
         Gpio pin = new Gpio(pinNumber);
 
         // set the pin as input
         if (pin.dir(Dir.DIR_IN) != Result.SUCCESS) {
-            System.err.println("Can't set digital pin as input, exiting");
+            consoleMessage("Can't set digital pin as input, exiting");
             return;
         }
 
         // loop forever printing the digital input value every second
         while (true) {
             int value = pin.read();
+            if (value == -1) {
+                consoleMessage("MRAA cannot read pin value!");
+                return;
+            }
             System.out.println(String.format("Pin value: %d", value));
             try {
                 Thread.sleep(1000);
