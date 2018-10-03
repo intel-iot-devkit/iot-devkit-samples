@@ -1,0 +1,10 @@
+{
+  "main": "up2-leds.c",
+  "ldflags": "-lmraa",
+  "projectOptions": [
+     {
+       "projectType": "cdt",
+       "dockerSupported": "true"
+     }
+  ]
+}
