@@ -25,5 +25,8 @@
          "name":"Connection String",
          "description":"The device connection string as defined inside your Azure* IoT Hub"
       }
+   ],
+   "categories": [
+      "Code Samples/Cloud Service Connectors"
    ]
 }

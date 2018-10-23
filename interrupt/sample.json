@@ -8,5 +8,8 @@
     "hwreq" : ["Input connected to digital pin 13"],
     "libs": ["mraa"]
   },
-  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/interrupt/README.md"
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/interrupt/README.md",
+  "categories": [
+    "Code Samples/Sensors"
+  ]
 }
