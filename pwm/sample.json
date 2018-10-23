@@ -8,5 +8,8 @@
     "hwreq" : ["Output connected to digital pin 5 (Grove Base Shield Port D5)"],
     "libs": ["mraa"]
   },
-  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/pwm/README.md"
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/pwm/README.md",
+  "categories": [
+    "Code Samples/Sensors"
+  ]
 }

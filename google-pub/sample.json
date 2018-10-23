@@ -48,5 +48,8 @@
 		 "name":"roots.pem file path",
 		 "description":"Full Path to roots.pem File, e.g. /etc/google-cloud-keys/roots.pem"
 		}
-	]
+	],
+  "categories": [
+    "Code Samples/Cloud Service Connectors"
+  ]
 }
