@@ -96,7 +96,7 @@ public class Interrupt {
         if(platform.equals(Platform.INTEL_JOULE_EXPANSION))
             pinNumber = 26;
         if (platform.equals(Platform.IEI_TANK))
-        	pinNumber = 1;
+        	pinNumber = 0;
         if(platform.equals(Platform.UNKNOWN_PLATFORM))
         {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +

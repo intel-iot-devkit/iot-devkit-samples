@@ -84,7 +84,7 @@ void initPlatform(int& gpioPin)
         gpioPin = 26;
         break;
     case IEI_TANK:
-    	gpioPin = 1;
+    	gpioPin = 0;
     	break;
     case UNKNOWN_PLATFORM:
     {
