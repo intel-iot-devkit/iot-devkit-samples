@@ -95,7 +95,7 @@ public class Interrupt {
             pinNumber = 26;
         if(platform.equals(Platform.INTEL_JOULE_EXPANSION))
             pinNumber = 26;
-        if (platform.equals(Platform.IEI_TANK))_
+        if (platform.equals(Platform.IEI_TANK))
         	pinNumber = 1;
         if(platform.equals(Platform.UNKNOWN_PLATFORM))
         {
