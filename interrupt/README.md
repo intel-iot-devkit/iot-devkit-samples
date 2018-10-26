@@ -17,6 +17,7 @@ Suitable ones in the Grove* Starter Kit are the Button and Touch Sensor, connect
 
 This sample has been tested on
 - Up Squared* board
+- IEI* TANK AIoT Dev Kit
 
 The sample might need minor modifications depending on the board and shield you are using.
 Note: This sample does not work for the GPIO pins on the GrovePi+* shield.
