@@ -16,5 +16,8 @@
          "upm"
       ]
    },
-   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/temperature-lcd/README.md"
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/temperature-lcd/README.md",
+   "categories": [
+      "Code Samples/Sensors"
+   ]
 }
