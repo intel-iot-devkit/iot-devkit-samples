@@ -8,5 +8,8 @@
     "hwreq" : ["UP Squared Board"],
     "libs": ["mraa"]
   },
-  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/up2-leds/README.md"
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/up2-leds/README.md",
+  "categories": [
+    "Code Samples/Get Started"
+  ]
 }

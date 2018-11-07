@@ -32,5 +32,8 @@
             "name":"Client Private Key File Path",
             "description":"Full Path to your Private Key File, e.g. /etc/aws-certs/privkey.pem"
       	}
+    ],
+    "categories": [
+      "Code Samples/Cloud Service Connectors"
     ]
 }

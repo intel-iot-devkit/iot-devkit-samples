@@ -87,7 +87,8 @@ namespace awsiotsdk {
                                                std::shared_ptr<mqtt::SubscriptionHandlerContextData> p_app_handler_data) {
             std::cout << std::endl << "************" << std::endl;
             std::cout << "Received message on topic : " << topic_name << std::endl;
-            std::cout << "Payload Length : " << payload.length() << std::endl;
+            std::cout << "Payload Length : " << payload.length();
+            std::cout << std::endl;
             if (payload.length() < 50) {
                 std::cout << "Payload : " << payload << std::endl;
             }
@@ -107,6 +108,10 @@ namespace awsiotsdk {
         ResponseCode PubSub::Subscribe() {
             util::String p_topic_name_str = SDK_SAMPLE_TOPIC;
             std::unique_ptr<Utf8String> p_topic_name = Utf8String::Create(p_topic_name_str);
+            //ISS or eclipse may report error on this code statement.
+            //The error is due to code analyzer rules and can be ignored.
+            //This code will still compile successfully.
+            //Switch to the 'console' pane to see the build succeed.
             mqtt::Subscription::ApplicationCallbackHandlerPtr p_sub_handler = std::bind(&PubSub::SubscribeCallback,
                                                                                         this,
                                                                                         std::placeholders::_1,
@@ -198,7 +203,10 @@ namespace awsiotsdk {
             if (ResponseCode::SUCCESS != rc) {
                 return rc;
             }
-
+            //ISS or eclipse may report error on this code statement.
+            //The error is due to code analyzer rules and can be ignored.
+            //This code will still compile successfully.
+            //Switch to the 'console' pane to see the build succeed.
             ClientCoreState::ApplicationDisconnectCallbackPtr p_disconnect_handler =
                 std::bind(&PubSub::DisconnectCallback, this, std::placeholders::_1, std::placeholders::_2);
 
