@@ -18,6 +18,7 @@ Some output device such as an LED 'Seeed Grove* Starter Kit', or just use a mult
 This sample has been tested on
 - MinnowBoard Turbot* 2.0
 - Up Squared* board
+- IEI* TANK AIoT Dev Kit
 
 The sample might need minor modifications depending on the board and shield you are using.
 

@@ -83,6 +83,9 @@ void initPlatform(int& gpioPin)
     case INTEL_JOULE_EXPANSION:
         gpioPin = 26;
         break;
+    case IEI_TANK:
+    	gpioPin = 0;
+    	break;
     case UNKNOWN_PLATFORM:
     {
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
