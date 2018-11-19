@@ -59,6 +59,9 @@ int main()
         case MRAA_INTEL_JOULE_EXPANSION:
             gpioPin = 101;
             break;
+        case IEI_TANK:
+            gpioPin = 1;
+            break;
         default:
             fprintf(stderr, "%s", unknownPlatformMessage);
     }

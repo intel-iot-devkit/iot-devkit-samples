@@ -74,6 +74,8 @@ public class OnboardLedBlink {
                 mraa.addSubplatform(Platform.GROVEPI, "0");
                 pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
             }
+        } else if (platform.equals(Platform.IEI_TANK)) {
+            	pinNumber = 1;
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
                     "you are running it on an unrecognized platform.\n" +
