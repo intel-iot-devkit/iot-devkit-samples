@@ -2,7 +2,7 @@
    "name":"Azure IoT Hub with MQTT",
    "category":"Cloud",
    "tag":"cloud",
-   "description":"This project shows you how to send data to Microsoft Azure IoT Hub using MQTT protocol.\nIt will read the temperature from the Grove Temperature Sensor, then sends it to the Azure IoT Hub.\n\nSee the details in the sample's README in GitHub: https://github.com/intel-iot-devkit/iot-devkit-samples/tree/$BRANCHNAME/azure-mqtt",
+   "description":"This project shows you how to send data to Microsoft Azure IoT Hub using MQTT protocol.\nIt will read the temperature from the Grove Temperature Sensor, then sends it to the Azure IoT Hub.\n",
    "date":"2016-11-04",
    "platform":{
       "hwreq":[
