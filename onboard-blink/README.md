@@ -14,8 +14,7 @@ A board with an accessible GPIO pin (connected to a LED).
 
 This sample has been tested on
 - MinnowBoard Turbot* 2.0
-- [UP Squared\* board](http://www.up-board.org/upsquared/)
-- IEI* TANK AIoT Dev Kit
+- [UP Squared\* board](http://www.up-board.org/upsquared/) 
 
 The sample might need minor modifications depending on the board and shield you are using.
 
