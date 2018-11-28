@@ -84,7 +84,7 @@ int main()
             "Running it on different platforms will likely require code changes!\n");
     }
 
-    if (strcmp(mraa_get_version(), "v1.9.0")) {
+    if (strcmp(mraa_get_version(), "v1.9.0") < 0) {
         fprintf(stderr,"You need MRAA version 1.9.0 or newer to run this sample!\n");
         return 1;
     }
