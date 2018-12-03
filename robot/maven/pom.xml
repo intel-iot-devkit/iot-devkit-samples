@@ -19,27 +19,27 @@
   	<dependency>
   		<groupId>io.mraa.upm</groupId>
   		<artifactId>upm_grovemd</artifactId>
-  		<version>0.8.0</version>
+  		<version>1.7.1</version>
   	</dependency>
   	<dependency>
   		<groupId>io.mraa.upm</groupId>
   		<artifactId>upm_grovevdiv</artifactId>
-  		<version>0.8.0</version>
+  		<version>1.7.1</version>
   	</dependency>
   	<dependency>
   		<groupId>io.mraa.upm</groupId>
   		<artifactId>upm_hmc5883l</artifactId>
-  		<version>0.8.0</version>
+  		<version>1.7.1</version>
   	</dependency>
   	<dependency>
   		<groupId>io.mraa.upm</groupId>
   		<artifactId>upm_i2clcd</artifactId>
-  		<version>0.8.0</version>
+  		<version>1.7.1</version>
   	</dependency>
   	<dependency>
   		<groupId>io.mraa.upm</groupId>
   		<artifactId>upm_rfr359f</artifactId>
-  		<version>0.8.0</version>
+  		<version>1.7.1</version>
   	</dependency>
   </dependencies>
 </project>

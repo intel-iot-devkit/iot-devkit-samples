@@ -99,7 +99,7 @@ int main()
 
     // Initialize them
     for (int i = 0; i < led_no; ++i) {
-        leds[i] = mraa_led_init(led_names[i]);
+        leds[i] = mraa_led_init_raw(led_names[i]);
     }
 
     // Blink them in order and pause in-between
