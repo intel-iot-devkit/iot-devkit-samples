@@ -1,0 +1,17 @@
+{
+  "main": "main.cpp",
+  "projectOptions": [
+    {
+      "projectType": "cmake",
+      "dockerSupported": "true"
+    }
+  ],
+  "launchConfig": {
+    "variables": {
+      "TestVariable1": "Arg1",
+      "TestVariable2": "Arg2"
+    },
+    "arguments": "${TestVariable1} ${TestVariable2}",
+    "remoteCommand": "echo Hi!"
+  }
+}

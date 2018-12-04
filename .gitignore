@@ -9,3 +9,5 @@
 # Temp files
 *.swp
 *~
+# Other
+.DS_Store
