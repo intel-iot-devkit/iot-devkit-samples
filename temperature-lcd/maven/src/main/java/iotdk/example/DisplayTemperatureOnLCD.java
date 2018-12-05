@@ -47,7 +47,7 @@ import java.io.IOException;
 import upm_grove.GroveButton;
 import upm_grove.GroveLed;
 import upm_grove.GroveTemp;
-import upm_i2clcd.Jhd1313m1;
+import upm_jhd1313m1.Jhd1313m1;
 import mraa.mraa;
 import mraa.Platform;
 

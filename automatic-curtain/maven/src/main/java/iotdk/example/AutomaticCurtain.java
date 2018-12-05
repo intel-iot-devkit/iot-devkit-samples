@@ -75,7 +75,7 @@ package iotdk.example;
 import upm_grove.GroveButton;
 import upm_grove.GroveLight;
 import upm_grove.GroveRotary;
-import upm_i2clcd.Jhd1313m1;
+import upm_jhd1313m1.Jhd1313m1;
 import upm_uln200xa.ULN200XA;
 import upm_uln200xa.ULN200XA_DIRECTION_T;
 import mraa.mraa;

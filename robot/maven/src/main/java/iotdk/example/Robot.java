@@ -52,7 +52,7 @@ import java.util.Scanner;
 import upm_grovemd.GroveMD;
 import upm_grovevdiv.GroveVDiv;
 import upm_hmc5883l.Hmc5883l;
-import upm_i2clcd.Jhd1313m1;
+import upm_jhd1313m1.Jhd1313m1;
 import upm_rfr359f.RFR359F;
 
 public class Robot {
