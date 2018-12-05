@@ -28,7 +28,7 @@
   	</dependency>
   	<dependency>
   		<groupId>io.mraa.upm</groupId>
-  		<artifactId>upm_i2clcd</artifactId>
+  		<artifactId>upm_jhd1313m1</artifactId>
   		<version>1.7.1</version>
   	</dependency>
   </dependencies>

@@ -48,7 +48,7 @@ import mraa.mraa;
 import upm_buzzer.Buzzer;
 import upm_grove.GroveTemp;
 import upm_guvas12d.GUVAS12D;
-import upm_i2clcd.Jhd1313m1;
+import upm_jhd1313m1.Jhd1313m1;
 
 public class TanResponsibly {
     // Status of the correct r/w operation
