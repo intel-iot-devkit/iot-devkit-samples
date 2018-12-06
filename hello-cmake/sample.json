@@ -7,5 +7,5 @@
   "description": "A simple hello world for cmake",
   "author": "Intel Corporation",
   "date": "2018-12-04",
-  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/hello-cmake/readme.md"
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/hello-cmake/cpp/README"
 }
