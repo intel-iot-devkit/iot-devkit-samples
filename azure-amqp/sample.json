@@ -28,5 +28,6 @@
    ],
    "categories": [
       "Code Samples/Cloud Service Connectors"
-   ]
+   ],
+  "dependencies":["mraa", "iot-plugin"]
 }
