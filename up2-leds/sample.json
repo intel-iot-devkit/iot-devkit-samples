@@ -11,5 +11,6 @@
   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/up2-leds/README.md",
   "categories": [
     "Code Samples/Get Started"
-  ]
+  ],
+  "dependencies":["mraa", "iot-plugin"]
 }

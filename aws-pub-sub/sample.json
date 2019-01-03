@@ -35,5 +35,6 @@
     ],
     "categories": [
       "Code Samples/Cloud Service Connectors"
-    ]
+    ],
+  "dependencies":["iot-plugin"]
 }
