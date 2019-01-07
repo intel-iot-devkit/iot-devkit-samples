@@ -59,7 +59,7 @@ int main()
         case MRAA_INTEL_JOULE_EXPANSION:
             gpioPin = 101;
             break;
-        case IEI_TANK:
+        case MRAA_IEI_TANK:
             gpioPin = 1;
             break;
         default:

@@ -1,0 +1,11 @@
+{
+  "name": "hello_cmake",
+  "category": "Get Started",
+  "categories": [ "Code Samples/Get Started" ],
+  "cmakeDefines" : [{"name":"mydefinename", "type":"BOOL", "value":"mydefinevalue"}],
+  "cmakeUnDefines" : ["myundefinename"],
+  "description": "A simple hello world for cmake",
+  "author": "Intel Corporation",
+  "date": "2018-12-04",
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/hello-cmake/cpp/README"
+}
