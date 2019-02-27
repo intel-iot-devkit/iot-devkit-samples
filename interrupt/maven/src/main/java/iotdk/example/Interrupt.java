@@ -78,7 +78,7 @@ public class Interrupt {
     public static void checkRoot(){
         String username = System.getProperty("user.name");
         System.out.println(username);
-        String message = "This project uses Mraa I/O operations that require\n" +
+        String message = "This project uses Mraa I/O operations that may require\n" +
                 "'root' privileges, but you are running as non - root user.\n" +
                 "Passwordless keys(RSA key pairs) are recommended \n" +
                 "to securely connect to your target with root privileges. \n" +
@@ -108,7 +108,11 @@ public class Interrupt {
     }
 
     public static void main(String[] args) {
+
+        //Check access permissions for the current user
+        //Can be commented out for targets with user level I/O access enabled
         checkRoot();
+
         initPlatform();
 
         // create a gpio object from MRAA

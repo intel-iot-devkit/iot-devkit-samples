@@ -288,7 +288,7 @@ void checkRoot(void)
 {
 	int euid = geteuid();
 	if (euid) {
-		std::cerr << "This project uses Mraa I/O operations that require\n"
+		std::cerr << "This project uses Mraa I/O operations that may require\n"
             "'root' privileges, but you are running as non - root user.\n"
             "Passwordless keys(RSA key pairs) are recommended \n"
             "to securely connect to your target with root privileges. \n"
@@ -300,7 +300,10 @@ void checkRoot(void)
 
 int main(int argc, char **argv) {
 
+    //Check access permissions for the current user
+    //Can be commented out for targets with user level I/O access enabled
     checkRoot();
+
     std::shared_ptr<awsiotsdk::util::Logging::ConsoleLogSystem> p_log_system =
         std::make_shared<awsiotsdk::util::Logging::ConsoleLogSystem>(awsiotsdk::util::Logging::LogLevel::Info);
     awsiotsdk::util::Logging::InitializeAWSLogging(p_log_system);

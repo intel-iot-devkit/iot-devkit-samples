@@ -164,7 +164,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        consoleMessage("This project uses Mraa I/O operations that require\n"
+        consoleMessage("This project uses Mraa I/O operations that may require\n"
             "'root' privileges, but you are running as non - root user.\n"
             "Passwordless keys(RSA key pairs) are recommended \n"
             "to securely connect to your target with root privileges. \n"
@@ -200,8 +200,10 @@ int initPlatform(int& i2cPort, int& aPin1, int& aPin2)
 
 int main() {
 
-  // check if running as root
+  //Check access permissions for the current user
+  //Can be commented out for targets with user level I/O access enabled
   checkRoot();
+
   int i2cPort = 0,       // I2C Connector
       aPin1 = 1,         // A1 Connector
       aPin2 = 2;         // A2 Connector
