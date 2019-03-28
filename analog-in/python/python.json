@@ -1,0 +1,8 @@
+{
+  "main": "analog-in.py",
+  "projectOptions": [
+     {
+       "projectType": "python"
+     }
+  ]
+}

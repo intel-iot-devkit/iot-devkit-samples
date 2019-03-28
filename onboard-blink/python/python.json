@@ -1,0 +1,8 @@
+{
+  "main": "blink.py",
+  "projectOptions": [
+     {
+       "projectType": "python"
+     }
+  ]
+}
