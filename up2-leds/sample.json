@@ -1,6 +1,6 @@
 {
   "name": "UP Squared Built-in LEDs",
-  "category": "Basic",
+  "category": "Get Started",
   "description": "This sample shows how to use the new LED class and APIs added to the MRAA library. It is intended to run on the UP Squared board, and will utilize the 4 built-in color LEDs located under the Ethernet ports. No additional hardware is required.",
   "author": "Intel Corporation",
   "date": "2018-03-15",
