@@ -8,7 +8,7 @@
     "hwreq" : ["gpio"],
     "libs": ["mraa"]
   },
-  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/onboard-blink/c/README.md",
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/onboard-blink/README.md",
   "categories": [
     "Code Samples/Get Started"
   ],
