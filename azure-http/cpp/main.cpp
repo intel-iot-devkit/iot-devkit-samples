@@ -136,7 +136,7 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result,
     printf("Confirmation[%d] received for message tracking "
             "id = %zu with result = %s\n", callbackCounter,
             eventInstance->messageTrackingId,
-            ENUM_TO_STRING(IOTHUB_CLIENT_CONFIRMATION_RESULT, result));
+            MU_ENUM_TO_STRING(IOTHUB_CLIENT_CONFIRMATION_RESULT, result));
 
     /* Some device specific action code goes here... */
     callbackCounter++;
