@@ -1,22 +1,22 @@
 {
-   "name":"Sound Bar",
-   "category":"Other Kits",
-   "description":"This example show how to use a Led Bar to show ambient sound level.",
-   "author":"Fabio Federici",
-   "date":"2015-09-16",
-   "platform":{
-      "hwreq":[
-         "Grove Sound Sensor",
-         "Grove Led Bar"
-      ],
-      "libs":[
-         "mraa",
-         "upm"
-      ]
-   },
-   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/sound-bar/README.md",
-   "categories": [
-      "Code Samples/Sensors"
-   ],
-  "dependencies":["mraa", "iot-plugin"]
+  "name": "[Deprecated] Sound Bar",
+  "category": "Other Kits",
+  "description": "This example show how to use a Led Bar to show ambient sound level.",
+  "author": "Fabio Federici",
+  "date": "2015-09-16",
+  "platform": {
+    "hwreq": [
+      "Grove Sound Sensor",
+      "Grove Led Bar"
+    ],
+    "libs": [
+      "mraa",
+      "upm"
+    ]
+  },
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/sound-bar/README.md",
+  "categories": [
+    "Code Samples/Sensors"
+  ],
+  "dependencies": [ "mraa", "iot-plugin" ]
 }

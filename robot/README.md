@@ -1,6 +1,9 @@
 # Robot
 
 
+## Deprecation Notice
+This sample will be removed from future releases of Intel System Studio. It will be available on previous release branches on https://github.com/intel-iot-devkit/iot-devkit-samples
+
 ## Introduction
  This project template utilizes components in the Grove Robotics Kit to create a working robot.
 

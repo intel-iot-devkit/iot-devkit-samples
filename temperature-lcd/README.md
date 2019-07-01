@@ -1,5 +1,8 @@
 # Display Temperature on LCD Sample
 
+## Deprecation Notice
+This sample will be removed from future releases of Intel System Studio. It will be available on previous release branches on https://github.com/intel-iot-devkit/iot-devkit-samples
+
 ## Introduction
 This sample demonstrates use of a temperature sensor and LCD in SEED Grove* Starter Kit.
 
