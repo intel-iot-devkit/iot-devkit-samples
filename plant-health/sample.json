@@ -1,0 +1,26 @@
+{
+   "name":"Plant Health Monitoring System",
+   "category":"Other Kits",
+   "description":"Example to simulate a Plant Health Monitoring System.",
+   "author":"Fabio Federici",
+   "date":"2015-09-16",
+   "platform":{
+      "hwreq":[
+         "Board with I2C, AIO and GPIO",
+         "Grove Moisture Sensor connected to an analog port",
+         "Grove Temperature Sensor connected to another analog port",
+         "GUVA-S12D UV sensor to another analog port",
+         "Grove Dry-Reed Relay connected to a digital port",
+         "Jhd1313m1 LCD connected to any I2C port"
+      ],
+      "libs":[
+         "mraa",
+         "upm"
+      ]
+   },
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/plant-health/README.md",
+   "categories": [
+      "Code Samples/Sensors"
+   ],
+  "dependencies":["mraa", "iot-plugin"]
+}

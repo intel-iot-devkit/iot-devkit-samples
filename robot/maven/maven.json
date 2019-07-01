@@ -1,0 +1,9 @@
+{
+  "main": "iotdk.example.Robot",
+  "projectOptions": [
+     {
+       "projectType": "maven",
+       "dockerSupported": "false"
+     }
+  ]
+}

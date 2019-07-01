@@ -1,0 +1,9 @@
+{
+  "main": "iotdk.example.AutomaticCurtain",
+  "projectOptions": [
+     {
+       "projectType": "maven",
+       "dockerSupported": "false"
+     }
+  ]
+}

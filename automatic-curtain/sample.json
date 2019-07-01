@@ -1,0 +1,24 @@
+{
+   "name":"Automatic curtain",
+   "category":"Other Kits",
+   "description":"Example that operates a curtain depending on readings from a light sensor",
+   "author":"Bufalino Andrea, Carocci Eugenio, Ranalli Alessandro",
+   "date":"2015-08-25",
+   "platform":{
+      "hwreq":[
+         "Grove Rotary Angle Sensor",
+         "Grove Light Sensor",
+         "Grove Button",
+         "Stepper Motor Driver Uln200xa"
+      ],
+      "libs":[
+         "mraa",
+         "upm"
+      ]
+   },
+   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/automatic-curtain/README.md",
+   "categories": [
+      "Code Samples/Sensors"
+   ],
+  "dependencies":["mraa", "iot-plugin"]
+}
