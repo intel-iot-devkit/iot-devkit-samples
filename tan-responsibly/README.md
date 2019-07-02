@@ -1,6 +1,9 @@
 # Tan Responsibly
 
 
+## Deprecation Notice
+This sample will be removed from future releases of Intel System Studio. It will be available on previous release branches on https://github.com/intel-iot-devkit/iot-devkit-samples
+
 ## Introduction
 This example helps you to avoid sunburn by using a UV and temperature sensor to find the UV intensity and alert a buzzer when sunburn conditions occurs.
 

@@ -1,5 +1,9 @@
 # Smart Photo Voltaic Panels
 
+
+## Deprecation Notice
+This sample will be removed from future releases of Intel System Studio. It will be available on previous release branches on https://github.com/intel-iot-devkit/iot-devkit-samples
+
 ## Introduction
 This example helps you to move photovoltaic panel towards the maximum brightness of the sun. The idea is to move photovoltaic panel (represented by a motor) according to the movement of the sun, directing it towards the maximum light radiated during the day using the maximum light intensity detected by two light sensor placed parallel to each other.
 

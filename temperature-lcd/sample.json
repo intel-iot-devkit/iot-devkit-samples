@@ -1,5 +1,5 @@
 {
-   "name":"Display temperature on LCD",
+   "name":"[Deprecated] Display temperature on LCD",
    "category":"Grove Starter Kit",
    "description":"This project template includes the starting code needed to use the various sensors that come with the Grove Starter Kit. Update the temperature values and reflect the changes on the LCD.",
    "author":"Intel Corporation",

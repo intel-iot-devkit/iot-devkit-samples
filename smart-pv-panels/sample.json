@@ -1,24 +1,24 @@
 {
-   "name":"Smart Photovoltaic Panels",
-   "category":"Other Kits",
-   "description":"Move photovoltaic panel following the maximum brightness of the sun.\n\nThe idea is to move photovoltaic panel (represented by a motor) according to the movement of the sun, directing it towards the maximum light radiated during the day using the maximum light intensity detected by two light sensor placed parallel to each other.\nThe idea is to compute the sensors average light in a calibration step and use this number to move motor according to the movement of light.",
-   "author":"Vittoriano Muttillo, Giacomo Valente, Fabio Federici",
-   "date":"2015-09-16",
-   "platform":{
-      "hwreq":[
-         "GroveLight sensor connected to the Grove Base Shield Port A0",
-		 "GroveLight sensor connected to the Grove Base Shield Port A1",
-		 "Jhd1313m1 LCD connected to any I2C on the Grove Base Shield",
-         "Stepper Motor Driver Uln200xa connected in this way: I1 -> pin D8; I2 -> pin D9; I3 -> pin D10; I4 -> pin D11; GND -> GND; Vcc -> 5V (Vcc); Vm -> NC (Not Connected)"
-      ],
-      "libs":[
-         "mraa",
-         "upm"
-      ]
-   },
-   "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/smart-pv-panels/README.md",
-   "categories": [
-      "Code Samples/Sensors"
-   ],
-  "dependencies":["mraa", "iot-plugin"]
+  "name": "[Deprecated] Smart Photovoltaic Panels",
+  "category": "Other Kits",
+  "description": "Move photovoltaic panel following the maximum brightness of the sun.\n\nThe idea is to move photovoltaic panel (represented by a motor) according to the movement of the sun, directing it towards the maximum light radiated during the day using the maximum light intensity detected by two light sensor placed parallel to each other.\nThe idea is to compute the sensors average light in a calibration step and use this number to move motor according to the movement of light.",
+  "author": "Vittoriano Muttillo, Giacomo Valente, Fabio Federici",
+  "date": "2015-09-16",
+  "platform": {
+    "hwreq": [
+      "GroveLight sensor connected to the Grove Base Shield Port A0",
+      "GroveLight sensor connected to the Grove Base Shield Port A1",
+      "Jhd1313m1 LCD connected to any I2C on the Grove Base Shield",
+      "Stepper Motor Driver Uln200xa connected in this way: I1 -> pin D8; I2 -> pin D9; I3 -> pin D10; I4 -> pin D11; GND -> GND; Vcc -> 5V (Vcc); Vm -> NC (Not Connected)"
+    ],
+    "libs": [
+      "mraa",
+      "upm"
+    ]
+  },
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/smart-pv-panels/README.md",
+  "categories": [
+    "Code Samples/Sensors"
+  ],
+  "dependencies": [ "mraa", "iot-plugin" ]
 }

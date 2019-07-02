@@ -1,6 +1,9 @@
 # Automatic Curtain
 
 
+## Deprecation Notice
+This sample will be removed from future releases of Intel System Studio. It will be available on previous release branches on https://github.com/intel-iot-devkit/iot-devkit-samples
+
 ## Introduction
 This sample opens and closes a curtain automatically according to the luminosity set by a Grove* Rotary Angle Sensor. 
 
