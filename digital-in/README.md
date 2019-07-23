@@ -25,6 +25,9 @@ The sample might need minor modifications depending on the board and shield you 
 ## Software requirements
 This version of the sample has been tested on Ubuntu Linux. It requires the [mraa library](https://github.com/intel-iot-devkit/mraa). 
 
+This sample requires additional system configuration when using Ubuntu OS with the UP series boards. Instructions on how to install the custom provided Linux kernel with the required drivers can be [found here](https://wiki.up-community.org/Ubuntu#Ubuntu_18.04_installation_and_configuration).
+
+This sample requires additional system configuration when using Ubuntu OS with the UP series boards. Instructions on how to install the custom provided Linux kernel with the required drivers can be [found here](https://wiki.up-community.org/Ubuntu#Ubuntu_18.04_installation_and_configuration).
 ## Setup
 Create a new project on Intel(R) System Studio using this sample. 
 Connect the input device to a digital input pin on your IoT board.

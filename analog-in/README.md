@@ -22,7 +22,9 @@ This sample has been tested on
 The sample might need minor modifications depending on the board and shield you are using.
 
 ## Software requirements
-This version of the sample has been tested on Ubuntu Linux. It requires the [mraa library](https://github.com/intel-iot-devkit/mraa). 
+This version of the sample has been tested on Ubuntu Linux. It requires the [mraa library](https://github.com/intel-iot-devkit/mraa).
+
+This sample requires additional system configuration when using Ubuntu OS with the UP series boards. Instructions on how to install the custom provided Linux kernel with the required drivers can be [found here](https://wiki.up-community.org/Ubuntu#Ubuntu_18.04_installation_and_configuration). 
 
 ## Setup
 Create a new project on Intel(R) System Studio using this sample. 
