@@ -28,6 +28,8 @@ The following libraries need to be installed on your target platfrom for this sa
 
 libcurl: On your target Ubuntu system do: `apt install libcurl3`
 
+This sample requires additional system configuration when using Ubuntu OS with the UP series boards. Instructions on how to install the custom provided Linux kernel with the required drivers can be [found here](https://wiki.up-community.org/Ubuntu#Ubuntu_18.04_installation_and_configuration).
+
 
 ## Setup
 
