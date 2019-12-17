@@ -27,6 +27,10 @@ Intel System Studio 2019 Update 1 iss2019-update1
 
 Intel System Studio 2019 Update 2 iss2019-update2
 
+Intel System Studio 2019 Update 3 iss2019-update3
+
+Intel System Studio 2019 Update 4 iss2019-update4
+
 Intel System Studio 2020 iss2020
 
 
