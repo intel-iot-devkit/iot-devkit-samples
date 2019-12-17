@@ -1,0 +1,8 @@
+{
+  "main": "pwm.py",
+  "projectOptions": [
+     {
+       "projectType": "python"
+     }
+  ]
+}

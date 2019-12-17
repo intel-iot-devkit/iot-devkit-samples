@@ -1,8 +1,12 @@
 {
   "name": "Hello World",
-  "category": "Basic",
+  "category": "Get Started",
   "description": "A simple Hello World example",
   "author": "Intel Corporation",
   "date": "2016-01-01",
-  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/hello-world/readme.md"
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/hello-world/readme.md",
+  "categories": [
+    "Code Samples/Get Started"
+  ],
+  "dependencies":[ ]
 }

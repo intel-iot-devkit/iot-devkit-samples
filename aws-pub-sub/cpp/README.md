@@ -16,6 +16,8 @@ No special H/W requirements, as long as your device could be connected to the in
 
 This version of the sample has been tested on Ubuntu Linux.
 
+This sample requires additional system configuration when using Ubuntu OS with the UP series boards. Instructions on how to install the custom provided Linux kernel with the required drivers can be [found here](https://wiki.up-community.org/Ubuntu#Ubuntu_18.04_installation_and_configuration).
+
 ## Setup
 
 Refer to [this document](https://github.com/intel-iot-devkit/iot-samples-cloud-setup/blob/master/aws-mqtt.md) on how to create an AWS account and setup the AWS IoT. When the initial account setup is done, make a note of the endpoint corresponding to your account, also download the certificate files into a known folder on your target system (e.g. /etc/aws-certs).

@@ -45,5 +45,9 @@
          "name":"Password",
          "description":"Password created during the device registration"
       }
-   ]
+   ],
+   "categories": [
+      "Code Samples/Cloud Service Connectors"
+   ],
+  "dependencies":["mraa", "iot-plugin"]
 }

@@ -8,5 +8,9 @@
     "hwreq" : ["GPIO digital input pin"],
     "libs": ["mraa"]
   },
-  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/digital-in/README.md"
+  "sample_readme_uri": "https://github.com/intel-iot-devkit/iot-devkit-samples/blob/$BRANCHNAME/digital-in/README.md",
+  "categories": [
+    "Code Samples/Sensors"
+  ],
+  "dependencies":["mraa", "iot-plugin"]
 }

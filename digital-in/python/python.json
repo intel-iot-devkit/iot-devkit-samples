@@ -1,0 +1,8 @@
+{
+  "main": "digital-in.py",
+  "projectOptions": [
+     {
+       "projectType": "python"
+     }
+  ]
+}

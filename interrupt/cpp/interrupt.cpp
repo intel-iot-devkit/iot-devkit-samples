@@ -63,7 +63,7 @@ void checkRoot(void)
 {
     int euid = geteuid();
     if (euid) {
-        inputEnter("This project uses Mraa I/O operations that require\n"
+        inputEnter("This project uses Mraa I/O operations that may require\n"
             "'root' privileges, but you are running as non - root user.\n"
             "Passwordless keys(RSA key pairs) are recommended \n"
             "to securely connect to your target with root privileges. \n"
@@ -83,6 +83,9 @@ void initPlatform(int& gpioPin)
     case INTEL_JOULE_EXPANSION:
         gpioPin = 26;
         break;
+    case IEI_TANK:
+    	gpioPin = 0;
+    	break;
     case UNKNOWN_PLATFORM:
     {
         string unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, "
@@ -100,8 +103,10 @@ void initPlatform(int& gpioPin)
 
 int main()
 {
-    // check if running as root
+    //Check access permissions for the current user
+    //Can be commented out for targets with user level I/O access enabled
     checkRoot();
+
     int gpioPin = 13;
     initPlatform(gpioPin);
 #ifdef USING_GROVE_PI_SHIELD

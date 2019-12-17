@@ -64,7 +64,7 @@ public class DigitalIn {
     public static void checkRoot(){
         String username = System.getProperty("user.name");
 
-        String message = "This project uses Mraa I/O operations that require\n" +
+        String message = "This project uses Mraa I/O operations that may require\n" +
                 "'root' privileges, but you are running as non - root user.\n" +
                 "Passwordless keys(RSA key pairs) are recommended \n" +
                 "to securely connect to your target with root privileges. \n" +
@@ -83,6 +83,8 @@ public class DigitalIn {
                 mraa.addSubplatform(Platform.GROVEPI, "0");
                 pinNumber = 4 + 512; // D4 Connector (512 offset needed for the shield)
             }
+        } else if (platform.equals(Platform.IEI_TANK)) {
+        	pinNumber = 0;
         } else {
             String unknownPlatformMessage = "This sample uses the MRAA/UPM library for I/O access, " +
                     "you are running it on an unrecognized platform.\n" +
@@ -93,7 +95,11 @@ public class DigitalIn {
     }
 
     public static void main(String[] args) {
+
+        //Check access permissions for the current user
+        //Can be commented out for targets with user level I/O access enabled
         checkRoot();
+
         initPlatform();
         // create a GPIO object
         Gpio pin = new Gpio(pinNumber);

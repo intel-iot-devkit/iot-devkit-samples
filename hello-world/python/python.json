@@ -1,0 +1,11 @@
+{
+  "main": "main.py",
+  "environmentVariables": {
+    "HW": "fish"
+  },
+  "projectOptions": [
+     {
+       "projectType": "python"
+     }
+  ]
+}

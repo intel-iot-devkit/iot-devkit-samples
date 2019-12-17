@@ -25,5 +25,9 @@
          "name":"Device id",
          "description":"Choose a unique device id"
       }
-   ]
+   ],
+   "categories": [
+      "Code Samples/Cloud Service Connectors"
+   ],
+  "dependencies":["mraa", "iot-plugin"]
 }

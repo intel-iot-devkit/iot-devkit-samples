@@ -17,12 +17,15 @@ Suitable ones in the Grove* Starter Kit are the Button and Touch Sensor, connect
 
 This sample has been tested on
 - Up Squared* board
+- IEI* TANK AIoT Dev Kit
 
 The sample might need minor modifications depending on the board and shield you are using.
 Note: This sample does not work for the GPIO pins on the GrovePi+* shield.
 
 ## Software requirements
-This version of the sample has been tested on Ubuntu Linux. It requires the [mraa library](https://github.com/intel-iot-devkit/mraa). 
+This version of the sample has been tested on Ubuntu Linux. It requires the [mraa library](https://github.com/intel-iot-devkit/mraa).
+
+This sample requires additional system configuration when using Ubuntu OS with the UP series boards. Instructions on how to install the custom provided Linux kernel with the required drivers can be [found here](https://wiki.up-community.org/Ubuntu#Ubuntu_18.04_installation_and_configuration). 
 
 ## Setup
 Create a new project on Intel(R) System Studio using this sample.
@@ -30,9 +33,9 @@ Connect the input device to a GPIO pin on your IoT board (pin 13 is used by defa
 
 ## Note
 
-Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid permission issues:
+Accessing device sensors, including LEDs, requires MRAA I/O operations. Mraa I/O operations require permissions to UNIX character devices and sysfs not commonly granted to normal users by default. To avoid permission issues:
 
-1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available [here](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
+1. You can run your application as root. If you've already connected to your target, click the disconnect button to kill the target tcf-agent on the device, or manually kill the process named 'agent' on the device. You can reboot the board or reconnect with elevated privileges as root. More information is available [here](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
 
 2. Connect to the target using passwordless (recommended) or with password-based SSH.
 

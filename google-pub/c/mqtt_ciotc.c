@@ -329,7 +329,7 @@ void checkRoot(void)
 {
   int euid = geteuid();
   if (euid) {
-    printf("This project uses Mraa I/O operations that require\n"
+    printf("This project uses Mraa I/O operations that may require\n"
             "'root' privileges, but you are running as non - root user.\n"
             "Passwordless keys(RSA key pairs) are recommended \n"
             "to securely connect to your target with root privileges. \n"
@@ -345,7 +345,8 @@ void checkRoot(void)
 // [START iot_mqtt_run]
 int main(int argc, char* argv[]) {
 
-  // check if running as root
+  //Check access permissions for the current user
+  //Can be commented out for targets with user level I/O access enabled
   checkRoot();
 
   OpenSSL_add_all_algorithms();

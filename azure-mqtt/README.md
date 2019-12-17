@@ -28,6 +28,8 @@ The following libraries need to be installed on your target platfrom for this sa
 
 libcurl: On your target Ubuntu system do: `apt install libcurl3`
 
+This sample requires additional system configuration when using Ubuntu OS with the UP series boards. Instructions on how to install the custom provided Linux kernel with the required drivers can be [found here](https://wiki.up-community.org/Ubuntu#Ubuntu_18.04_installation_and_configuration).
+
 
 ## Setup
 
@@ -66,9 +68,9 @@ libcurl: On your target Ubuntu system do: `apt install libcurl3`
 * If you don't have an IoT board or the sensor, you can still run the sample to see how it sends info to
 Azure IoT Hub. In `main.cpp` remove the comment to define `SIMULATE_DEVICES`.
 
-* Accessing device sensors, including LEDs, requires MRAA I/O operations. To avoid permission issues:
+* Accessing device sensors, including LEDs, requires MRAA I/O operations. Mraa I/O operations require permissions to UNIX character devices and sysfs not commonly granted to normal users by default. To avoid permission issues:
 
-1. If you've already connected to your target, you'll need to kill the target tcf-agent and reboot the board before connecting with elevated privileges. More information is available [here](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
+1. You can run your application as root. If you've already connected to your target, click the disconnect button to kill the target tcf-agent on the device, or manually kill the process named 'agent' on the device. You can reboot the board or reconnect with elevated privileges as root. More information is available [here](https://software.intel.com/en-us/developing-projects-with-intel-system-studio-c-creating-an-ssh-connection).
 
 2. Connect to the target using passwordless (recommended) or with password-based SSH.
 

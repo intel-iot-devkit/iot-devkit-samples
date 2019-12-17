@@ -59,16 +59,20 @@ int main()
         case MRAA_INTEL_JOULE_EXPANSION:
             gpioPin = 101;
             break;
+        case MRAA_IEI_TANK:
+            gpioPin = 1;
+            break;
         default:
             fprintf(stderr, "%s", unknownPlatformMessage);
     }
 #ifdef USING_GROVE_PI_SHIELD
     mraa_add_subplatform(MRAA_GROVEPI, "0");
 #endif
-    // check if running as root
+    //Check access permissions for the current user
+    //Can be commented out for targets with user level I/O access enabled
     int euid = geteuid();
     if (euid) {
-        fprintf(stderr, "This project uses Mraa I/O operations that require\n"
+        fprintf(stderr, "This project uses Mraa I/O operations that may require\n"
             "'root' privileges, but you are running as non - root user.\n"
             "Passwordless keys(RSA key pairs) are recommended \n"
             "to securely connect to your target with root privileges. \n"
