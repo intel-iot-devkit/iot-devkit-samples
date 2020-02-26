@@ -11,7 +11,7 @@ Branches
 ------------
 These samples are released with Intel System Studio releases
 
-Latest Intel System Studio Release - master - Intel System Studio 2019 Gold (Current)
+Latest Intel System Studio Release - master - Intel System Studio 2020 (Current)
 
 Intel System Studio 2018 - iss2018-gold
 
@@ -32,6 +32,8 @@ Intel System Studio 2019 Update 3 iss2019-update3
 Intel System Studio 2019 Update 4 iss2019-update4
 
 Intel System Studio 2020 iss2020
+
+Intel System Studio 2020 Update 1 iss2020-update1
 
 
 
